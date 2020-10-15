@@ -1,0 +1,7 @@
+{
+  "name": "DepanneDakar",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
