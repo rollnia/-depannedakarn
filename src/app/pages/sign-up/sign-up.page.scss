@@ -1,0 +1,60 @@
+.login-background
+{
+    background-color: #2b21da;
+    --background: #2b21da;
+}
+.signup-details-box{
+    padding: 50px 20px 0px 20px;
+}
+.input-fields-inner ion-input {
+    --placeholder-color: #fff;
+    --placeholder-opacity: 1;
+    font-size: 14px;
+}
+.input-fields-inner{
+    --background: transparent;
+    --border-color: #fff;
+    --padding-start: 0px;
+    --placeholder-opacity: 1;
+    color: #fff;
+    margin: 0px 0px 8px 0px;
+    font-size: 14px;
+}
+.checkbox-item-inner{
+    --border-color: transparent;
+}
+.checkbox-item-inner ion-checkbox{
+    margin-inline-end: 12px;
+    --border-color: #fff;
+}
+.input-fields-inner ion-icon{
+    color: #fff;
+    margin-inline-end: 10px;
+    font-size: 20px;
+}
+.submit-btn{
+    --border-color: #fff;
+    --color: #fff;
+    font-size: 22px;
+    height: 42px;
+    text-transform: none;
+}
+.submit-btn-inner{
+    margin: 50px 0px 0px 0px;
+}
+.text-line-one{
+    font-size: 17px;
+    color: #fff;
+    padding: 0px 0px 5px 0px;
+    text-align: center;
+}
+.text-line-two{
+    font-size: 16px;
+    color: #ffcc5c;
+    font-style: italic;
+    padding: 5px 0px 0px 0px;
+    text-align: center;
+}
+.reservation-bottom{
+    padding-bottom: 30px;
+}

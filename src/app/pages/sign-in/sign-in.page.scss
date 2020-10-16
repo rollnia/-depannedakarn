@@ -1,0 +1,62 @@
+.login-background
+{
+    background-color: #2b21da;
+    --background: #2b21da;
+}
+.logo-inner{
+    padding: 60px 0px 10px 0px;
+}
+.logo-inner .site-logo{
+    height: 60px;
+}
+.user-name-text{
+    font-size: 25px;
+    color: #fff;
+    padding: 0px 0px 0px 0px;
+}
+.user-title-text{
+    font-size: 18px;
+    color: #ffcc5c;
+    padding: 0px 0px 4px 0px;
+}
+.login-details-box{
+    padding: 0px 30px 0px 30px;
+}
+.to-login-text{
+    font-size: 19px;
+    font-weight: 600;
+    color: #ffcc5c;
+    padding: 4px 0px 4px 0px;
+}
+.input-fields-inner ion-input {
+    --placeholder-color: #fff;
+    --placeholder-opacity: 1;
+}
+.input-fields-inner{
+    --background: transparent;
+    --border-color: #fff;
+    --padding-start: 0px;
+    --placeholder-opacity: 1;
+    color: #fff;
+    margin: 0px 0px 25px 0px;
+}
+.input-fields-inner ion-icon{
+    color: #fff;
+    margin-inline-end: 10px;
+    font-size: 20px;
+}
+.submit-btn{
+    --border-color: #fff;
+    --color: #fff;
+    font-size: 22px;
+    height: 42px;
+    text-transform: none;
+}
+.submit-btn-inner{
+    margin: 50px 0px 0px 0px;
+}
+.forgot-password-text{
+    font-size: 16px;
+    color: #ffcc5c;
+    padding: 15px 0px 0px 0px;
+}
