@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-
+import { AppPostService } from "../../shared/services/app-post.service";
 
 @Component({
   selector: 'app-sign-up',
@@ -11,7 +11,7 @@ export class SignUpPage implements OnInit {
   public signUpForm: FormGroup;
   public isSubmitted: boolean = false;
 
-  constructor(public formBuilder: FormBuilder) { }
+  constructor(public formBuilder: FormBuilder, private appPostService: AppPostService) { }
 
   ngOnInit() {
     this.signUpForm = this.formBuilder.group({
@@ -46,6 +46,20 @@ export class SignUpPage implements OnInit {
       this.isSubmitted = true;
       return;
     }
+
+    const reqObj = {
+      name: formData['controls']['name'].value,
+      phone: formData['controls']['phone'].value,
+      email: formData['controls']['email'].value,
+      password: formData['controls']['password'].value,
+    };
+    const subs = this.appPostService.signupUser(reqObj).subscribe(res => {
+      console.info(res);
+    }, error => {
+      console.error(error);
+    });
+
+
   }
 
 }
