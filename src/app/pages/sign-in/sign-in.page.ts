@@ -45,7 +45,7 @@ export class SignInPage implements OnInit {
       return;
     }
     const reqObj = {
-      usernname: formData['controls']['username'].value,
+      username: formData['controls']['username'].value,
       password: formData['controls']['password'].value,
     };
     const subs = this.appPostService.loginUser(reqObj).subscribe(res => {
