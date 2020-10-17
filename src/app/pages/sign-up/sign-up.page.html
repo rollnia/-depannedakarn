@@ -11,7 +11,7 @@
         </ion-col>
         <ion-col size="12">
           <ion-item class="input-fields-inner">
-            <ion-input type="text" value="" formControlName="name" placeholder="Nom et prénom (s)"></ion-input>
+            <ion-input type="text" formControlName="name" placeholder="Nom et prénom (s)"></ion-input>
             <ion-icon name="person" slot="start"></ion-icon>
           </ion-item>
           <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
@@ -21,7 +21,7 @@
             Name should be min 2 chars long.
           </span>
           <ion-item class="input-fields-inner">
-            <ion-input type="text" value="" formControlName="phone" placeholder="Numéro de téléphone"></ion-input>
+            <ion-input type="text" formControlName="phone" placeholder="Numéro de téléphone"></ion-input>
             <ion-icon name="call" slot="start"></ion-icon>
           </ion-item>
           <span class="error ion-padding" *ngIf="isSubmitted && errorControl.phone.errors?.required">
@@ -31,7 +31,7 @@
             Only numerical values allowed.
           </span>
           <ion-item class="input-fields-inner">
-            <ion-input type="email" value="" formControlName="email" placeholder="Adresse é-mail"></ion-input>
+            <ion-input type="email" formControlName="email" placeholder="Adresse é-mail"></ion-input>
             <ion-icon name="mail" slot="start"></ion-icon>
           </ion-item>
           <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.required">
@@ -41,7 +41,7 @@
             Please provide valid email id.
           </span>
           <ion-item class="input-fields-inner">
-            <ion-input type="password" value="" formControlName="password" placeholder="Mot de passe"></ion-input>
+            <ion-input type="password" formControlName="password" placeholder="Mot de passe"></ion-input>
             <ion-icon name="lock-closed" slot="start"></ion-icon>
           </ion-item>
           <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
@@ -51,8 +51,7 @@
             Password must be 6 digit long.
           </span>
           <ion-item class="input-fields-inner">
-            <ion-input type="password" value="" formControlName="confirmPassword"
-              placeholder="Répéter votre mot de passe">
+            <ion-input type="password" formControlName="confirmPassword" placeholder="Répéter votre mot de passe">
             </ion-input>
             <ion-icon name="lock-closed" slot="start"></ion-icon>
           </ion-item>

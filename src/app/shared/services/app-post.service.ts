@@ -11,4 +11,8 @@ export class AppPostService {
   public signupUser(payload) {
     return this.http.post<any>('http://depannedakar.skylineserves.in/api/auth/register', payload);
   }
+
+  public loginUser(payload) {
+    return this.http.post<any>('http://depannedakar.skylineserves.in/api/auth/login', payload);
+  }
 }

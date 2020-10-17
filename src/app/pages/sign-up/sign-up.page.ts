@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Subscription } from "rxjs";
+import { Router } from '@angular/router';
+
 import { AppPostService } from "../../shared/services/app-post.service";
 
 @Component({
@@ -10,10 +13,19 @@ import { AppPostService } from "../../shared/services/app-post.service";
 export class SignUpPage implements OnInit {
   public signUpForm: FormGroup;
   public isSubmitted: boolean = false;
+  public subscriptions: Subscription[] = [];
 
-  constructor(public formBuilder: FormBuilder, private appPostService: AppPostService) { }
+  constructor(public formBuilder: FormBuilder, private appPostService: AppPostService, private router: Router) { }
 
   ngOnInit() {
+    this.createSignUpForm();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subs => subs.unsubscribe());
+  }
+
+  private createSignUpForm() {
     this.signUpForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       phone: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
@@ -21,7 +33,7 @@ export class SignUpPage implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       privacy: [false, Validators.pattern('true')]
-    })
+    });
   }
 
   private checkPwd(formData) {
@@ -54,12 +66,12 @@ export class SignUpPage implements OnInit {
       password: formData['controls']['password'].value,
     };
     const subs = this.appPostService.signupUser(reqObj).subscribe(res => {
-      console.info(res);
+      this.createSignUpForm();
+      this.router.navigate(['/sign-in']);
     }, error => {
       console.error(error);
     });
-
-
+    this.subscriptions.push(subs);
   }
 
 }
