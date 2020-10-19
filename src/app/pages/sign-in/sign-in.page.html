@@ -14,7 +14,7 @@
     </ion-grid>
     <ion-grid class="login-details-box">
         <ion-row>
-            <form [formGroup]="loginForm" style="width:90%; margin: 0px auto;">
+            <form [formGroup]="loginForm" class="form-inner-box" style="width:90%; margin: 0px auto;">
                 <ion-col size="12">
                     <ion-title class="ion-text-start to-login-text">Se connecter</ion-title>
                 </ion-col>
@@ -23,7 +23,7 @@
                         <ion-input type="text" formControlName="username" placeholder="Téléphone ou email"></ion-input>
                         <ion-icon name="person" slot="start"></ion-icon>
                     </ion-item>
-                    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.username.errors?.required">
+                    <span class="error error-label-text" *ngIf="isSubmitted && errorControl.username.errors?.required">
                         Username is required.
                     </span>
                     <ion-item class="input-fields-inner">
@@ -31,7 +31,7 @@
                         </ion-input>
                         <ion-icon name="lock-closed" slot="start"></ion-icon>
                     </ion-item>
-                    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
+                    <span class="error error-label-text" *ngIf="isSubmitted && errorControl.password.errors?.required">
                         Password is required.
                     </span>
                 </ion-col>
