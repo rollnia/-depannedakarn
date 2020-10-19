@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { AppPostService } from "../../shared/services/app-post.service";
 import { AppGetService } from "../../shared/services/app-get.service";
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-sign-in',
@@ -15,8 +16,9 @@ export class SignInPage implements OnInit {
   public loginForm: FormGroup;
   public isSubmitted: boolean = false;
   public subscriptions: Subscription[] = [];
+  loading: any;
 
-  constructor(public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private router: Router) { }
+  constructor(public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private router: Router, public loadingController: LoadingController) { }
 
   ngOnInit() {
     this.createLoginForm();
@@ -55,7 +57,11 @@ export class SignInPage implements OnInit {
    * Method to login user 
    * @param formData : Login form controls
    */
-  public login(formData) {
+  public async login(formData) {
+    this.loading = await this.loadingController.create({
+      message: 'Loading please wait',
+    });
+
     if (this.loginForm.invalid) {
       this.isSubmitted = true;
       return;
@@ -64,7 +70,10 @@ export class SignInPage implements OnInit {
       username: formData['controls']['username'].value,
       password: formData['controls']['password'].value,
     };
+
+    this.loading.present();
     const subs = this.appPostService.loginUser(reqObj).subscribe(res => {
+      this.loading.dismiss();
       if (res?.access_token) {
         console.info(res);
         const userData = {
@@ -79,5 +88,9 @@ export class SignInPage implements OnInit {
       console.error(error);
     });
     this.subscriptions.push(subs);
+  }
+
+  public goToRegistration() {
+    this.router.navigate(['/sign-up']);
   }
 }

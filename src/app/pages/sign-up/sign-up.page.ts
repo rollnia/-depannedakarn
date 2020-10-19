@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 import { AppPostService } from "../../shared/services/app-post.service";
 
@@ -14,8 +15,9 @@ export class SignUpPage implements OnInit {
   public signUpForm: FormGroup;
   public isSubmitted: boolean = false;
   public subscriptions: Subscription[] = [];
+  loading: any;
 
-  constructor(public formBuilder: FormBuilder, private appPostService: AppPostService, private router: Router) { }
+  constructor(public formBuilder: FormBuilder, private appPostService: AppPostService, private router: Router, public loadingController: LoadingController) { }
 
   ngOnInit() {
     this.createSignUpForm();
@@ -52,12 +54,16 @@ export class SignUpPage implements OnInit {
    * Method to use to create account for a user
    * @param form : signUpForm controls details
    */
-  public signUp(formData) {
+  public async signUp(formData) {
     this.checkPwd(formData);
     if (this.signUpForm.invalid) {
       this.isSubmitted = true;
       return;
     }
+
+    this.loading = await this.loadingController.create({
+      message: 'Loading please wait',
+    });
 
     const reqObj = {
       name: formData['controls']['name'].value,
@@ -65,6 +71,7 @@ export class SignUpPage implements OnInit {
       email: formData['controls']['email'].value,
       password: formData['controls']['password'].value,
     };
+    this.loading.present();
     const subs = this.appPostService.signupUser(reqObj).subscribe(res => {
       this.createSignUpForm();
       this.router.navigate(['/sign-in']);

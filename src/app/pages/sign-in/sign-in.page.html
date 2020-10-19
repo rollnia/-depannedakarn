@@ -14,7 +14,7 @@
     </ion-grid>
     <ion-grid class="login-details-box">
         <ion-row>
-            <form [formGroup]="loginForm">
+            <form [formGroup]="loginForm" style="width:90%; margin: 0px auto;">
                 <ion-col size="12">
                     <ion-title class="ion-text-start to-login-text">Se connecter</ion-title>
                 </ion-col>
@@ -40,6 +40,7 @@
                     <ion-button shape="round" (click)="login(loginForm)" expand="full" fill="outline"
                         class="submit-btn">Valider</ion-button>
                     <ion-title class="ion-text-center forgot-password-text">Mot de passe oublié?</ion-title>
+                    <ion-title class="ion-text-center forgot-password-text" (click)="goToRegistration()">Inscris toi finaliser la réservation</ion-title>
                 </ion-col>
             </form>
         </ion-row>
