@@ -9,10 +9,10 @@ export class AppPostService {
   constructor(private http: HttpClient) { }
 
   public signupUser(payload) {
-    return this.http.post<any>('http://depannedakar.skylineserves.in/api/auth/register', payload);
+    return this.http.post<any>('https://depannedakar.skylineserves.in/api/auth/register', payload);
   }
 
   public loginUser(payload) {
-    return this.http.post<any>('http://depannedakar.skylineserves.in/api/auth/login', payload);
+    return this.http.post<any>('https://depannedakar.skylineserves.in/api/auth/login', payload);
   }
 }
