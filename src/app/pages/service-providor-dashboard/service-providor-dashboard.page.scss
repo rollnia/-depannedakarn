@@ -1,0 +1,76 @@
+ion-toolbar{
+    --background: #2f26d9;
+    --color: #fff;
+    --border-color: #2f26d9;
+    padding: 30px 0px 30px 0px !important;
+    border-radius: 0px 0px 25px 25px;
+}
+.site-logo{
+    height: 50px;
+    text-align: left;
+}
+ion-title{
+    padding-inline-start: 0px;
+}
+.user-name-text{
+    padding: 20px 0px 0px 0px;
+    color: #444;
+    font-size: 18px;
+    font-weight: 600;
+}
+.card-row-inner{
+    padding: 0px 15px;
+}
+.ion-item-box ion-img{
+    height: 40px;
+}
+.ion-item-box{
+    height: 150px;
+    padding: 24px 29px;
+    margin: 4px 5px 4px 5px;
+    border-radius: 12px;
+    box-shadow: none;
+    cursor: pointer;
+}
+.ion-item-box ion-label{
+    color: #fff;
+    font-size: 17px;
+    padding: 18px 0px 0px 0px;
+    display: inline-block;
+    letter-spacing: 0px;
+    line-height: 24px;
+}
+.item-box-one{
+    background: #01cd88;
+    padding: 24px 10px;
+    text-align: center;
+}
+.item-box-two{
+   background: #e79f31;
+}
+.item-box-three{
+   background: #ff5949;
+   padding: 24px 18px;
+}
+.item-box-four{
+   background: #3c34e2;
+   padding: 24px 15px;
+   text-align: center;
+}
+.item-box-three ion-label{
+    padding: 10px 0px 0px 0px;
+}
+.item-box-one ion-label{
+    padding: 30px 0px 0px 0px;
+}
+.item-box-four ion-label{
+    padding: 30px 0px 0px 0px;
+}
+.rating-box-inner{
+    padding: 10px 0px 10px 0px;
+}
+.rating-box-inner ion-icon{
+    color: #4c4c4c;
+    margin: 0px 3px 0px 0px;
+    font-size: 22px;
+}

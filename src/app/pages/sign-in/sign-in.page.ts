@@ -4,6 +4,7 @@ import { Subscription } from "rxjs";
 import { Router } from '@angular/router';
 
 import { AppPostService } from "../../shared/services/app-post.service";
+import { AppGetService } from "../../shared/services/app-get.service";
 
 @Component({
   selector: 'app-sign-in',
@@ -15,7 +16,7 @@ export class SignInPage implements OnInit {
   public isSubmitted: boolean = false;
   public subscriptions: Subscription[] = [];
 
-  constructor(public formBuilder: FormBuilder, private appPostService: AppPostService, private router: Router) { }
+  constructor(public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private router: Router) { }
 
   ngOnInit() {
     this.createLoginForm();
@@ -30,6 +31,21 @@ export class SignInPage implements OnInit {
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
+  }
+
+  private getUserType() {
+    const subs = this.appGetService.userType().subscribe(res => {
+      if (res?.user_type) {
+        if (res['user_type'] === 'client') {
+          this.router.navigate(['/user-dashboard']);
+        } else {
+          this.router.navigate(['/service-providor-dashboard']);
+        }
+      }
+    }, error => {
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
   }
 
   get errorControl() {
@@ -49,9 +65,16 @@ export class SignInPage implements OnInit {
       password: formData['controls']['password'].value,
     };
     const subs = this.appPostService.loginUser(reqObj).subscribe(res => {
-      console.info(res);
-      this.createLoginForm();
-      this.router.navigate(['/folder/Inbox']);
+      if (res?.access_token) {
+        console.info(res);
+        const userData = {
+          token: res['access_token']
+        };
+        localStorage.setItem('currentUserData', JSON.stringify(userData));
+        this.createLoginForm();
+        this.getUserType();
+        // this.router.navigate(['/folder/Inbox']);
+      }
     }, error => {
       console.error(error);
     });

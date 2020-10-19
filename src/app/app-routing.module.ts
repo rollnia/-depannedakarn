@@ -8,17 +8,25 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'user-dashboard',
+    loadChildren: () => import('./pages/user-dashboard/user-dashboard.module').then(m => m.UserDashboardPageModule)
+  },
+  {
     path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    loadChildren: () => import('./folder/folder.module').then(m => m.FolderPageModule)
+  },
+  {
+    path: 'service-providor-dashboard',
+    loadChildren: () => import('./pages/service-providor-dashboard/service-providor-dashboard.module').then(m => m.ServiceProvidorDashboardPageModule)
   },
   {
     path: 'sign-in',
-    loadChildren: () => import('./pages/sign-in/sign-in.module').then( m => m.SignInPageModule)
+    loadChildren: () => import('./pages/sign-in/sign-in.module').then(m => m.SignInPageModule)
   },
   {
     path: 'sign-up',
-    loadChildren: () => import('./pages/sign-up/sign-up.module').then( m => m.SignUpPageModule)
-  }
+    loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpPageModule)
+  },
 ];
 
 @NgModule({
@@ -27,4 +35,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
