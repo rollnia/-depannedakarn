@@ -38,6 +38,7 @@ export class SignInPage implements OnInit {
   private getUserType() {
     const subs = this.appGetService.userType().subscribe(res => {
       if (res?.user_type) {
+        this.loading.dismiss();
         if (res['user_type'] === 'client') {
           this.router.navigate(['/user-dashboard']);
         } else {
@@ -45,6 +46,7 @@ export class SignInPage implements OnInit {
         }
       }
     }, error => {
+      this.loading.dismiss();
       console.error(error);
     });
     this.subscriptions.push(subs);
@@ -85,6 +87,7 @@ export class SignInPage implements OnInit {
         // this.router.navigate(['/folder/Inbox']);
       }
     }, error => {
+      this.loading.dismiss();
       console.error(error);
     });
     this.subscriptions.push(subs);

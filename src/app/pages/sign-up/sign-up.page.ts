@@ -74,8 +74,10 @@ export class SignUpPage implements OnInit {
     this.loading.present();
     const subs = this.appPostService.signupUser(reqObj).subscribe(res => {
       this.createSignUpForm();
+      this.loading.dismiss();
       this.router.navigate(['/sign-in']);
     }, error => {
+      this.loading.dismiss();
       console.error(error);
     });
     this.subscriptions.push(subs);
