@@ -83,9 +83,11 @@ export class AppComponent implements OnInit {
     });
     this.loading.present();
     const subs = this.appGetService.logoutUser().subscribe(res => {
-      this.loading.dismiss();
-      localStorage.removeItem('currentUserData');
-      this.router.navigate(['/home']);
+      if (res?.message) {
+        this.loading.dismiss();
+        localStorage.removeItem('currentUserData');
+        this.router.navigate(['/home']);
+      }
     }, error => {
       this.loading.dismiss();
       console.error(error);
