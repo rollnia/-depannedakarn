@@ -1,0 +1,49 @@
+.page-background
+{
+    --background: #2b21da;
+}
+.logo-inner{
+    padding: 100px 0px 10px 0px;
+}
+.logo-inner .site-logo{
+    height: 60px;
+}
+.help-title-inner{
+  padding: 80px 0px 10px 0px;
+  width: 95%;
+  margin: 0px auto;
+  display: block;
+}
+.help-title-one{
+  font-size: 20px;
+  color: #fff;
+  font-weight: 600;
+  padding-inline-start: 0px;
+  padding-inline-end: 0px;
+  margin: 0px 0px 10px 0px;
+}
+.help-title-two{
+  font-size: 19px;
+  font-style: italic;
+  color: #fff;
+  font-weight: 300;
+  padding-inline-start: 0px;
+  padding-inline-end: 0px;
+  margin: 0px 0px 0px 0px;
+}
+.login-details-box{
+   width:90%;
+   margin: 0px auto;
+   display: block;
+}
+.submit-btn{
+    --border-color: #fff;
+    --color: #fff;
+    font-size: 22px;
+    height: 42px;
+    text-transform: none;
+    margin: 0px 0px 20px 0px;
+}
+.submit-btn-inner{
+    margin: 40px 0px 0px 0px;
+}
