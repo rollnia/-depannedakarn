@@ -92,4 +92,12 @@ export class AppComponent implements OnInit {
     });
     this.subscriptions.push(subs);
   }
+
+  public userData() {
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    if (user && user['token']) {
+      return true;
+    }
+    return false;
+  }
 }

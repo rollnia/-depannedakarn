@@ -13,7 +13,7 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <ion-item *ngIf="user && user.token" (click)="logout()" lines="none" detail="false"
+            <ion-item *ngIf="userData()" (click)="logout()" lines="none" detail="false"
               [class.selected]="selectedIndex == 2">
               <ion-icon slot="start" [ios]="'log-out-outline'" [md]="'log-out-sharp'"></ion-icon>
               <ion-label>Logout</ion-label>
