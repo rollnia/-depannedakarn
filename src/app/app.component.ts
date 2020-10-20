@@ -4,6 +4,13 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
+
+import { Subscription } from "rxjs";
+
+import { AppGetService } from "./shared/services/app-get.service";
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -11,6 +18,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
+  public user;
+  loading: any;
+  public subscriptions: Subscription[] = [];
   public appPages = [
     /*{
       title: 'Home',
@@ -37,7 +47,10 @@ export class AppComponent implements OnInit {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private appGetService: AppGetService,
+    public loadingController: LoadingController,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -50,9 +63,33 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('currentUserData'));;
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subs => subs.unsubscribe());
+  }
+
+  /**
+   * Method to logout user from app
+   */
+  public async logout() {
+    this.loading = await this.loadingController.create({
+      message: 'Loading please wait',
+    });
+    this.loading.present();
+    const subs = this.appGetService.logoutUser().subscribe(res => {
+      this.loading.dismiss();
+      localStorage.removeItem('currentUserData');
+      this.router.navigate(['/home']);
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
   }
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 
 import { AppPostService } from "../../shared/services/app-post.service";
+import { AppGetService } from "../../shared/services/app-get.service";
 
 @Component({
   selector: 'app-sign-up',
@@ -17,7 +18,7 @@ export class SignUpPage implements OnInit {
   public subscriptions: Subscription[] = [];
   loading: any;
 
-  constructor(public formBuilder: FormBuilder, private appPostService: AppPostService, private router: Router, public loadingController: LoadingController) { }
+  constructor(public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private router: Router, public loadingController: LoadingController) { }
 
   ngOnInit() {
     this.createSignUpForm();
@@ -47,6 +48,45 @@ export class SignUpPage implements OnInit {
     }
   }
 
+  private getUserType() {
+    const subs = this.appGetService.userType().subscribe(res => {
+      if (res?.user_type) {
+        this.loading.dismiss();
+        if (res['user_type'] === 'client') {
+          this.router.navigate(['/user-dashboard']);
+        } else {
+          this.router.navigate(['/service-providor-dashboard']);
+        }
+      }
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
+  }
+
+  private loginUser(formData) {
+    const reqObj = {
+      username: formData['email'],
+      password: formData['password'],
+    };
+    const subs = this.appPostService.loginUser(reqObj).subscribe(res => {
+      this.loading.dismiss();
+      if (res?.access_token) {
+        console.info(res);
+        const userData = {
+          token: res['access_token']
+        };
+        localStorage.setItem('currentUserData', JSON.stringify(userData));
+        this.getUserType();
+      }
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
+  }
+
   get errorControl() {
     return this.signUpForm.controls;
   }
@@ -74,8 +114,7 @@ export class SignUpPage implements OnInit {
     this.loading.present();
     const subs = this.appPostService.signupUser(reqObj).subscribe(res => {
       this.createSignUpForm();
-      this.loading.dismiss();
-      this.router.navigate(['/sign-in']);
+      this.loginUser(reqObj);
     }, error => {
       this.loading.dismiss();
       console.error(error);
