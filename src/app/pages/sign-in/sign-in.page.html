@@ -14,7 +14,7 @@
     </ion-grid>
     <ion-grid class="login-details-box">
         <ion-row>
-            <form [formGroup]="loginForm">
+            <form [formGroup]="loginForm" class="form-inner-box" style="width:90%; margin: 0px auto;">
                 <ion-col size="12">
                     <ion-title class="ion-text-start to-login-text">Se connecter</ion-title>
                 </ion-col>
@@ -23,7 +23,7 @@
                         <ion-input type="text" formControlName="username" placeholder="Téléphone ou email"></ion-input>
                         <ion-icon name="person" slot="start"></ion-icon>
                     </ion-item>
-                    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.username.errors?.required">
+                    <span class="error error-label-text" *ngIf="isSubmitted && errorControl.username.errors?.required">
                         Username is required.
                     </span>
                     <ion-item class="input-fields-inner">
@@ -31,14 +31,16 @@
                         </ion-input>
                         <ion-icon name="lock-closed" slot="start"></ion-icon>
                     </ion-item>
-                    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
+                    <span class="error error-label-text" *ngIf="isSubmitted && errorControl.password.errors?.required">
                         Password is required.
                     </span>
                 </ion-col>
+				
                 <ion-col size="12" class="submit-btn-inner">
                     <ion-button shape="round" (click)="login(loginForm)" expand="full" fill="outline"
                         class="submit-btn">Valider</ion-button>
                     <ion-title class="ion-text-center forgot-password-text">Mot de passe oublié?</ion-title>
+                    <ion-title class="ion-text-center forgot-password-text" (click)="goToRegistration()">Inscris toi finaliser la réservation</ion-title>
                 </ion-col>
             </form>
         </ion-row>
