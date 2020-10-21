@@ -12,6 +12,6 @@ export class AppGetService {
     return this.http.get<any>('https://depannedakar.skylineserves.in/api/auth/user');
   }
   public logoutUser() {
-    return this.http.get<any>('http://depannedakar.skylineserves.in/api/auth/logout');
+    return this.http.get<any>('https://depannedakar.skylineserves.in/api/auth/logout');
   }
 }
