@@ -33,6 +33,11 @@ export class AppComponent implements OnInit {
       icon: 'home'
     },
     {
+      title: 'Search Provider',
+      url: '/searchprovider',
+      icon: 'search'
+    },
+    {
       title: 'Sign in',
       url: '/sign-in',
       icon: 'log-in'
