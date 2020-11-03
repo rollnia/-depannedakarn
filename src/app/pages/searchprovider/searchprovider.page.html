@@ -1,17 +1,19 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-      <ion-item class="item-inner-box">
-          <ion-label>Start Date</ion-label>
-          <ion-datetime value="1990-02-19" placeholder="Select Date"></ion-datetime>
-      </ion-item>
-      <ion-item class="item-inner-box">
-          <ion-label>Start Time</ion-label>
-          <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"></ion-datetime>
-      </ion-item>
-      <ion-item class="item-inner-box item-last-inner">
-          <ion-label>End Time</ion-label>
-          <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"></ion-datetime>
-      </ion-item>
+    <ion-item class="item-inner-box">
+      <ion-label>Start Date</ion-label>
+      <ion-datetime id="date" value="1990-02-19" placeholder="Select Date"></ion-datetime>
+    </ion-item>
+    <ion-item class="item-inner-box">
+      <ion-label>Start Time</ion-label>
+      <ion-datetime id="startTime" display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z">
+      </ion-datetime>
+    </ion-item>
+    <ion-item class="item-inner-box item-last-inner">
+      <ion-label>End Time</ion-label>
+      <ion-datetime id="endTime" display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z">
+      </ion-datetime>
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 
@@ -19,23 +21,30 @@
   <ion-list class="list-inner-box list-inner-top">
     <ion-label class="dropdown-label-text">Sélectionner votre quartier</ion-label>
     <ion-item class="dropdown-inner-box">
-      <ion-select value="Quartier">
-        <ion-select-option value="Quartier">Quartier</ion-select-option>
-        <ion-select-option value="Two">Two</ion-select-option>
+      <ion-select
+        *ngIf="searchProviderData?.location && searchProviderData.location.length && searchProviderModel['location']"
+        [(ngModel)]="searchProviderModel['location']">
+        <ion-select-option *ngFor="let location of searchProviderData.location" value="{{location.id}}">
+          {{location.location_name}}</ion-select-option>
+        <!-- <ion-select-option value="Two">Two</ion-select-option> -->
       </ion-select>
     </ion-item>
     <ion-label class="dropdown-label-text">Service en demande</ion-label>
     <ion-item class="dropdown-inner-box">
-      <ion-select value="Service">
-        <ion-select-option value="Service">Service</ion-select-option>
-        <ion-select-option value="Two">Two</ion-select-option>
+      <ion-select
+        *ngIf="searchProviderData?.service && searchProviderData.service.length && searchProviderModel['service']"
+        [(ngModel)]="searchProviderModel['service']">
+        <ion-select-option *ngFor="let service of searchProviderData.service" value="{{service.id}}">
+          {{service.service_name}}</ion-select-option>
+        <!-- <ion-select-option value="Two">Two</ion-select-option> -->
       </ion-select>
     </ion-item>
-   </ion-list>
-   <ion-list class="list-inner-box">
+  </ion-list>
+  <ion-list class="list-inner-box">
     <ion-col size="12" class="submit-btn-inner">
-      <ion-button shape="round" expand="full" fill="outline" class="next-btn-property">Suivant
+      <ion-button shape="round" expand="full" (click)="submitSearchData()" fill="outline" class="next-btn-property">
+        Suivant
       </ion-button>
     </ion-col>
-   </ion-list>
+  </ion-list>
 </ion-content>
