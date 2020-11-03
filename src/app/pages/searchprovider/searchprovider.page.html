@@ -1,5 +1,16 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title slot="start">
+      <ion-img src="assets/images/logo.png" class="site-logo"></ion-img>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list class="list-inner-box list-inner-top">
     <ion-item class="item-inner-box">
       <ion-label>Start Date</ion-label>
       <ion-datetime id="date" value="2020-01-19" placeholder="Select Date"></ion-datetime>
@@ -14,11 +25,8 @@
       <ion-datetime id="endTime" display-format="h:mm A" picker-format="h:mm A" value="2020-01-19T07:43Z">
       </ion-datetime>
     </ion-item>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-list class="list-inner-box list-inner-top">
+  </ion-list>
+  <ion-list class="list-inner-box">
     <ion-label class="dropdown-label-text">Sélectionner votre quartier</ion-label>
     <ion-item class="dropdown-inner-box">
       <ion-select
