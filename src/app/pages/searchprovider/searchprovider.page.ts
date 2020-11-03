@@ -52,8 +52,8 @@ export class SearchproviderPage implements OnInit {
     // console.log((<HTMLInputElement>document.getElementById("date")).value);
     // console.log((<HTMLInputElement>document.getElementById("startTime")).value);
     // console.log((<HTMLInputElement>document.getElementById("endTime")).value);
-    // new Date('1990-02-19T15:14:00+05:30').getHours();
-    // new Date('1990-02-19T15:14:00+05:30').getMinutes();
+    // console.log(new Date((<HTMLInputElement>document.getElementById("startTime")).value).getHours());
+    // console.log(new Date((<HTMLInputElement>document.getElementById("startTime")).value).getMinutes());
   }
 
 }
