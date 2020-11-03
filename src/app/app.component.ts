@@ -38,6 +38,11 @@ export class AppComponent implements OnInit {
       icon: 'search'
     },
     {
+      title: 'Listing',
+      url: '/listing',
+      icon: 'list'
+    },
+    {
       title: 'Sign in',
       url: '/sign-in',
       icon: 'log-in'
