@@ -48,12 +48,12 @@ export class SearchproviderPage implements OnInit {
   }
 
   public submitSearchData() {
-    // console.log(this.searchProviderModel);
-    // console.log((<HTMLInputElement>document.getElementById("date")).value);
-    // console.log((<HTMLInputElement>document.getElementById("startTime")).value);
-    // console.log((<HTMLInputElement>document.getElementById("endTime")).value);
-    // console.log(new Date((<HTMLInputElement>document.getElementById("startTime")).value).getHours());
-    // console.log(new Date((<HTMLInputElement>document.getElementById("startTime")).value).getMinutes());
+    console.log(this.searchProviderModel);
+    console.log((<HTMLInputElement>document.getElementById("date")).value);
+    console.log((<HTMLInputElement>document.getElementById("startTime")).value);
+    console.log((<HTMLInputElement>document.getElementById("endTime")).value);
+    console.log(new Date((<HTMLInputElement>document.getElementById("startTime")).value).getHours());
+    console.log(new Date((<HTMLInputElement>document.getElementById("startTime")).value).getMinutes());
   }
 
 }
