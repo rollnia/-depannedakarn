@@ -2,27 +2,32 @@ ion-toolbar{
     --background: #2f26d9;
     --color: #fff;
     --border-color: #2f26d9;
-    padding: 30px 30px 10px 30px !important;
+    padding: 30px 0px 30px 0px !important;
     border-radius: 0px 0px 25px 25px;
+}
+.site-logo{
+    height: 50px;
+    text-align: left;
+}
+ion-title{
+    padding-inline-start: 0px;
 }
 .item-inner-box{
     --background: transparent;
-    --border-color: #fff;
+    --border-color: #000;
     --padding-start: 0px;
     --placeholder-opacity: 1;
-    color: #fff;
-    margin: 0px 0px 8px 0px;
+    color: #000;
+    margin: 0px 0px 0px 0px;
     font-size: 14px;
-}
-.item-last-inner{
-    --border-color: transparent;
+    font-weight: 600;
 }
 .list-inner-box{
     width:90%; 
     margin: 0px auto;
 }
 .list-inner-top{
-    padding: 60px 0px 0px 0px;
+    padding: 10px 0px 20px 0px;
 }
 .dropdown-label-text{
     font-size: 18px;

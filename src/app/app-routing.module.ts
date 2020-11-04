@@ -34,7 +34,11 @@ const routes: Routes = [
   {
     path: 'searchprovider',
     loadChildren: () => import('./pages/searchprovider/searchprovider.module').then( m => m.SearchproviderPageModule)
+  },  {
+    path: 'listing',
+    loadChildren: () => import('./pages/listing/listing.module').then( m => m.ListingPageModule)
   },
+
 
 
 ];
