@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
+// import { StarRatingModule } from 'ionic4-star-rating';
 import { ListingPageRoutingModule } from './listing-routing.module';
 
 import { ListingPage } from './listing.page';
@@ -17,4 +17,4 @@ import { ListingPage } from './listing.page';
   ],
   declarations: [ListingPage]
 })
-export class ListingPageModule {}
+export class ListingPageModule { }
