@@ -24,7 +24,7 @@ export class SignInPage {
     });
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.createLoginForm();
   }
 

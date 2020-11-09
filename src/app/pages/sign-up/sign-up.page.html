@@ -1,7 +1,7 @@
 <ion-content padding class="login-background">
   <ion-grid class="signup-details-box">
 
-    <form [formGroup]="signUpForm" class="form-inner-box">
+    <form *ngIf="signUpForm" [formGroup]="signUpForm" class="form-inner-box">
       <ion-row>
         <ion-col size="12" class="ion-text-center">
           <ion-title class="text-line-one">Nous avons trouvé de l'aide pour vous</ion-title>
