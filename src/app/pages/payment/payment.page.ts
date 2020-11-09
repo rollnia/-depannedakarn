@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Platform } from '@ionic/angular';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.page.html',
@@ -10,9 +11,13 @@ export class PaymentPage implements OnInit {
   currencyIcon = '$';
   currency = 'INR';
   paymentAmount = '3000';
-  constructor(private payPal: PayPal, private route: ActivatedRoute, private router: Router) { }
+  constructor(private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    this.platform.backButton.subscribeWithPriority(13, () => {
+      this.router.navigate(['/searchprovider']);
+    });
     this.route.queryParams.subscribe(params => {
       this.paymentAmount = JSON.parse(params.return) || '';
     });

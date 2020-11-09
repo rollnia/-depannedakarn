@@ -41,16 +41,11 @@ export class SearchproviderPage {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     this.platform.backButton.subscribeWithPriority(11, () => {
       if (!user) {
-        alert('home');
         this.router.navigate(['/home']);
       } else if (user['user_type'] === 'client') {
-        alert('client');
         this.router.navigate(['/user-dashboard']);
-      } else {
-        alert('else');
-        this.router.navigate(['/home']);
-      }
-      alert('home:::');
+      } 
+      
     });
     this.loadData();
   }
