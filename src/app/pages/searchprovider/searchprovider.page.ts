@@ -23,12 +23,10 @@ export class SearchproviderPage {
   constructor(private platform: Platform, private appGetService: AppGetService, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     this.platform.backButton.subscribeWithPriority(10, () => {
-      if (!user['token']) {
+      if (!user) {
         this.router.navigate(['/home']);
       } else if (user['user_type'] === 'client') {
         this.router.navigate(['/user-dashboard']);
-      } else if (user['user_type'] === 'provider') {
-        this.router.navigate(['/service-providor-dashboard']);
       }
     });
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AppPostService } from "../../shared/services/app-post.service";
 import { AppGetService } from "../../shared/services/app-get.service";
@@ -17,14 +17,19 @@ export class SignInPage {
   public isSubmitted: boolean = false;
   public subscriptions: Subscription[] = [];
   loading: any;
+  return: string = '';
 
-  constructor(private platform: Platform, public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private router: Router, public loadingController: LoadingController) {
+  constructor(private platform: Platform, public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private route: ActivatedRoute, private router: Router, public loadingController: LoadingController) {
     this.platform.backButton.subscribeWithPriority(10, () => {
       this.router.navigate(['/home']);
     });
   }
 
   ionViewWillEnter() {
+    this.route.queryParams.subscribe(params => {
+      this.return = params['return'] || '';
+    })
+    localStorage.removeItem('currentUserData');
     this.createLoginForm();
   }
 
@@ -90,7 +95,11 @@ export class SignInPage {
         };
         localStorage.setItem('currentUserData', JSON.stringify(userData));
         this.createLoginForm();
-        this.getUserType();
+        if (this.return) {
+          this.router.navigate([this.return]);
+        } else {
+          this.getUserType();
+        }
         // this.router.navigate(['/folder/Inbox']);
       }
     }, error => {

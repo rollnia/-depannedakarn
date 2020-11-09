@@ -4,13 +4,14 @@ import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 import { AppGetService } from "../../shared/services/app-get.service";
+import { Statement } from '@angular/compiler';
 
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.page.html',
   styleUrls: ['./listing.page.scss'],
 })
-export class ListingPage {
+export class ListingPage implements OnInit {
   @ViewChild('rating') rating: any;
   public listinData = [];
   public searchData: any;
@@ -19,19 +20,15 @@ export class ListingPage {
   constructor(private platform: Platform, private router: Router, private appGetService: AppGetService, public loadingController: LoadingController) {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     this.platform.backButton.subscribeWithPriority(10, () => {
-      if (!user['token']) {
-        this.router.navigate(['/listing']);
-      } else if (user['user_type'] === 'client') {
-        this.router.navigate(['/listing']);
-      }
+      this.router.navigate(['/searchprovider']);
     });
   }
 
-  ionViewDidEnter() {
+  ngOnInit() {
     this.loadListing();
   }
 
-  ionViewDidLeave() {
+  ngOnDestroy() {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
@@ -86,6 +83,19 @@ export class ListingPage {
     const hrs = this.getHours(sTime, eTime);
     return hrs * Number(amount);
 
+  }
+
+  public bookService() {
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    if (!user) {
+      this.router.navigate(['/sign-in'], {
+        queryParams: {
+          return: '/payment'
+        }
+      });
+    } else if (user && user['token']) {
+      this.router.navigate(['/payment']);
+    }
   }
 
 }

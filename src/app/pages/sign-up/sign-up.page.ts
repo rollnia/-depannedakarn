@@ -25,6 +25,7 @@ export class SignUpPage {
   }
 
   ionViewDidEnter() {
+    localStorage.removeItem('currentUserData');
     this.createSignUpForm();
   }
 
