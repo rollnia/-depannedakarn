@@ -11,13 +11,15 @@ export class PaymentPage implements OnInit {
   currencyIcon = '$';
   currency = 'INR';
   paymentAmount = '3000';
-  constructor(private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router) { }
-
-  ngOnInit() {
+  constructor(private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router) {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     this.platform.backButton.subscribeWithPriority(999, () => {
       this.router.navigate(['/searchprovider']);
     });
+  }
+
+  ngOnInit() {
+
     this.route.queryParams.subscribe(params => {
       this.paymentAmount = JSON.parse(params.return) || '';
     });
