@@ -74,6 +74,23 @@ export class AppComponent implements OnInit {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
+  public setUrl(url) {
+
+    if (url === '/home') {
+      const user = JSON.parse(localStorage.getItem('currentUserData'));
+      if (!user) {
+        this.router.navigate([url]);
+      } else if (user['user_type'] === 'client') {
+        this.router.navigate(['/user-dashboard']);
+      } else if (user['user_type'] === 'provider') {
+        this.router.navigate(['/service-providor-dashboard']);
+      }
+    } else {
+      this.router.navigate([url]);
+    }
+
+  }
+
   /**
    * Method to logout user from app
    */

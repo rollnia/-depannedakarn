@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from "rxjs";
-import { LoadingController, AlertController } from '@ionic/angular';
-
+import { LoadingController, AlertController, Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 import { AppGetService } from "../../shared/services/app-get.service";
 
@@ -16,7 +16,16 @@ export class ListingPage implements OnInit {
   public searchData: any;
   public subscriptions: Subscription[] = [];
   loading: any;
-  constructor(private appGetService: AppGetService, public loadingController: LoadingController) { }
+  constructor(private platform: Platform, private router: Router, private appGetService: AppGetService, public loadingController: LoadingController) {
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      if (!user['token']) {
+        this.router.navigate(['/listing']);
+      } else if (user['user_type'] === 'client') {
+        this.router.navigate(['/listing']);
+      }
+    });
+  }
 
   ngOnInit() {
     this.loadListing();

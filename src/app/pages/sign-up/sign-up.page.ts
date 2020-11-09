@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 
 import { AppPostService } from "../../shared/services/app-post.service";
 import { AppGetService } from "../../shared/services/app-get.service";
@@ -18,7 +18,11 @@ export class SignUpPage implements OnInit {
   public subscriptions: Subscription[] = [];
   loading: any;
 
-  constructor(public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private router: Router, public loadingController: LoadingController) { }
+  constructor(private platform: Platform, public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private router: Router, public loadingController: LoadingController) {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['/home']);
+    });
+  }
 
   ngOnInit() {
     this.createSignUpForm();
@@ -52,6 +56,10 @@ export class SignUpPage implements OnInit {
     const subs = this.appGetService.userType().subscribe(res => {
       if (res?.user_type) {
         this.loading.dismiss();
+        const user = JSON.parse(localStorage.getItem('currentUserData'));
+        user['user_type'] = res['user_type'];
+        localStorage.setItem('currentUserData', JSON.stringify(user));
+
         if (res['user_type'] === 'client') {
           this.router.navigate(['/user-dashboard']);
         } else {

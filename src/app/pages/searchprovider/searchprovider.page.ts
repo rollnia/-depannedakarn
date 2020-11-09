@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from "rxjs";
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 import { AppGetService } from "../../shared/services/app-get.service";
@@ -20,7 +20,18 @@ export class SearchproviderPage implements OnInit {
   };
   public subscriptions: Subscription[] = [];
   loading: any;
-  constructor(private appGetService: AppGetService, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) { }
+  constructor(private platform: Platform, private appGetService: AppGetService, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) {
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      if (!user['token']) {
+        this.router.navigate(['/home']);
+      } else if (user['user_type'] === 'client') {
+        this.router.navigate(['/user-dashboard']);
+      } else if (user['user_type'] === 'provider') {
+        this.router.navigate(['/service-providor-dashboard']);
+      }
+    });
+  }
 
   ngOnInit() {
     this.loadData();

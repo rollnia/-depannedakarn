@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 import { AppPostService } from "../../shared/services/app-post.service";
 import { AppGetService } from "../../shared/services/app-get.service";
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-sign-in',
@@ -18,7 +18,11 @@ export class SignInPage implements OnInit {
   public subscriptions: Subscription[] = [];
   loading: any;
 
-  constructor(public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private router: Router, public loadingController: LoadingController) { }
+  constructor(private platform: Platform, public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private router: Router, public loadingController: LoadingController) {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['/home']);
+    });
+  }
 
   ngOnInit() {
     this.createLoginForm();
@@ -39,6 +43,9 @@ export class SignInPage implements OnInit {
     const subs = this.appGetService.userType().subscribe(res => {
       if (res?.user_type) {
         this.loading.dismiss();
+        const user = JSON.parse(localStorage.getItem('currentUserData'));
+        user['user_type'] = res['user_type'];
+        localStorage.setItem('currentUserData', JSON.stringify(user));
         if (res['user_type'] === 'client') {
           this.router.navigate(['/user-dashboard']);
         } else {
