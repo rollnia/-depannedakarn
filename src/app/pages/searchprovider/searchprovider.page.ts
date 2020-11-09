@@ -21,17 +21,37 @@ export class SearchproviderPage {
   public subscriptions: Subscription[] = [];
   loading: any;
   constructor(private platform: Platform, private appGetService: AppGetService, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) {
-    const user = JSON.parse(localStorage.getItem('currentUserData'));
-    this.platform.backButton.subscribeWithPriority(10, () => {
-      if (!user) {
-        this.router.navigate(['/home']);
-      } else if (user['user_type'] === 'client') {
-        this.router.navigate(['/user-dashboard']);
-      }
-    });
+    // const user = JSON.parse(localStorage.getItem('currentUserData'));
+    // this.platform.backButton.subscribeWithPriority(9, () => {
+    //   if (!user) {
+    //     alert('home');
+    //     this.router.navigate(['/home']);
+    //   } else if (user['user_type'] === 'client') {
+    //     alert('client');
+    //     this.router.navigate(['/user-dashboard']);
+    //   } else {
+    //     alert('else');
+    //     this.router.navigate(['/home']);
+    //   }
+    //   alert('home:::');
+    // });
   }
 
   ionViewDidEnter() {
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    this.platform.backButton.subscribeWithPriority(11, () => {
+      if (!user) {
+        alert('home');
+        this.router.navigate(['/home']);
+      } else if (user['user_type'] === 'client') {
+        alert('client');
+        this.router.navigate(['/user-dashboard']);
+      } else {
+        alert('else');
+        this.router.navigate(['/home']);
+      }
+      alert('home:::');
+    });
     this.loadData();
   }
 

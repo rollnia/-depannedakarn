@@ -86,15 +86,22 @@ export class ListingPage implements OnInit {
   }
 
   public bookService() {
+    const amt = this.getAmount(this.searchData.start_time, this.searchData.end_time, this.listinData[0].amount)
     const user = JSON.parse(localStorage.getItem('currentUserData'));
+    const params = ['/payment', amt];
     if (!user) {
       this.router.navigate(['/sign-in'], {
         queryParams: {
-          return: '/payment'
+          return: JSON.stringify(params)
         }
       });
     } else if (user && user['token']) {
-      this.router.navigate(['/payment']);
+
+      this.router.navigate(['/payment'], {
+        queryParams: {
+          return: amt
+        }
+      });
     }
   }
 

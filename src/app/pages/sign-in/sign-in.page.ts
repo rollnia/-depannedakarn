@@ -27,8 +27,8 @@ export class SignInPage {
 
   ionViewWillEnter() {
     this.route.queryParams.subscribe(params => {
-      this.return = params['return'] || '';
-    })
+      this.return = params && params.return ? JSON.parse(params.return) : '';
+    });
     localStorage.removeItem('currentUserData');
     this.createLoginForm();
   }
@@ -96,7 +96,11 @@ export class SignInPage {
         localStorage.setItem('currentUserData', JSON.stringify(userData));
         this.createLoginForm();
         if (this.return) {
-          this.router.navigate([this.return]);
+          this.router.navigate([this.return[0]], {
+            queryParams: {
+              return: this.return[1]
+            }
+          });
         } else {
           this.getUserType();
         }
