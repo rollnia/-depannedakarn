@@ -15,7 +15,7 @@ export class PaymentPage implements OnInit {
 
   ngOnInit() {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
-    this.platform.backButton.subscribeWithPriority(13, () => {
+    this.platform.backButton.subscribeWithPriority(999, () => {
       this.router.navigate(['/searchprovider']);
     });
     this.route.queryParams.subscribe(params => {
@@ -27,7 +27,7 @@ export class PaymentPage implements OnInit {
 
     // PayPalEnvironmentProduction: 'YOUR_PRODUCTION_CLIENT_ID',
     this.payPal.init({
-      PayPalEnvironmentProduction: 'YOUR_PRODUCTION_CLIENT_ID',
+      PayPalEnvironmentProduction: '',
       PayPalEnvironmentSandbox: 'AYS9xxDvHwHzhBYx3hez8khFhYblfWVat_t_5c_JyJstv1kCFFoON3-kAH6M'
     }).then(() => {
       // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
