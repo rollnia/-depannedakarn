@@ -9,7 +9,7 @@ import { Platform } from '@ionic/angular';
 })
 export class PaymentPage implements OnInit {
   currencyIcon = '$';
-  currency = 'INR';
+  currency = 'USD';
   paymentAmount = '3000';
   constructor(private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router) {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
