@@ -12,7 +12,7 @@ import { AppGetService } from "../../shared/services/app-get.service";
   templateUrl: './sign-up.page.html',
   styleUrls: ['./sign-up.page.scss'],
 })
-export class SignUpPage implements OnInit {
+export class SignUpPage {
   public signUpForm: FormGroup;
   public isSubmitted: boolean = false;
   public subscriptions: Subscription[] = [];
@@ -24,11 +24,11 @@ export class SignUpPage implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ionViewDidEnter() {
     this.createSignUpForm();
   }
 
-  ngOnDestroy() {
+  ionViewDidLeave() {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 

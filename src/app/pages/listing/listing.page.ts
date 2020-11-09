@@ -10,7 +10,7 @@ import { AppGetService } from "../../shared/services/app-get.service";
   templateUrl: './listing.page.html',
   styleUrls: ['./listing.page.scss'],
 })
-export class ListingPage implements OnInit {
+export class ListingPage {
   @ViewChild('rating') rating: any;
   public listinData = [];
   public searchData: any;
@@ -27,11 +27,11 @@ export class ListingPage implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ionViewDidEnter() {
     this.loadListing();
   }
 
-  ngOnDestroy() {
+  ionViewDidLeave() {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 

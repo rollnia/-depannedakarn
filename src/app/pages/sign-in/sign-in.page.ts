@@ -12,7 +12,7 @@ import { LoadingController, Platform } from '@ionic/angular';
   templateUrl: './sign-in.page.html',
   styleUrls: ['./sign-in.page.scss'],
 })
-export class SignInPage implements OnInit {
+export class SignInPage {
   public loginForm: FormGroup;
   public isSubmitted: boolean = false;
   public subscriptions: Subscription[] = [];
@@ -24,11 +24,11 @@ export class SignInPage implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ionViewDidEnter() {
     this.createLoginForm();
   }
 
-  ngOnDestroy() {
+  ionViewDidLeave() {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 

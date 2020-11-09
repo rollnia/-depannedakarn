@@ -10,7 +10,7 @@ import { AppGetService } from "../../shared/services/app-get.service";
   templateUrl: './searchprovider.page.html',
   styleUrls: ['./searchprovider.page.scss'],
 })
-export class SearchproviderPage implements OnInit {
+export class SearchproviderPage {
   public searchProviderData: any;
   date = (new Date()).toISOString();
   public minDate = (new Date).toISOString().split('T')[0];
@@ -33,11 +33,11 @@ export class SearchproviderPage implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ionViewDidEnter() {
     this.loadData();
   }
 
-  ngOnDestroy() {
+  ionViewDidLeave() {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
