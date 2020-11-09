@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from "rxjs";
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 import { AppGetService } from "../../shared/services/app-get.service";
@@ -12,7 +12,7 @@ import { AppGetService } from "../../shared/services/app-get.service";
 })
 export class SearchproviderPage implements OnInit {
   public searchProviderData: any;
-  date = new Date();
+  date = (new Date()).toISOString();
   public minDate = (new Date).toISOString().split('T')[0];
   public searchProviderModel = {
     location: '',
@@ -20,7 +20,7 @@ export class SearchproviderPage implements OnInit {
   };
   public subscriptions: Subscription[] = [];
   loading: any;
-  constructor(private appGetService: AppGetService, public loadingController: LoadingController, private router: Router) { }
+  constructor(private appGetService: AppGetService, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) { }
 
   ngOnInit() {
     this.loadData();
@@ -49,6 +49,19 @@ export class SearchproviderPage implements OnInit {
     this.subscriptions.push(subs);
   }
 
+  public chckTime(sTime, eTime) {
+    const time_start: any = new Date();
+    const time_end: any = new Date();
+    const value_start = sTime.split(':');
+    const value_end = eTime.split(':');
+
+    time_start.setHours(value_start[0], value_start[1], value_start[2], 0)
+    time_end.setHours(value_end[0], value_end[1], value_end[2], 0)
+
+    const hrs = time_end <= time_start;
+    return hrs;
+  }
+
   public async submitSearchData() {
     const params = {};
     params['location'] = this.searchProviderModel.location;
@@ -63,6 +76,20 @@ export class SearchproviderPage implements OnInit {
     });
     this.loading.present();
     this.appGetService.listingData.next('');
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Alert',
+      subHeader: '',
+      message: 'End Time cannot less than Start Time.',
+      buttons: ['OK']
+    });
+
+
+    if (this.chckTime(params['start_time'], params['end_time'])) {
+      this.loading.dismiss();
+      await alert.present();
+      return;
+    }
     const subs = this.appGetService.getListing(params).subscribe(res => {
       if ((res?.listing && res.listing.length) || (res?.params && Object.keys(res.params).length)) {
         this.loading.dismiss();
