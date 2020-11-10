@@ -13,6 +13,7 @@ import { AppGetService } from "../../shared/services/app-get.service";
 export class SearchproviderPage {
   public searchProviderData: any;
   date = (new Date()).toISOString();
+  endTime: any = new Date();
   public minDate = (new Date).toISOString().split('T')[0];
   public searchProviderModel = {
     location: '',
@@ -21,6 +22,8 @@ export class SearchproviderPage {
   public subscriptions: Subscription[] = [];
   loading: any;
   constructor(private platform: Platform, private appGetService: AppGetService, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) {
+    this.endTime.setHours(this.endTime.getHours() + 1);
+    this.endTime = this.endTime.toISOString();
     // const user = JSON.parse(localStorage.getItem('currentUserData'));
     // this.platform.backButton.subscribeWithPriority(9, () => {
     //   if (!user) {

@@ -11,18 +11,21 @@ export class PaymentPage implements OnInit {
   currencyIcon = '$';
   currency = 'USD';
   paymentAmount = '3000';
+  paypalResponse = '';
   constructor(private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router) {
-    const user = JSON.parse(localStorage.getItem('currentUserData'));
-    this.platform.backButton.subscribeWithPriority(999, () => {
-      this.router.navigate(['/searchprovider']);
-    });
+    const user = JSON.parse(localStorage.getItem('currentUserData'));    
   }
 
   ngOnInit() {
 
+    this.platform.backButton.subscribeWithPriority(11, () => {
+      this.router.navigate(['/searchprovider']);
+    });
+
     this.route.queryParams.subscribe(params => {
       this.paymentAmount = JSON.parse(params.return) || '';
     });
+    
   }
 
   payWithPaypal() {
@@ -41,7 +44,25 @@ export class PaymentPage implements OnInit {
         this.payPal.renderSinglePaymentUI(payment).then((res) => {
           alert(res);
           alert('done');
+          this.paypalResponse = res;
           // Successfully paid
+          // Example sandbox response
+          //
+          // {
+          //   "client": {
+          //     "environment": "sandbox",
+          //     "product_name": "PayPal iOS SDK",
+          //     "paypal_sdk_version": "2.16.0",
+          //     "platform": "iOS"
+          //   },
+          //   "response_type": "payment",
+          //   "response": {
+          //     "id": "PAY-1AB23456CD789012EF34GHIJ",
+          //     "state": "approved",
+          //     "create_time": "2016-10-03T13:33:33Z",
+          //     "intent": "sale"
+          //   }
+          // }
         }, (error) => {
           alert('Error or render dialog closed without being successful');
           alert(error);
