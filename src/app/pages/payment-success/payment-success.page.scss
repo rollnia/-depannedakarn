@@ -60,16 +60,18 @@ ion-title{
     padding: 0px 0px;
     width: 51px;
     height: 31px;
-    --handle-width: 26px;
-    --handle-height: 26px;
+    --handle-width: 27px;
+    --handle-height: 27px;
     --border-radius: 20px;
+    --background: #000;
 }
 .toggle-btn-position .toggle-checked{
     width: 51px;
     height: 31px;
-    --handle-width: 26px;
-    --handle-height: 26px;
+    --handle-width: 27px;
+    --handle-height: 27px;
     --border-radius: 20px;
+    --background: #000;
 }
 .home-icon-box{
     font-size: 40px;
