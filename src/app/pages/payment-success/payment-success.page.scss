@@ -1,0 +1,89 @@
+$ratingSize: 100px;
+ion-toolbar{
+    --background: #2f26d9;
+    --color: #fff;
+    --border-color: #2f26d9;
+    padding: 30px 0px 30px 0px !important;
+    border-radius: 0px 0px 25px 25px;
+}
+.site-logo{
+    height: 50px;
+    text-align: left;
+}
+ion-title{
+    padding-inline-start: 0px;
+}
+.list-inner-top{
+    padding: 45px 0px 20px 0px;
+}
+.list-inner-box{
+    width:90%; 
+    margin: 0px auto;
+}
+.list-inner-box ion-item{
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
+    margin: 0px 0px 0px 0px;
+    --border-color: transparent;
+}
+.sorry-text-label{
+    font-size: 21px;
+    color: red;
+    font-weight: 600;
+}
+.no-data-description ion-label{
+    text-overflow: inherit;
+    white-space: inherit;
+    font-size: 16px;
+    font-weight: 500;
+}
+.date-time-label{
+    font-size: 17px;
+    color: #000;
+    font-weight: 500;
+}
+.date-time-label ion-icon{
+    font-size: 35px;
+    color: #000;
+    margin: 0px 0px 30px 0px;
+    cursor: pointer;
+}
+.no-data-description{
+    padding: 60px 0px 110px 0px;
+}
+.toggle-btn-position{
+    float: right;
+}
+.toggle-btn-position ion-toggle{
+    padding-inline-end: 1px;
+    margin: 0px 0px 18px 0px;
+    padding: 0px 0px;
+    width: 51px;
+    height: 31px;
+    --handle-width: 26px;
+    --handle-height: 26px;
+    --border-radius: 20px;
+}
+.toggle-btn-position .toggle-checked{
+    width: 51px;
+    height: 31px;
+    --handle-width: 26px;
+    --handle-height: 26px;
+    --border-radius: 20px;
+}
+.home-icon-box{
+    font-size: 40px;
+    margin: 0px 0px 10px 0px;
+}
+.home-text-label{
+    font-size: 16px;
+    font-weight: 600;
+}
+.toggle-btn-label{
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    float: left;
+    clear: both;
+    margin: 6px 0px 0px 0px;
+}
