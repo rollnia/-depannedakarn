@@ -19,12 +19,12 @@ export class ListingPage implements OnInit {
   loading: any;
   constructor(private platform: Platform, private router: Router, private appGetService: AppGetService, public loadingController: LoadingController) {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
-    this.platform.backButton.subscribeWithPriority(99, () => {
-      this.router.navigate(['/searchprovider']);
-    });
   }
 
   ngOnInit() {
+    this.platform.backButton.subscribeWithPriority(11, () => {
+      this.router.navigate(['/searchprovider']);
+    });
     this.loadListing();
   }
 
