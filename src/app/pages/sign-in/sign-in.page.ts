@@ -125,6 +125,14 @@ export class SignInPage {
   }
 
   public goToRegistration() {
-    this.router.navigate(['/sign-up']);
+    if (this.return) {
+      this.router.navigate(['/sign-up'], {
+        queryParams: {
+          return: this.return
+        }
+      });
+    } else {
+      this.router.navigate(['/sign-up']);
+    }
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LoadingController, Platform } from '@ionic/angular';
 
 import { AppPostService } from "../../shared/services/app-post.service";
@@ -17,14 +17,18 @@ export class SignUpPage {
   public isSubmitted: boolean = false;
   public subscriptions: Subscription[] = [];
   loading: any;
+  return: string = '';
 
-  constructor(private platform: Platform, public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private router: Router, public loadingController: LoadingController) {
+  constructor(private platform: Platform, public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private route: ActivatedRoute, private router: Router, public loadingController: LoadingController) {
     this.platform.backButton.subscribeWithPriority(10, () => {
       this.router.navigate(['/home']);
     });
   }
 
   ionViewDidEnter() {
+    this.route.queryParams.subscribe(params => {
+      this.return = params && params.return ? params.return : '';
+    });
     localStorage.removeItem('currentUserData');
     this.createSignUpForm();
   }
@@ -60,7 +64,14 @@ export class SignUpPage {
         const user = JSON.parse(localStorage.getItem('currentUserData'));
         user['user_type'] = res['user_type'];
         localStorage.setItem('currentUserData', JSON.stringify(user));
-
+        if (this.return) {
+          this.router.navigate([this.return[0]], {
+            queryParams: {
+              return: this.return[1]
+            }
+          });
+          return;
+        }
         if (res['user_type'] === 'client') {
           this.router.navigate(['/user-dashboard']);
         } else {
@@ -80,7 +91,6 @@ export class SignUpPage {
       password: formData['password'],
     };
     const subs = this.appPostService.loginUser(reqObj).subscribe(res => {
-      this.loading.dismiss();
       if (res?.access_token) {
         console.info(res);
         const userData = {
