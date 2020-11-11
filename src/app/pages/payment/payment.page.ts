@@ -42,6 +42,7 @@ export class PaymentPage implements OnInit {
       })).then(() => {
         let payment = new PayPalPayment(this.paymentAmount, this.currency, 'Description', 'sale');
         this.payPal.renderSinglePaymentUI(payment).then((res) => {
+          alert('Payment Successfully paid');
           this.paypalResponse = res;
           this.router.navigate(['/payment-succes']);
           // Successfully paid
