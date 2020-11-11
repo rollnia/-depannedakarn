@@ -12,9 +12,7 @@ export class PaymentPage implements OnInit {
   currency = 'USD';
   paymentAmount = '3000';
   paypalResponse = '';
-  navigate: string = '';
   constructor(private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router) {
-    const user = JSON.parse(localStorage.getItem('currentUserData'));
   }
 
   ngOnInit() {
@@ -30,7 +28,6 @@ export class PaymentPage implements OnInit {
   }
 
   payWithPaypal() {
-    this.navigate = '';
     // PayPalEnvironmentProduction: 'YOUR_PRODUCTION_CLIENT_ID',
     this.payPal.init({
       PayPalEnvironmentProduction: '',
@@ -45,7 +42,7 @@ export class PaymentPage implements OnInit {
         this.payPal.renderSinglePaymentUI(payment).then((res) => {
           alert('Payment Successfully paid');
           this.paypalResponse = res;
-          this.navigate = 'paid';
+          this.router.navigate(['/payment-success']);
           // Successfully paid
           // Example sandbox response
           //
@@ -76,16 +73,8 @@ export class PaymentPage implements OnInit {
       alert('PayPal is not supported or something else');
       // Error in initialization, maybe PayPal isn't supported or something else
     });
-    this.navigateToSucess();
   }
 
-  private navigateToSucess() {
-    const interval = setInterval(() => {
-      if (this.navigate) {
-        this.router.navigate(['/payment-succes']);
-        clearInterval(interval);
-      }
-    }, 1000);
-  }
+
 
 }
