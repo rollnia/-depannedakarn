@@ -24,20 +24,6 @@ export class SearchproviderPage {
   constructor(private platform: Platform, private appGetService: AppGetService, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) {
     this.endTime.setHours(this.endTime.getHours() + 1);
     this.endTime = this.endTime.toISOString();
-    // const user = JSON.parse(localStorage.getItem('currentUserData'));
-    // this.platform.backButton.subscribeWithPriority(9, () => {
-    //   if (!user) {
-    //     alert('home');
-    //     this.router.navigate(['/home']);
-    //   } else if (user['user_type'] === 'client') {
-    //     alert('client');
-    //     this.router.navigate(['/user-dashboard']);
-    //   } else {
-    //     alert('else');
-    //     this.router.navigate(['/home']);
-    //   }
-    //   alert('home:::');
-    // });
   }
 
   ionViewDidEnter() {
@@ -47,8 +33,7 @@ export class SearchproviderPage {
         this.router.navigate(['/home']);
       } else if (user['user_type'] === 'client') {
         this.router.navigate(['/user-dashboard']);
-      } 
-      
+      }
     });
     this.loadData();
   }

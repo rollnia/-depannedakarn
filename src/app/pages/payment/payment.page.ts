@@ -13,7 +13,7 @@ export class PaymentPage implements OnInit {
   paymentAmount = '3000';
   paypalResponse = '';
   constructor(private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router) {
-    const user = JSON.parse(localStorage.getItem('currentUserData'));    
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
   }
 
   ngOnInit() {
@@ -25,7 +25,7 @@ export class PaymentPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.paymentAmount = JSON.parse(params.return) || '';
     });
-    
+
   }
 
   payWithPaypal() {
@@ -42,9 +42,8 @@ export class PaymentPage implements OnInit {
       })).then(() => {
         let payment = new PayPalPayment(this.paymentAmount, this.currency, 'Description', 'sale');
         this.payPal.renderSinglePaymentUI(payment).then((res) => {
-          alert(res);
-          alert('done');
           this.paypalResponse = res;
+          this.router.navigate(['/payment-succes']);
           // Successfully paid
           // Example sandbox response
           //
@@ -64,7 +63,6 @@ export class PaymentPage implements OnInit {
           //   }
           // }
         }, (error) => {
-          alert('Error or render dialog closed without being successful');
           alert(error);
           // Error or render dialog closed without being successful
         });
@@ -73,7 +71,7 @@ export class PaymentPage implements OnInit {
         // Error in configuration
       });
     }, () => {
-      alert('PayPal isnot supported or something else');
+      alert('PayPal is not supported or something else');
       // Error in initialization, maybe PayPal isn't supported or something else
     });
   }

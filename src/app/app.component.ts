@@ -33,11 +33,6 @@ export class AppComponent implements OnInit {
       icon: 'home'
     },
     {
-      title: 'Payment success',
-      url: '/payment-success',
-      icon: 'checkmark-circle'
-    },
-    {
       title: 'Sign in',
       url: '/sign-in',
       icon: 'log-in'

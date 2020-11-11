@@ -4,7 +4,6 @@ import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 import { AppGetService } from "../../shared/services/app-get.service";
-import { Statement } from '@angular/compiler';
 
 @Component({
   selector: 'app-listing',
@@ -18,11 +17,11 @@ export class ListingPage implements OnInit {
   public subscriptions: Subscription[] = [];
   loading: any;
   constructor(private platform: Platform, private router: Router, private appGetService: AppGetService, public loadingController: LoadingController) {
-    const user = JSON.parse(localStorage.getItem('currentUserData'));
+
   }
 
   ngOnInit() {
-    this.platform.backButton.subscribeWithPriority(11, () => {
+    this.platform.backButton.subscribeWithPriority(0, () => {
       this.router.navigate(['/searchprovider']);
     });
     this.loadListing();

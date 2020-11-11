@@ -11,13 +11,12 @@ export class UserDashboardPage {
 
   constructor(
     private router: Router, private platform: Platform) {
-    this.platform.backButton.subscribeWithPriority(10, () => {
-      navigator['app'].exitApp();
-    });
   }
 
   ionViewDidEnter() {
-
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      navigator['app'].exitApp();
+    });
   }
 
   public navigate() {

@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AppPostService } from "../../shared/services/app-post.service";
 import { AppGetService } from "../../shared/services/app-get.service";
-import { LoadingController, Platform } from '@ionic/angular';
+import { LoadingController, AlertController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-sign-in',
@@ -19,7 +19,7 @@ export class SignInPage {
   loading: any;
   return: string = '';
 
-  constructor(private platform: Platform, public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private route: ActivatedRoute, private router: Router, public loadingController: LoadingController) {
+  constructor(private platform: Platform, public formBuilder: FormBuilder, private alertCtrl: AlertController, private appGetService: AppGetService, private appPostService: AppPostService, private route: ActivatedRoute, private router: Router, public loadingController: LoadingController) {
     this.platform.backButton.subscribeWithPriority(10, () => {
       this.router.navigate(['/home']);
     });
@@ -51,6 +51,15 @@ export class SignInPage {
         const user = JSON.parse(localStorage.getItem('currentUserData'));
         user['user_type'] = res['user_type'];
         localStorage.setItem('currentUserData', JSON.stringify(user));
+        //if user book a service without login and then navigate to login and after login navigate to paymnt page
+        if (this.return) {
+          this.router.navigate([this.return[0]], {
+            queryParams: {
+              return: this.return[1]
+            }
+          });
+          return;
+        }
         if (res['user_type'] === 'client') {
           this.router.navigate(['/user-dashboard']);
         } else {
@@ -86,28 +95,30 @@ export class SignInPage {
     };
 
     this.loading.present();
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Alert',
+      subHeader: '',
+      message: 'Unauthorized access',
+      buttons: ['OK']
+    });
     const subs = this.appPostService.loginUser(reqObj).subscribe(res => {
-      this.loading.dismiss();
+
       if (res?.access_token) {
-        console.info(res);
         const userData = {
           token: res['access_token']
         };
         localStorage.setItem('currentUserData', JSON.stringify(userData));
         this.createLoginForm();
-        if (this.return) {
-          this.router.navigate([this.return[0]], {
-            queryParams: {
-              return: this.return[1]
-            }
-          });
-        } else {
-          this.getUserType();
-        }
-        // this.router.navigate(['/folder/Inbox']);
+        this.getUserType();
+      } else if (res?.message && res.message === 'Unauthorized') {
+        this.loading.dismiss();
       }
     }, error => {
       this.loading.dismiss();
+      if (error?.statusText && error.statusText === 'Unauthorized') {
+        alert.present();
+      }
       console.error(error);
     });
     this.subscriptions.push(subs);
