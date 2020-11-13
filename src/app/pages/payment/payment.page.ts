@@ -33,7 +33,7 @@ export class PaymentPage implements OnInit {
   }
 
   payWithPaypal() {
-    this.navigateToSuceess('PAY-1AB23456CD789012EF34GHIJ');
+    // this.navigateToSuceess('PAY-1AB23456CD789012EF34GHIJ');
     // PayPalEnvironmentProduction: 'YOUR_PRODUCTION_CLIENT_ID',
     this.payPal.init({
       PayPalEnvironmentProduction: '',
@@ -102,7 +102,7 @@ export class PaymentPage implements OnInit {
       payment_method: 'paypal'
     };
     const subs = this.appPostService.paymentSuccess(params).subscribe(res => {
-      if ((res?.listing && res.listing.length) || (res?.params && Object.keys(res.params).length)) {
+      if (res?.message) {
         this.loading.dismiss();
         this.router.navigate(['/payment-success']);
       }
