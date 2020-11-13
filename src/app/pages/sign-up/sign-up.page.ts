@@ -63,11 +63,12 @@ export class SignUpPage {
         this.loading.dismiss();
         const user = JSON.parse(localStorage.getItem('currentUserData'));
         user['user_type'] = res['user_type'];
+        user['user_id'] = res['id'];
         localStorage.setItem('currentUserData', JSON.stringify(user));
         if (this.return) {
           this.router.navigate([this.return[0]], {
             queryParams: {
-              return: this.return[1]
+              return: this.return.slice(1)
             }
           });
           return;

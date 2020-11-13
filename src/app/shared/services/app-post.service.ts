@@ -17,4 +17,8 @@ export class AppPostService {
   public loginUser(payload) {
     return this.http.post<any>(`${environment.apiUrl}auth/login`, payload);
   }
+
+  public paymentSuccess(payload) {
+    return this.http.post<any>(`${environment.apiUrl}auth/bookservice`, payload);
+  }
 }

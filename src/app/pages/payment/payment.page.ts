@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
+import { AppPostService } from "../../shared/services/app-post.service";
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.page.html',
@@ -10,9 +13,11 @@ import { Platform } from '@ionic/angular';
 export class PaymentPage implements OnInit {
   currencyIcon = '$';
   currency = 'USD';
-  paymentAmount = '3000';
+  paymentData;
+  public subscriptions: Subscription[] = [];
   paypalResponse = '';
-  constructor(private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router) {
+  loading: any;
+  constructor(private appPostService: AppPostService, public loadingController: LoadingController, private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -22,12 +27,13 @@ export class PaymentPage implements OnInit {
     });
 
     this.route.queryParams.subscribe(params => {
-      this.paymentAmount = JSON.parse(params.return) || '';
+      this.paymentData = params.return || '';
     });
 
   }
 
   payWithPaypal() {
+    this.navigateToSuceess('PAY-1AB23456CD789012EF34GHIJ');
     // PayPalEnvironmentProduction: 'YOUR_PRODUCTION_CLIENT_ID',
     this.payPal.init({
       PayPalEnvironmentProduction: '',
@@ -38,11 +44,12 @@ export class PaymentPage implements OnInit {
         // Only needed if you get an "Internal Service Error" after PayPal login!
         //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
       })).then(() => {
-        let payment = new PayPalPayment(this.paymentAmount, this.currency, 'Description', 'sale');
+        let payment = new PayPalPayment(this.paymentData[0], this.currency, 'Description', 'sale');
         this.payPal.renderSinglePaymentUI(payment).then((res) => {
           alert('Payment Successfully paid');
           this.paypalResponse = res;
-          this.router.navigate(['/payment-success']);
+          this.navigateToSuceess(res.response.id);
+
           // Successfully paid
           // Example sandbox response
           //
@@ -73,6 +80,37 @@ export class PaymentPage implements OnInit {
       alert('PayPal is not supported or something else');
       // Error in initialization, maybe PayPal isn't supported or something else
     });
+  }
+
+  public async navigateToSuceess(tranID) {
+    this.loading = await this.loadingController.create({
+      message: 'Loading please wait',
+    });
+    this.loading.present();
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    const params = {
+      user_id: user['user_id'],
+      provider_id: this.paymentData[4],
+      transaction_id: tranID,
+      booking_date: this.paymentData[1],
+      start_time: this.paymentData[2],
+      end_time: this.paymentData[3],
+      booking_status: 'pending',
+      total_hrs: this.paymentData[5],
+      amount: parseInt(this.paymentData[0]),
+      payment_status: 'success',
+      payment_method: 'paypal'
+    };
+    const subs = this.appPostService.paymentSuccess(params).subscribe(res => {
+      if ((res?.listing && res.listing.length) || (res?.params && Object.keys(res.params).length)) {
+        this.loading.dismiss();
+        this.router.navigate(['/payment-success']);
+      }
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
   }
 
 
