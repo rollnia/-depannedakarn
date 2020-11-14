@@ -18,6 +18,9 @@ export class PaymentPage implements OnInit {
   paypalResponse = '';
   loading: any;
   constructor(private appPostService: AppPostService, public loadingController: LoadingController, private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router) {
+    this.route.queryParams.subscribe(params => {
+      this.paymentData = params.return || '';
+    });
   }
 
   ngOnInit() {
@@ -25,10 +28,6 @@ export class PaymentPage implements OnInit {
   }
 
   ionViewDidEnter() {
-
-    this.route.queryParams.subscribe(params => {
-      this.paymentData = params.return || '';
-    });
   }
 
   ionViewWillEnter() {
