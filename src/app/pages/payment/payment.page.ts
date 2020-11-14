@@ -22,14 +22,26 @@ export class PaymentPage implements OnInit {
 
   ngOnInit() {
 
-    this.platform.backButton.subscribeWithPriority(11, () => {
-      this.router.navigate(['/searchprovider']);
-    });
+  }
+
+  ionViewDidEnter() {
 
     this.route.queryParams.subscribe(params => {
       this.paymentData = params.return || '';
     });
+  }
 
+  ionViewWillEnter() {
+
+    const backEvent = this.platform.backButton.subscribe(() => {
+      this.router.navigate(['/searchprovider']);
+    });
+    this.subscriptions.push(backEvent);
+
+  }
+
+  ionViewDidLeave() {
+    this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
   payWithPaypal() {

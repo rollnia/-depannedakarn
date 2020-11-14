@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -8,16 +9,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-dashboard.page.scss'],
 })
 export class UserDashboardPage {
-
+  public subscriptions: Subscription[] = [];
   constructor(
     private router: Router, private platform: Platform) {
-    this.platform.backButton.subscribeWithPriority(10, () => {
-      navigator['app'].exitApp();
-    });
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+    const backEvent = this.platform.backButton.subscribe(() => {
+      navigator['app'].exitApp();
+    });
+    this.subscriptions.push(backEvent);
+  }
 
+  ionViewDidLeave() {
+    this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
   public navigate() {

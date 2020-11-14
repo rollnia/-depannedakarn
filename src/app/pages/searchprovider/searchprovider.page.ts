@@ -26,15 +26,16 @@ export class SearchproviderPage {
     this.endTime = this.endTime.toISOString();
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
-    this.platform.backButton.subscribeWithPriority(11, () => {
+    const backEvent = this.platform.backButton.subscribe(() => {
       if (!user) {
         this.router.navigate(['/home']);
       } else if (user['user_type'] === 'client') {
         this.router.navigate(['/user-dashboard']);
       }
     });
+    this.subscriptions.push(backEvent);
     this.loadData();
   }
 

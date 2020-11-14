@@ -13,12 +13,17 @@ export class HomePage {
   public subscriptions: Subscription[] = [];
   constructor(
     private platform: Platform, private router: Router, private appGetService: AppGetService) {
-    this.platform.backButton.subscribeWithPriority(10, () => {
-      navigator['app'].exitApp();
-    });
+  }
+
+  ionViewDidEnter() {
+    
   }
 
   ionViewWillEnter() {
+    const backEvent = this.platform.backButton.subscribe(() => {
+      navigator['app'].exitApp();
+    });
+    this.subscriptions.push(backEvent);
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     // const subs = this.appGetService.userType().subscribe(res => {
     //   if (res?.user_type) {

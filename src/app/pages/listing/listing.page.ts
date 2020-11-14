@@ -21,13 +21,21 @@ export class ListingPage implements OnInit {
   }
 
   ngOnInit() {
-    this.platform.backButton.subscribeWithPriority(0, () => {
-      this.router.navigate(['/searchprovider']);
-    });
     this.loadListing();
   }
 
+  ionViewWillEnter() {  
+    const backEvent = this.platform.backButton.subscribe(() => {
+      this.router.navigate(['/searchprovider']);
+    });
+    this.subscriptions.push(backEvent);
+  }
+
   ngOnDestroy() {
+    this.subscriptions.forEach(subs => subs.unsubscribe());
+  }
+
+  ionViewDidLeave() {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
