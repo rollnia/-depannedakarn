@@ -46,6 +46,14 @@ const routes: Routes = [
     path: 'payment-success',
     loadChildren: () => import('./pages/payment-success/payment-success.module').then( m => m.PaymentSuccessPageModule)
   },
+  {
+    path: 'demand-in-progress',
+    loadChildren: () => import('./pages/demand-in-progress/demand-in-progress.module').then( m => m.DemandInProgressPageModule)
+  },
+  {
+    path: 'bookingdetail',
+    loadChildren: () => import('./pages/bookingdetail/bookingdetail.module').then( m => m.BookingdetailPageModule)
+  },
 
 
 
