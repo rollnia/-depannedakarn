@@ -103,6 +103,9 @@ export class SearchproviderPage {
       await alert.present();
       return;
     }
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    user['service_id'] = params['service_type'];
+    localStorage.setItem('currentUserData', JSON.stringify(user));
     const subs = this.appGetService.getListing(params).subscribe(res => {
       if ((res?.listing && res.listing.length) || (res?.params && Object.keys(res.params).length)) {
         this.loading.dismiss();

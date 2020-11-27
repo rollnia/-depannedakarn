@@ -101,6 +101,7 @@ export class PaymentPage implements OnInit {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     const params = {
       user_id: user['user_id'],
+      service_id: user['service_id'],
       provider_id: this.paymentData[4],
       transaction_id: tranID,
       booking_date: this.paymentData[1],

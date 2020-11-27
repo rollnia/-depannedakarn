@@ -16,7 +16,7 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
-    
+
   }
 
   ionViewWillEnter() {
@@ -25,22 +25,27 @@ export class HomePage {
     });
     this.subscriptions.push(backEvent);
     const user = JSON.parse(localStorage.getItem('currentUserData'));
-    // const subs = this.appGetService.userType().subscribe(res => {
-    //   if (res?.user_type) {
-
-    //   }
-    // }, error => {
-    // });
-    // this.subscriptions.push(subs);
-    if (!user) {
-    } else if (user && user['token']) {
-      if (user['user_type'] === 'client') {
-        this.router.navigate(['/user-dashboard']);
-      } else {
-        this.router.navigate(['/service-providor-dashboard']);
+    const subs = this.appGetService.userType().subscribe(res => {
+      if (res?.user_type) {
+        if (user['user_type'] === 'client') {
+          this.router.navigate(['/user-dashboard']);
+        } else {
+          this.router.navigate(['/service-providor-dashboard']);
+        }
       }
-    }
-    // this.subscriptions.push(subs);
+    }, error => {
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
+
+    // if (!user) {
+    // } else if (user && user['token']) {
+    //   if (user['user_type'] === 'client') {
+    //     this.router.navigate(['/user-dashboard']);
+    //   } else {
+    //     this.router.navigate(['/service-providor-dashboard']);
+    //   }
+    // }
   }
 
   ionViewDidLeave() {

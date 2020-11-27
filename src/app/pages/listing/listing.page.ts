@@ -24,7 +24,7 @@ export class ListingPage implements OnInit {
     this.loadListing();
   }
 
-  ionViewWillEnter() {  
+  ionViewWillEnter() {
     const backEvent = this.platform.backButton.subscribe(() => {
       this.router.navigate(['/searchprovider']);
     });
@@ -96,6 +96,7 @@ export class ListingPage implements OnInit {
     const amt = this.getAmount(this.searchData.start_time, this.searchData.end_time, this.listinData[0].amount)
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     const hrs = this.getHours(this.searchData.start_time, this.searchData.end_time);
+    const service_id = user['service_id'];
     const params = ['/payment', amt, this.searchData.bookingdate, this.searchData.start_time, this.searchData.end_time, this.listinData[0].id, hrs];
     if (!user) {
       this.router.navigate(['/sign-in'], {
