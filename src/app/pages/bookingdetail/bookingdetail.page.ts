@@ -41,7 +41,7 @@ export class BookingdetailPage implements OnInit {
     const subs = this.appGetService.getBookingDetail(this.return).subscribe(res => {
       if (res?.bookingdetails && res?.providerdetails) {
         this.details = res;
-        this.rating = res['rating'][0]['rating'];
+        this.rating = res['rating'] && res['rating'].length ? res['rating'][0]['rating'] : '';
       }
       this.loading.dismiss();
     }, error => {
@@ -54,6 +54,10 @@ export class BookingdetailPage implements OnInit {
   public setStar(point) {
     if (!point) return 0;
     return `${(point * 20)}px`;
+  }
+
+  public changeRate() {
+    console.log(this.rating);
   }
 
 
