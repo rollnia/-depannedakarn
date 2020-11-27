@@ -31,7 +31,7 @@
             <ion-label class="item-text-label">Service Type</ion-label>
           </ion-col>
           <ion-col size="5">
-            <ion-label class="booking-text-label">{{details.service_name}}</ion-label>
+            <ion-label class="booking-text-label">{{details.bookingdetails.service_name}}</ion-label>
           </ion-col>
         </ion-row>
         <!-- <ion-row>
@@ -47,7 +47,7 @@
             <ion-label class="item-text-label">Date</ion-label>
           </ion-col>
           <ion-col size="5">
-            <ion-label class="booking-text-label">{{details.booking_date}}</ion-label>
+            <ion-label class="booking-text-label">{{details.bookingdetails.booking_date}}</ion-label>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -55,7 +55,7 @@
             <ion-label class="item-text-label">Time</ion-label>
           </ion-col>
           <ion-col size="5">
-            <ion-label class="booking-text-label">{{details.total_hrs}}</ion-label>
+            <ion-label class="booking-text-label">{{details.bookingdetails.total_hrs}}</ion-label>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -63,7 +63,7 @@
             <ion-label class="item-text-label">Amount</ion-label>
           </ion-col>
           <ion-col size="5">
-            <ion-label class="item-text-date">${{details.amount}}</ion-label>
+            <ion-label class="item-text-date">${{details.bookingdetails.amount}}</ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>
