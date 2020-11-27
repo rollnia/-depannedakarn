@@ -14,6 +14,7 @@ export class BookingdetailPage implements OnInit {
   public details;
   loading: any;
   return: string = '';
+  rating: string = '';
   constructor(private platform: Platform, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) { }
 
   ngOnInit() {
@@ -40,6 +41,7 @@ export class BookingdetailPage implements OnInit {
     const subs = this.appGetService.getBookingDetail(this.return).subscribe(res => {
       if (res?.bookingdetails && res?.providerdetails) {
         this.details = res;
+        this.rating = res['rating'][0]['rating'];
       }
       this.loading.dismiss();
     }, error => {
@@ -47,6 +49,11 @@ export class BookingdetailPage implements OnInit {
       console.error(error);
     });
     this.subscriptions.push(subs);
+  }
+
+  public setStar(point) {
+    if (!point) return 0;
+    return `${(point * 20)}px`;
   }
 
 
