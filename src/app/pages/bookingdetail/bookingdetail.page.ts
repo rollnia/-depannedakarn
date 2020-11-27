@@ -17,17 +17,18 @@ export class BookingdetailPage implements OnInit {
   constructor(private platform: Platform, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) { }
 
   ngOnInit() {
-    this.loadListing();
+    // this.loadListing();
   }
 
   ionViewWillEnter() {
     const backEvent = this.platform.backButton.subscribe(() => {
-      this.router.navigate(['/searchprovider']);
+      this.router.navigate(['/demand-in-progress']);
     });
     this.subscriptions.push(backEvent);
     this.route.queryParams.subscribe(params => {
       this.return = params && params.return ? JSON.parse(params.return) : '';
     });
+    this.loadListing();
   }
 
   private async loadListing() {
