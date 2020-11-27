@@ -21,4 +21,12 @@ export class AppPostService {
   public paymentSuccess(payload) {
     return this.http.post<any>(`${environment.apiUrl}auth/bookservice`, payload);
   }
+
+  public ratingSet(payload) {
+    return this.http.post<any>(`${environment.apiUrl}auth/saveupdaterating`, payload);
+  }
+
+  public cancelBookng(payload) {
+    return this.http.post<any>(`${environment.apiUrl}auth/cancelbooking`, payload);
+  }
 }

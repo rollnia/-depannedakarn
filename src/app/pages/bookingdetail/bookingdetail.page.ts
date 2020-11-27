@@ -3,6 +3,7 @@ import { Subscription } from "rxjs";
 import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppGetService } from "../../shared/services/app-get.service";
+import { AppPostService } from "../../shared/services/app-post.service";
 
 @Component({
   selector: 'app-bookingdetail',
@@ -12,10 +13,12 @@ import { AppGetService } from "../../shared/services/app-get.service";
 export class BookingdetailPage implements OnInit {
   public subscriptions: Subscription[] = [];
   public details;
+  public isenabled = false;
   loading: any;
   return: string = '';
+  public colorCoding = 'danger';
   rating: string = '';
-  constructor(private platform: Platform, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) { }
+  constructor(private platform: Platform, private appPostService: AppPostService, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) { }
 
   ngOnInit() {
     // this.loadListing();
@@ -57,7 +60,46 @@ export class BookingdetailPage implements OnInit {
   }
 
   public changeRate() {
-    console.log(this.rating);
+    const pID = this.details.providerdetails && this.details.providerdetails.length ? this.details.providerdetails[0]['id'] : '';
+    const reqObj = {
+      providerid: pID,
+      bookingid: this.details.bookingdetails['id'],
+      rating: this.rating
+    };
+    const subs = this.appPostService.ratingSet(reqObj).subscribe(res => {
+
+    }, error => {
+      console.log(error);
+    })
+  }
+
+  public async cancelBooking() {
+    const pID = this.details.providerdetails && this.details.providerdetails.length ? this.details.providerdetails[0]['id'] : '';
+    const reqObj = {
+      bookingid: this.details.bookingdetails['id']
+    };
+    this.loading = await this.loadingController.create({
+      message: 'Loading please wait',
+    });
+    this.loading.present();
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Alert',
+      subHeader: '',
+      message: 'Booking Canceled',
+      buttons: ['OK']
+    });
+    const subs = this.appPostService.cancelBookng(reqObj).subscribe(res => {
+      this.loading.dismiss();
+      if (res?.message) {
+        this.isenabled = true;
+        this.colorCoding = 'medium';
+        alert.present();
+      }
+    }, error => {
+      this.loading.dismiss();
+      console.log(error);
+    })
   }
 
 

@@ -119,4 +119,12 @@ export class AppComponent implements OnInit {
     }
     return false;
   }
+
+  public userHistory() {
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    if (user && user['token'] && user['user_type'] === 'client') {
+      return true;
+    }
+    return false;
+  }
 }

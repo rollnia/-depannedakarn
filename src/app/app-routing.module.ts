@@ -54,6 +54,10 @@ const routes: Routes = [
     path: 'bookingdetail',
     loadChildren: () => import('./pages/bookingdetail/bookingdetail.module').then( m => m.BookingdetailPageModule)
   },
+  {
+    path: 'history',
+    loadChildren: () => import('./pages/history/history.module').then( m => m.HistoryPageModule)
+  },
 
 
 
