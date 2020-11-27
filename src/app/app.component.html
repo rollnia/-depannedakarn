@@ -13,10 +13,10 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <!-- <ion-item routerDirection="root" routerLink="/history" *ngIf="userHistory()" lines="none">
-              <ion-icon slot="start" [ios]="'ios-list-box'" [md]="'md-list-box'"></ion-icon>
+            <ion-item (click)="history()" *ngIf="userHistory()" lines="none">
+              <ion-icon slot="start" [ios]="'ellipse-outline'" [md]="'ellipse-sharp'"></ion-icon>
               <ion-label>Historique</ion-label>
-            </ion-item> -->
+            </ion-item>
             <ion-item *ngIf="userData()" (click)="logout()" lines="none">
               <ion-icon slot="start" [ios]="'log-out-outline'" [md]="'log-out-sharp'"></ion-icon>
               <ion-label>Logout</ion-label>

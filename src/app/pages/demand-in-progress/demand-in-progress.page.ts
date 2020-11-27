@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from "rxjs";
 import { LoadingController, AlertController, Platform } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AppGetService } from "../../shared/services/app-get.service";
 
 @Component({
@@ -13,7 +13,8 @@ export class DemandInProgressPage implements OnInit {
   public subscriptions: Subscription[] = [];
   public bookingprogressData = [];
   loading: any;
-  constructor(private platform: Platform, private appGetService: AppGetService, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) { }
+  return: string = '';
+  constructor(private platform: Platform, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) { }
 
   ngOnInit() {
   }
@@ -41,7 +42,11 @@ export class DemandInProgressPage implements OnInit {
     });
     this.loading.present();
     const user = JSON.parse(localStorage.getItem('currentUserData'));
-    const subs = this.appGetService.getDemandProgress(user['user_id']).subscribe(res => {
+    this.loadProgressData(user['user_id']);
+  }
+
+  private loadProgressData(id) {
+    const subs = this.appGetService.getDemandProgress(id).subscribe(res => {
       if (res?.bookingprogress) {
         this.bookingprogressData = res?.bookingprogress;
       }
@@ -57,12 +62,12 @@ export class DemandInProgressPage implements OnInit {
    * getDetails
    */
   public getDetails(id) {
+    const params = [id];
     this.router.navigate(['/bookingdetail'], {
       queryParams: {
-        return: id
+        return: params
       }
     });
-
   }
 
 }

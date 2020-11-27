@@ -33,30 +33,31 @@ const routes: Routes = [
   },
   {
     path: 'searchprovider',
-    loadChildren: () => import('./pages/searchprovider/searchprovider.module').then( m => m.SearchproviderPageModule)
-  },  {
+    loadChildren: () => import('./pages/searchprovider/searchprovider.module').then(m => m.SearchproviderPageModule)
+  },
+  {
     path: 'listing',
-    loadChildren: () => import('./pages/listing/listing.module').then( m => m.ListingPageModule)
+    loadChildren: () => import('./pages/listing/listing.module').then(m => m.ListingPageModule)
   },
   {
     path: 'payment',
-    loadChildren: () => import('./pages/payment/payment.module').then( m => m.PaymentPageModule)
+    loadChildren: () => import('./pages/payment/payment.module').then(m => m.PaymentPageModule)
   },
   {
     path: 'payment-success',
-    loadChildren: () => import('./pages/payment-success/payment-success.module').then( m => m.PaymentSuccessPageModule)
+    loadChildren: () => import('./pages/payment-success/payment-success.module').then(m => m.PaymentSuccessPageModule)
   },
   {
     path: 'demand-in-progress',
-    loadChildren: () => import('./pages/demand-in-progress/demand-in-progress.module').then( m => m.DemandInProgressPageModule)
+    loadChildren: () => import('./pages/demand-in-progress/demand-in-progress.module').then(m => m.DemandInProgressPageModule)
   },
   {
     path: 'bookingdetail',
-    loadChildren: () => import('./pages/bookingdetail/bookingdetail.module').then( m => m.BookingdetailPageModule)
+    loadChildren: () => import('./pages/bookingdetail/bookingdetail.module').then(m => m.BookingdetailPageModule)
   },
   {
     path: 'history',
-    loadChildren: () => import('./pages/history/history.module').then( m => m.HistoryPageModule)
+    loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryPageModule)
   },
 
 

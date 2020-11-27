@@ -29,6 +29,10 @@ export class AppGetService {
     return this.http.get<any>(`${environment.apiUrl}auth/listprovider?selectdate=${params.selectdate}&start_time=${params.start_time}&end_time=${params.end_time}&location=${params.location}&service_type=${params.service_type}`);
   }
 
+  public getHistory(clientid) {
+    return this.http.get<any>(`${environment.apiUrl}auth/bookinghistory?clientid=${clientid}`);
+  }
+
   public getDemandProgress(clientid) {
     return this.http.get<any>(`${environment.apiUrl}auth/demadprogress?clientid=${clientid}`);
   }

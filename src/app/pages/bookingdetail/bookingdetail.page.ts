@@ -30,7 +30,7 @@ export class BookingdetailPage implements OnInit {
     });
     this.subscriptions.push(backEvent);
     this.route.queryParams.subscribe(params => {
-      this.return = params && params.return ? JSON.parse(params.return) : '';
+      this.return = params && params.return ? params.return : '';
     });
     this.loadListing();
   }
@@ -41,7 +41,7 @@ export class BookingdetailPage implements OnInit {
     });
     this.loading.present();
 
-    const subs = this.appGetService.getBookingDetail(this.return).subscribe(res => {
+    const subs = this.appGetService.getBookingDetail(this.return[0]).subscribe(res => {
       if (res?.bookingdetails && res?.providerdetails) {
         this.details = res;
         this.rating = res['rating'] && res['rating'].length ? res['rating'][0]['rating'] : '';

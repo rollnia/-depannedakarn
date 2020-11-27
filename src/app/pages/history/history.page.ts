@@ -41,7 +41,7 @@ export class HistoryPage implements OnInit {
     });
     this.loading.present();
     const user = JSON.parse(localStorage.getItem('currentUserData'));
-    const subs = this.appGetService.getDemandProgress(user['user_id']).subscribe(res => {
+    const subs = this.appGetService.getHistory(user['user_id']).subscribe(res => {
       if (res?.bookingprogress) {
         this.bookingprogressData = res?.bookingprogress;
       }
@@ -57,9 +57,10 @@ export class HistoryPage implements OnInit {
    * getDetails
    */
   public getDetails(id) {
+    const params = [id, 'history'];
     this.router.navigate(['/bookingdetail'], {
       queryParams: {
-        return: id
+        return: params
       }
     });
 
