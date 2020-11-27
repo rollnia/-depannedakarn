@@ -33,16 +33,6 @@ export class AppComponent implements OnInit {
       icon: 'home'
     },
     {
-      title: 'Demand In Progress',
-      url: '/demand-in-progress',
-      icon: 'ellipse'
-    },
-    {
-      title: 'Bookingdetail',
-      url: '/bookingdetail',
-      icon: 'ellipse'
-    },
-    {
       title: 'Sign in',
       url: '/sign-in',
       icon: 'log-in'

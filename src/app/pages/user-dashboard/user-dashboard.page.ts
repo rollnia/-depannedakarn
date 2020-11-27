@@ -25,8 +25,8 @@ export class UserDashboardPage {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
-  public navigate() {
-    this.router.navigate(['/searchprovider']);
+  public navigate(url) {
+    this.router.navigate([url]);
   }
 
 }
