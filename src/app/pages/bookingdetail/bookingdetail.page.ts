@@ -102,5 +102,8 @@ export class BookingdetailPage implements OnInit {
     })
   }
 
+  public reBook() {
+    console.log('re book');
+  }
 
 }
