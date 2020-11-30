@@ -35,7 +35,6 @@ export class BookingdetailPage implements OnInit {
       } else {
         this.router.navigate(['/demand-in-progress']);
       }
-
     });
     this.subscriptions.push(backEvent);
     this.loadListing();
@@ -56,6 +55,8 @@ export class BookingdetailPage implements OnInit {
       if (res?.bookingdetails && res?.providerdetails) {
         this.details = res;
         this.rating = res['rating'] && res['rating'].length ? res['rating'][0]['rating'] : undefined;
+      } else if (res?.bookingdetails && res?.clientdetails) {
+        this.details = res;
       }
       this.loading.dismiss();
     }, error => {
@@ -129,6 +130,19 @@ export class BookingdetailPage implements OnInit {
         return: params
       }
     });
+  }
+
+  public completeBooking() {
+    const reqObj = {
+      bookingid: this.details.bookingdetails['id']
+    };
+    const subs = this.appPostService.completeBookng(reqObj).subscribe(res => {
+      if (res?.message) {
+        this.appGetService.showToast(res['message']);
+      }
+    }, error => {
+      console.log(error);
+    })
   }
 
 }

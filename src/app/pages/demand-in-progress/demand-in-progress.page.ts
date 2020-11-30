@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from "rxjs";
 import { LoadingController, AlertController, Platform } from '@ionic/angular';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AppGetService } from "../../shared/services/app-get.service";
 
 @Component({
@@ -30,6 +30,8 @@ export class DemandInProgressPage implements OnInit {
         this.router.navigate(['/home']);
       } else if (user['user_type'] === 'client') {
         this.router.navigate(['/user-dashboard']);
+      } else if (user['user_type'] === 'provider') {
+        this.router.navigate(['/service-providor-dashboard']);
       }
     });
     this.subscriptions.push(backEvent);
@@ -42,13 +44,35 @@ export class DemandInProgressPage implements OnInit {
     });
     this.loading.present();
     const user = JSON.parse(localStorage.getItem('currentUserData'));
-    this.loadProgressData(user['user_id']);
+    this.loadProgressData(user['user_id'], user['user_type']);
   }
 
-  private loadProgressData(id) {
+  private loadProgressData(id, userType) {
+    if (userType === 'provider') {
+      this.providerData(id);
+    } else {
+      this.clientData(id);
+    }
+
+  }
+
+  private providerData(id) {
+    const subs = this.appGetService.getMisMission(id).subscribe(res => {
+      if (res?.messmission) {
+        this.bookingprogressData = res.messmission;
+      }
+      this.loading.dismiss();
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
+  }
+
+  private clientData(id) {
     const subs = this.appGetService.getDemandProgress(id).subscribe(res => {
       if (res?.bookingprogress) {
-        this.bookingprogressData = res?.bookingprogress;
+        this.bookingprogressData = res.bookingprogress;
       }
       this.loading.dismiss();
     }, error => {
@@ -62,7 +86,7 @@ export class DemandInProgressPage implements OnInit {
    * getDetails
    */
   public getDetails(id) {
-    const params = [id];
+    const params = [id, 'history', 'provider'];
     this.router.navigate(['/bookingdetail'], {
       queryParams: {
         return: params

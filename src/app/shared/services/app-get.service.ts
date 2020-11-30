@@ -46,7 +46,18 @@ export class AppGetService {
   public getDemandProgress(clientid) {
     return this.http.get<any>(`${environment.apiUrl}auth/demadprogress?clientid=${clientid}`);
   }
+
+  public getMisMission(providerId) {
+    return this.http.get<any>(`${environment.apiUrl}auth/mesmission?providerid=${providerId}`);
+  }
+
   public getBookingDetail(id) {
-    return this.http.get<any>(`${environment.apiUrl}auth/demadprogressdetail?bookingid=${id}`);
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    if (user['user_type'] === 'client') {
+      return this.http.get<any>(`${environment.apiUrl}auth/demadprogressdetail?bookingid=${id}`);
+    } else if (user['user_type'] === 'provider') {
+      return this.http.get<any>(`${environment.apiUrl}auth/mesmissiondetail?bookingid=${id}`);
+    }
+
   }
 }

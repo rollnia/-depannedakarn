@@ -96,13 +96,7 @@ export class SignInPage {
     };
 
     this.loading.present();
-    const alert = await this.alertCtrl.create({
-      cssClass: 'my-custom-class',
-      header: 'Alert',
-      subHeader: '',
-      message: 'Unauthorized access',
-      buttons: ['OK']
-    });
+
     const subs = this.appPostService.loginUser(reqObj).subscribe(res => {
 
       if (res?.access_token) {
@@ -118,7 +112,7 @@ export class SignInPage {
     }, error => {
       this.loading.dismiss();
       if (error?.statusText && error.statusText === 'Unauthorized') {
-        alert.present();
+        this.appGetService.showToast('Unauthorized access');
       }
       console.error(error);
     });

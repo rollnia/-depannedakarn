@@ -12,7 +12,7 @@
 <ion-content>
   <ion-list class="list-inner-box list-inner-top">
     <ion-back-button></ion-back-button>
-    <ion-item *ngIf="details && details.providerdetails" class="user-name-contact-inner">
+    <ion-item *ngIf="details && (details.providerdetails || details.clientdetails)" class="user-name-contact-inner">
       <ion-grid>
         <ion-row>
           <ion-col size="12">
@@ -86,8 +86,11 @@
             <ion-button *ngIf="return && return.length === 1" color="{{colorCoding}}" [disabled]="isenabled"
               (click)="cancelBooking()" expand="full" shape="round" class="cancel-booking-btn">Cancel Booking
             </ion-button>
-            <ion-button *ngIf="return && return.length > 1" color="{{colorCoding}}" [disabled]="isenabled"
+            <ion-button *ngIf="return && return.length === 2" color="{{colorCoding}}" [disabled]="isenabled"
               (click)="reBook()" expand="full" shape="round" class="cancel-booking-btn">Re Booking
+            </ion-button>
+            <ion-button *ngIf="return && return.length > 2" color="{{colorCoding}}" [disabled]="isenabled"
+              (click)="completeBooking()" expand="full" shape="round" class="cancel-booking-btn">Complete
             </ion-button>
           </ion-col>
         </ion-row>

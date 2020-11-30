@@ -29,4 +29,8 @@ export class AppPostService {
   public cancelBookng(payload) {
     return this.http.post<any>(`${environment.apiUrl}auth/cancelbooking`, payload);
   }
+
+  public completeBookng(payload) {
+    return this.http.post<any>(`${environment.apiUrl}auth/completebooking`, payload);
+  }
 }
