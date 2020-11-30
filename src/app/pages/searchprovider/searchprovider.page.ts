@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from "rxjs";
 import { LoadingController, AlertController, Platform } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AppGetService } from "../../shared/services/app-get.service";
 
@@ -21,7 +21,8 @@ export class SearchproviderPage {
   };
   public subscriptions: Subscription[] = [];
   loading: any;
-  constructor(private platform: Platform, private appGetService: AppGetService, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) {
+  return: string = '';
+  constructor(private platform: Platform, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) {
     this.endTime.setHours(this.endTime.getHours() + 1);
     this.endTime = this.endTime.toISOString();
   }
@@ -34,6 +35,9 @@ export class SearchproviderPage {
       } else if (user['user_type'] === 'client') {
         this.router.navigate(['/user-dashboard']);
       }
+    });
+    this.route.queryParams.subscribe(params => {
+      this.return = params && params.return ? params.return : '';
     });
     this.subscriptions.push(backEvent);
     this.loadData();
@@ -82,7 +86,7 @@ export class SearchproviderPage {
     params['selectdate'] = ((<HTMLInputElement>document.getElementById("date")).value).split('T')[0];
     params['start_time'] = `${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getMinutes()}:00`;
     params['end_time'] = `${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getMinutes()}:00`;
-
+    params['provider_id'] = this.return ? this.return : 0;
     // console.log(params);
     this.loading = await this.loadingController.create({
       message: 'Loading please wait',

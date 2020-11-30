@@ -20,7 +20,6 @@ export class AppGetService {
       duration: 3000,
       position: 'bottom'
     }).then((toastData) => {
-      console.log(toastData);
       toastData.present();
     });
   }
@@ -37,7 +36,7 @@ export class AppGetService {
   }
 
   public getListing(params) {
-    return this.http.get<any>(`${environment.apiUrl}auth/listprovider?selectdate=${params.selectdate}&start_time=${params.start_time}&end_time=${params.end_time}&location=${params.location}&service_type=${params.service_type}`);
+    return this.http.get<any>(`${environment.apiUrl}auth/listprovider?selectdate=${params.selectdate}&start_time=${params.start_time}&end_time=${params.end_time}&location=${params.location}&service_type=${params.service_type}&provider_id=${params.provider_id}`);
   }
 
   public getHistory(clientid) {

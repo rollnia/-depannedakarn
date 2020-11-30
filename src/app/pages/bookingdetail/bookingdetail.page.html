@@ -77,7 +77,8 @@
         <ion-row>
           <ion-col *ngIf="details?.providerdetails && details?.bookingdetails" size="12">
             <ion-label class="rating-label-inner">
-              <bar-rating id="ratingBar" [theme]="'default'" (rateChange)="changeRate()" [(ngModel)]="rating" [max]="5">
+              <bar-rating id="ratingBar" [theme]="'default'" (ngModelChange)="changeRate($event)" [(ngModel)]="rating"
+                [max]="5">
               </bar-rating>
             </ion-label>
           </ion-col>

@@ -17,7 +17,7 @@ export class BookingdetailPage implements OnInit {
   loading: any;
   return: string = '';
   public colorCoding = 'danger';
-  rating: string = '';
+  rating;
   constructor(private platform: Platform, private appPostService: AppPostService, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) { }
 
   ngOnInit() {
@@ -35,7 +35,12 @@ export class BookingdetailPage implements OnInit {
     this.loadListing();
   }
 
+  ionViewDidLeave() {
+    this.subscriptions.forEach(subs => subs.unsubscribe());
+  }
+
   private async loadListing() {
+    this.colorCoding = 'danger';
     this.loading = await this.loadingController.create({
       message: 'Loading please wait',
     });
@@ -44,7 +49,7 @@ export class BookingdetailPage implements OnInit {
     const subs = this.appGetService.getBookingDetail(this.return[0]).subscribe(res => {
       if (res?.bookingdetails && res?.providerdetails) {
         this.details = res;
-        this.rating = res['rating'] && res['rating'].length ? res['rating'][0]['rating'] : '';
+        this.rating = res['rating'] && res['rating'].length ? res['rating'][0]['rating'] : undefined;
       }
       this.loading.dismiss();
     }, error => {
@@ -59,12 +64,13 @@ export class BookingdetailPage implements OnInit {
     return `${(point * 20)}px`;
   }
 
-  public changeRate() {
+  public changeRate(evt) {
+    // console.log(evt);
     const pID = this.details.providerdetails && this.details.providerdetails.length ? this.details.providerdetails[0]['id'] : '';
     const reqObj = {
       providerid: pID,
       bookingid: this.details.bookingdetails['id'],
-      rating: this.rating
+      rating: evt
     };
     const subs = this.appPostService.ratingSet(reqObj).subscribe(res => {
       if (res?.message) {
@@ -84,20 +90,12 @@ export class BookingdetailPage implements OnInit {
       message: 'Loading please wait',
     });
     this.loading.present();
-    // const alert = await this.alertCtrl.create({
-    //   cssClass: 'my-custom-class',
-    //   header: 'Alert',
-    //   subHeader: '',
-    //   message: 'Booking Canceled',
-    //   buttons: ['OK']
-    // });
     const subs = this.appPostService.cancelBookng(reqObj).subscribe(res => {
       this.loading.dismiss();
       if (res?.message) {
         this.isenabled = true;
         this.colorCoding = 'medium';
         this.appGetService.showToast(res['message']);
-        // alert.present();
       }
     }, error => {
       this.loading.dismiss();
@@ -118,7 +116,13 @@ export class BookingdetailPage implements OnInit {
   }
 
   public reBook() {
-    console.log('re book');
+    const pID = this.details.providerdetails && this.details.providerdetails.length ? this.details.providerdetails[0]['id'] : '';
+    const params = [pID];
+    this.router.navigate(['/searchprovider'], {
+      queryParams: {
+        return: params
+      }
+    });
   }
 
 }

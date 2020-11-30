@@ -22,26 +22,21 @@ export class AppComponent implements OnInit {
   loading: any;
   public subscriptions: Subscription[] = [];
   public appPages = [
-    /*{
-      title: 'Home',
-      url: '/folder/Inbox',
-      icon: 'home'
-    },*/
     {
       title: 'Home',
       url: '/home',
       icon: 'home'
-    },
-    {
-      title: 'Sign in',
-      url: '/sign-in',
-      icon: 'log-in'
-    },
-    {
-      title: 'Sign up',
-      url: '/sign-up',
-      icon: 'person-add'
     }
+    // {
+    //   title: 'Sign in',
+    //   url: '/sign-in',
+    //   icon: 'log-in'
+    // },
+    // {
+    //   title: 'Sign up',
+    //   url: '/sign-up',
+    //   icon: 'person-add'
+    // }
   ];
 
   constructor(
