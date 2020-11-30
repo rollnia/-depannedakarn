@@ -138,6 +138,8 @@ export class BookingdetailPage implements OnInit {
     };
     const subs = this.appPostService.completeBookng(reqObj).subscribe(res => {
       if (res?.message) {
+        this.isenabled = true;
+        this.colorCoding = 'medium';
         this.appGetService.showToast(res['message']);
       }
     }, error => {
