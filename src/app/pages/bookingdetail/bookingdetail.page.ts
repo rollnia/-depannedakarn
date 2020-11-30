@@ -25,13 +25,19 @@ export class BookingdetailPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    const backEvent = this.platform.backButton.subscribe(() => {
-      this.router.navigate(['/demand-in-progress']);
-    });
-    this.subscriptions.push(backEvent);
+
     this.route.queryParams.subscribe(params => {
       this.return = params && params.return ? params.return : '';
     });
+    const backEvent = this.platform.backButton.subscribe(() => {
+      if (this.return && this.return.length > 1) {
+        this.router.navigate(['/history']);
+      } else {
+        this.router.navigate(['/demand-in-progress']);
+      }
+
+    });
+    this.subscriptions.push(backEvent);
     this.loadListing();
   }
 
