@@ -67,7 +67,9 @@ export class BookingdetailPage implements OnInit {
       rating: this.rating
     };
     const subs = this.appPostService.ratingSet(reqObj).subscribe(res => {
-
+      if (res?.message) {
+        this.appGetService.showToast(res['message']);
+      }
     }, error => {
       console.log(error);
     })
@@ -82,19 +84,20 @@ export class BookingdetailPage implements OnInit {
       message: 'Loading please wait',
     });
     this.loading.present();
-    const alert = await this.alertCtrl.create({
-      cssClass: 'my-custom-class',
-      header: 'Alert',
-      subHeader: '',
-      message: 'Booking Canceled',
-      buttons: ['OK']
-    });
+    // const alert = await this.alertCtrl.create({
+    //   cssClass: 'my-custom-class',
+    //   header: 'Alert',
+    //   subHeader: '',
+    //   message: 'Booking Canceled',
+    //   buttons: ['OK']
+    // });
     const subs = this.appPostService.cancelBookng(reqObj).subscribe(res => {
       this.loading.dismiss();
       if (res?.message) {
         this.isenabled = true;
         this.colorCoding = 'medium';
-        alert.present();
+        this.appGetService.showToast(res['message']);
+        // alert.present();
       }
     }, error => {
       this.loading.dismiss();

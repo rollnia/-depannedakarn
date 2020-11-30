@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { ToastController } from '@ionic/angular';
 import { environment } from "../../../environments/environment";
 import { Subject, BehaviorSubject } from 'rxjs';
 
@@ -8,11 +8,22 @@ import { Subject, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AppGetService {
-
+  private myToast: any;
   public listingData: BehaviorSubject<any> = new BehaviorSubject<any>('');
   public bookingDetailsData: BehaviorSubject<any> = new BehaviorSubject<any>('');
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toast: ToastController) { }
+
+  public showToast(msg) {
+    this.myToast = this.toast.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom'
+    }).then((toastData) => {
+      console.log(toastData);
+      toastData.present();
+    });
+  }
 
   public userType() {
     return this.http.get<any>(`${environment.apiUrl}auth/user`);
