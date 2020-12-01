@@ -49,7 +49,6 @@ export class HomePage {
       this.loading.dismiss();
     }, error => {
       this.loading.dismiss();
-      alert('error');
       console.error(error);
     });
     this.subscriptions.push(subs);
