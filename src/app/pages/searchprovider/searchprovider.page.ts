@@ -30,7 +30,7 @@ export class SearchproviderPage {
   ionViewWillEnter() {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     const backEvent = this.platform.backButton.subscribe(() => {
-      if (!user) {
+      if ((!user) || (user && !user['token'])) {
         this.router.navigate(['/home']);
       } else if (user['user_type'] === 'client') {
         this.router.navigate(['/user-dashboard']);
