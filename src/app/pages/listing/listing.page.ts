@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from "rxjs";
-import { LoadingController, AlertController, Platform } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { LoadingController, Platform } from '@ionic/angular';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AppGetService } from "../../shared/services/app-get.service";
 
@@ -16,7 +16,8 @@ export class ListingPage implements OnInit {
   public searchData: any;
   public subscriptions: Subscription[] = [];
   loading: any;
-  constructor(private platform: Platform, private router: Router, private appGetService: AppGetService, public loadingController: LoadingController) {
+  return: string = '';
+  constructor(private platform: Platform, private route: ActivatedRoute, private router: Router, private appGetService: AppGetService, public loadingController: LoadingController) {
 
   }
 
@@ -25,8 +26,21 @@ export class ListingPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.route.queryParams.subscribe(params => {
+      this.return = params && params.return ? params.return : '';
+    });
     const backEvent = this.platform.backButton.subscribe(() => {
-      this.router.navigate(['/searchprovider']);
+      if (this.return && this.return.length === 2) {
+        const params = [this.return[0], this.return[1]];
+        this.router.navigate(['/searchprovider'], {
+          queryParams: {
+            return: params
+          }
+        });
+      } else {
+        this.router.navigate(['/searchprovider']);
+      }
+
     });
     this.subscriptions.push(backEvent);
   }

@@ -130,7 +130,17 @@ export class SearchproviderPage {
       if ((res?.listing && res.listing.length) || (res?.params && Object.keys(res.params).length)) {
         this.loading.dismiss();
         this.appGetService.listingData.next(res);
-        this.router.navigate(['/listing']);
+        const params = [this.return[0], this.return[1]];
+        if (this.return && this.return.length === 2) {
+          this.router.navigate(['/listing'], {
+            queryParams: {
+              return: params
+            }
+          });
+        } else {
+          this.router.navigate(['/listing']);
+        }
+
       }
     }, error => {
       this.loading.dismiss();
