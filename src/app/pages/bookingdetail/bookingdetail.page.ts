@@ -10,7 +10,7 @@ import { AppPostService } from "../../shared/services/app-post.service";
   templateUrl: './bookingdetail.page.html',
   styleUrls: ['./bookingdetail.page.scss'],
 })
-export class BookingdetailPage implements OnInit {
+export class BookingdetailPage {
   public subscriptions: Subscription[] = [];
   public details;
   public isenabled = false;
@@ -19,10 +19,6 @@ export class BookingdetailPage implements OnInit {
   public colorCoding = 'danger';
   rating;
   constructor(private platform: Platform, private appPostService: AppPostService, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) { }
-
-  ngOnInit() {
-    // this.loadListing();
-  }
 
   ionViewWillEnter() {
 

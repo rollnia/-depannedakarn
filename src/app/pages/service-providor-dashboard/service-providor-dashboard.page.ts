@@ -7,9 +7,8 @@ import { Router } from '@angular/router';
   templateUrl: './service-providor-dashboard.page.html',
   styleUrls: ['./service-providor-dashboard.page.scss'],
 })
-export class ServiceProvidorDashboardPage implements OnInit {
+export class ServiceProvidorDashboardPage {
   public subscriptions: Subscription[] = [];
-  loading: any;
   constructor(
     private platform: Platform, private router: Router) {
   }

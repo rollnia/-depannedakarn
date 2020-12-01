@@ -9,7 +9,7 @@ import { AppGetService } from "../../shared/services/app-get.service";
   templateUrl: './demand-in-progress.page.html',
   styleUrls: ['./demand-in-progress.page.scss'],
 })
-export class DemandInProgressPage implements OnInit {
+export class DemandInProgressPage {
   public subscriptions: Subscription[] = [];
   public bookingprogressData = [];
   loading: any;
@@ -26,12 +26,12 @@ export class DemandInProgressPage implements OnInit {
   ionViewWillEnter() {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     const backEvent = this.platform.backButton.subscribe(() => {
-      if (!user) {
-        this.router.navigate(['/home']);
-      } else if (user['user_type'] === 'client') {
+      if (user && user['user_type'] === 'client') {
         this.router.navigate(['/user-dashboard']);
-      } else if (user['user_type'] === 'provider') {
+      } else if (user && user['user_type'] === 'provider') {
         this.router.navigate(['/service-providor-dashboard']);
+      } else {
+        this.router.navigate(['/home']);
       }
     });
     this.subscriptions.push(backEvent);
