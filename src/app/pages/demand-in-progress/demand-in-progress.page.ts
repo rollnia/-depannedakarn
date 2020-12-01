@@ -86,7 +86,14 @@ export class DemandInProgressPage {
    * getDetails
    */
   public getDetails(id) {
-    const params = [id, 'history', 'provider'];
+    let params = [];
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    if (user['user_type'] === 'provider') {
+      params = [id, 'history', 'provider'];
+    } else {
+      params = [id];
+    }
+
     this.router.navigate(['/bookingdetail'], {
       queryParams: {
         return: params

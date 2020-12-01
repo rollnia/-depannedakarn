@@ -26,7 +26,7 @@ export class BookingdetailPage {
       this.return = params && params.return ? params.return : '';
     });
     const backEvent = this.platform.backButton.subscribe(() => {
-      if (this.return && this.return.length > 1) {
+      if (this.return && this.return.length == 2) {
         this.router.navigate(['/history']);
       } else {
         this.router.navigate(['/demand-in-progress']);
