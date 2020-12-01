@@ -20,7 +20,7 @@ export class SignUpPage {
   return: string = '';
 
   constructor(private platform: Platform, public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private route: ActivatedRoute, private router: Router, public loadingController: LoadingController) {
-    this.platform.backButton.subscribeWithPriority(10, () => {
+    this.platform.backButton.subscribe(() => {
       this.router.navigate(['/home']);
     });
   }

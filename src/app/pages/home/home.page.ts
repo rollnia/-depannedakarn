@@ -25,7 +25,7 @@ export class HomePage {
       navigator['app'].exitApp();
     });
     this.subscriptions.push(backEvent);
-    this.load()
+    this.load();
 
     // if (!user) {
     // } else if (user && user['token']) {
