@@ -100,7 +100,14 @@ export class SignUpPage {
         const userData = {
           token: res['access_token']
         };
-        localStorage.setItem('currentUserData', JSON.stringify(userData));
+        const user = JSON.parse(localStorage.getItem('currentUserData'));
+        if (user) {
+          user['token'] = userData['token'];
+          localStorage.setItem('currentUserData', JSON.stringify(user));
+        } else {
+          localStorage.setItem('currentUserData', JSON.stringify(userData));
+        }
+        // localStorage.setItem('currentUserData', JSON.stringify(userData));
         this.getUserType();
       }
     }, error => {
