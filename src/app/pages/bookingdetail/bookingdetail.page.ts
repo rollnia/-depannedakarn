@@ -42,6 +42,7 @@ export class BookingdetailPage {
 
   private async loadListing() {
     this.colorCoding = 'danger';
+    this.isenabled = false;
     this.loading = await this.loadingController.create({
       message: 'Loading please wait',
     });
