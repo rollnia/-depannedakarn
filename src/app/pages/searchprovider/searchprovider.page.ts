@@ -29,16 +29,24 @@ export class SearchproviderPage {
 
   ionViewWillEnter() {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
+    this.route.queryParams.subscribe(params => {
+      this.return = params && params.return ? params.return : '';
+    });
     const backEvent = this.platform.backButton.subscribe(() => {
       if ((!user) || (user && !user['token'])) {
         this.router.navigate(['/home']);
+      } else if (user['user_type'] === 'client' && this.return && this.return.length === 2) {
+        const params = [this.return[1], 'history'];
+        this.router.navigate(['/bookingdetail'], {
+          queryParams: {
+            return: params
+          }
+        });
       } else if (user['user_type'] === 'client') {
         this.router.navigate(['/user-dashboard']);
       }
     });
-    this.route.queryParams.subscribe(params => {
-      this.return = params && params.return ? params.return : '';
-    });
+
     this.subscriptions.push(backEvent);
     this.loadData();
   }
@@ -86,7 +94,7 @@ export class SearchproviderPage {
     params['selectdate'] = ((<HTMLInputElement>document.getElementById("date")).value).split('T')[0];
     params['start_time'] = `${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getMinutes()}:00`;
     params['end_time'] = `${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getMinutes()}:00`;
-    params['provider_id'] = this.return ? this.return : 0;
+    params['provider_id'] = this.return ? this.return[0] : 0;
     // console.log(params);
     this.loading = await this.loadingController.create({
       message: 'Loading please wait',

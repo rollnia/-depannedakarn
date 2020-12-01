@@ -121,7 +121,8 @@ export class BookingdetailPage {
 
   public reBook() {
     const pID = this.details.providerdetails && this.details.providerdetails.length ? this.details.providerdetails[0]['id'] : '';
-    const params = [pID];
+    const bID = this.details.bookingdetails ? this.details.bookingdetails['id'] : '';
+    const params = [pID, bID];
     this.router.navigate(['/searchprovider'], {
       queryParams: {
         return: params
