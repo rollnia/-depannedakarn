@@ -13,13 +13,14 @@ export class HomePage {
   public subscriptions: Subscription[] = [];
   loading: any;
   constructor(private platform: Platform, private router: Router, private appGetService: AppGetService, public loadingController: LoadingController) {
+
+  }
+
+  ionViewWillEnter() {
     const backEvent = this.platform.backButton.subscribe(() => {
       navigator['app'].exitApp();
     });
     this.subscriptions.push(backEvent);
-  }
-
-  ionViewWillEnter() {
     this.load();
     // if (!user) {
     // } else if (user && user['token']) {
@@ -48,6 +49,7 @@ export class HomePage {
       this.loading.dismiss();
     }, error => {
       this.loading.dismiss();
+      alert('error');
       console.error(error);
     });
     this.subscriptions.push(subs);

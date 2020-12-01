@@ -20,16 +20,19 @@ export class SignUpPage {
   return: string = '';
 
   constructor(private platform: Platform, public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private route: ActivatedRoute, private router: Router, public loadingController: LoadingController) {
-    this.platform.backButton.subscribe(() => {
+
+  }
+  ionViewWillEnter() {
+    const backEvent = this.platform.backButton.subscribe(() => {
       this.router.navigate(['/home']);
     });
+    this.subscriptions.push(backEvent);
   }
 
   ionViewDidEnter() {
     this.route.queryParams.subscribe(params => {
       this.return = params && params.return ? params.return : '';
     });
-    localStorage.removeItem('currentUserData');
     this.createSignUpForm();
   }
 

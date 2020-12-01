@@ -20,16 +20,17 @@ export class SignInPage {
   return: string = '';
 
   constructor(private platform: Platform, public formBuilder: FormBuilder, private alertCtrl: AlertController, private appGetService: AppGetService, private appPostService: AppPostService, private route: ActivatedRoute, private router: Router, public loadingController: LoadingController) {
-    this.platform.backButton.subscribe(() => {
-      this.router.navigate(['/home']);
-    });
+
   }
 
   ionViewWillEnter() {
+    const backEvent = this.platform.backButton.subscribe(() => {
+      this.router.navigate(['/home']);
+    });
+    this.subscriptions.push(backEvent);
     this.route.queryParams.subscribe(params => {
       this.return = params && params.return ? JSON.parse(params.return) : '';
     });
-    localStorage.removeItem('currentUserData');
     this.createLoginForm();
   }
 
