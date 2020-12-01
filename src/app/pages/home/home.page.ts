@@ -12,21 +12,15 @@ import { AppGetService } from "../../shared/services/app-get.service";
 export class HomePage {
   public subscriptions: Subscription[] = [];
   loading: any;
-  constructor(
-    private platform: Platform, private router: Router, private appGetService: AppGetService, public loadingController: LoadingController) {
-  }
-
-  ionViewDidEnter() {
-
-  }
-
-  ionViewWillEnter() {
+  constructor(private platform: Platform, private router: Router, private appGetService: AppGetService, public loadingController: LoadingController) {
     const backEvent = this.platform.backButton.subscribe(() => {
       navigator['app'].exitApp();
     });
     this.subscriptions.push(backEvent);
-    this.load();
+  }
 
+  ionViewWillEnter() {
+    this.load();
     // if (!user) {
     // } else if (user && user['token']) {
     //   if (user['user_type'] === 'client') {
