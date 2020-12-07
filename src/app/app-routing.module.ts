@@ -58,7 +58,11 @@ const routes: Routes = [
   {
     path: 'history',
     loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryPageModule)
+  },  {
+    path: 'monpaiment',
+    loadChildren: () => import('./pages/monpaiment/monpaiment.module').then( m => m.MonpaimentPageModule)
   },
+
 
 
 

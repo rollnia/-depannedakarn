@@ -1,0 +1,121 @@
+ion-toolbar{
+    --background: #2f26d9;
+    --color: #fff;
+    --border-color: #2f26d9;
+    padding: 30px 0px 30px 0px !important;
+    border-radius: 0px 0px 25px 25px;
+}
+.site-logo{
+    height: 50px;
+    text-align: left;
+}
+ion-title{
+    padding-inline-start: 0px;
+}
+ion-content{
+    --background: #fff;
+}
+.list-inner-top{
+    padding: 15px 0px 0px 0px;
+    background: #f1f2f4;
+}
+.list-inner-top ion-item{
+    --background: #f1f2f4;
+}
+.list-inner-box{
+    width:100%; 
+    margin: 0px auto;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.list-inner-box ion-item{
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
+    margin: 0px 0px 6px 0px;
+    --border-color: transparent;
+    width: 100%;
+    position: relative;
+}
+.datepicker-box{
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+}
+.list-inner-box .item-inner-list{
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+}
+.item-text-transaction{
+    color: #333237;
+    font-size: 18px;
+    font-weight: 800;
+    padding: 0px 0px 0px 0px;
+}
+.item-text-balance{
+    color: #333237;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 0px 0px 0px 0px;
+}
+.item-text-balance span{
+    color: rgb(0 214 0);
+}
+.datepicker-inner-box{
+    border: 1px solid #c3c3c3;
+    padding: 0px 15px 0px 15px;
+    border-radius: 4px;
+    --min-height: 35px;
+}
+.datepicker-inner-box ion-datetime{
+    --padding-top: 3px;
+    --padding-bottom: 0px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+}
+.datepicker-inner-box ion-icon{
+    font-size: 17px;
+    color: #444;
+}
+.datepicker-inner-box span{
+    padding: 0px 6px;
+}
+.round-shape-button{
+    width: 35px;
+    height: 35px;
+    --border-radius: 50%;
+    --border-color: #c3c3c3;
+    --border-style: solid;
+    --border-width: 1px;
+    --box-shadow: none;
+    --background: #fff;
+    --padding-start: 0em;
+    --padding-end: 0em;
+    color: #444;
+    margin: 5px 0px 0px 0px;
+}
+.transaction-date{
+    font-size: 14px;
+    color: #444;
+    font-weight: 600;
+}
+.transaction-receipt{
+    font-size: 15px;
+    color: #43a700;
+    font-weight: 600;
+}
+.transaction-wht{
+    font-size: 14px;
+    color: #333;
+}
+.transaction-amount{
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+}
+.transaction-grid ion-row{
+    margin-bottom: 10px;;
+}
+.statement-period{
+    font-size: 15px;
+    color: #000;
+    font-weight: 600;
+}
