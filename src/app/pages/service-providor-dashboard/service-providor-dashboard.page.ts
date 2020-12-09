@@ -27,8 +27,8 @@ export class ServiceProvidorDashboardPage {
   ngOnInit() {
   }
 
-  public navigate() {
-    this.router.navigate(['/demand-in-progress']);
+  public navigate(url) {
+    this.router.navigate([url]);
   }
 
 }

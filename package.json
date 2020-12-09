@@ -31,6 +31,7 @@
     "com.paypal.cordova.mobilesdk": "^3.5.0",
     "cordova-plugin-datepicker": "^0.9.3",
     "ionic-angular": "^3.9.10",
+    "moment": "^2.29.1",
     "ngx-bar-rating": "^2.0.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",

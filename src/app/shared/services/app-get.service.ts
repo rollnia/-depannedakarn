@@ -51,13 +51,17 @@ export class AppGetService {
     return this.http.get<any>(`${environment.apiUrl}auth/mesmission?providerid=${providerId}`);
   }
 
-  public getBookingDetail(id) {
+  public getBookingDetail(param) {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
-    if (user['user_type'] === 'client') {
-      return this.http.get<any>(`${environment.apiUrl}auth/demadprogressdetail?bookingid=${id}`);
+    if (user['user_type'] === 'client' || param.length > 3) {
+      return this.http.get<any>(`${environment.apiUrl}auth/demadprogressdetail?bookingid=${param[0]}`);
     } else if (user['user_type'] === 'provider') {
-      return this.http.get<any>(`${environment.apiUrl}auth/mesmissiondetail?bookingid=${id}`);
+      return this.http.get<any>(`${environment.apiUrl}auth/mesmissiondetail?bookingid=${param[0]}`);
     }
 
+  }
+
+  public myPayment(params) {
+    return this.http.get<any>(`${environment.apiUrl}auth/providerpayment?providerid=${params.providerid}&from_date=${params.from_date}&to_date=${params.to_date}`);
   }
 }

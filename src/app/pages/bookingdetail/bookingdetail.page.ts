@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from "rxjs";
+import * as moment from 'moment';
 import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppGetService } from "../../shared/services/app-get.service";
@@ -16,8 +17,9 @@ export class BookingdetailPage {
   public isenabled = false;
   loading: any;
   return: string = '';
-  public colorCoding = 'danger';
   rating;
+  public colorCoding = 'danger';
+  public isReadOnly = true;
   constructor(private platform: Platform, private appPostService: AppPostService, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) { }
 
   ionViewWillEnter() {
@@ -28,6 +30,8 @@ export class BookingdetailPage {
     const backEvent = this.platform.backButton.subscribe(() => {
       if (this.return && this.return.length == 2) {
         this.router.navigate(['/history']);
+      } else if (this.return && this.return.length > 3) {
+        this.router.navigate(['/monpaiment']);
       } else {
         this.router.navigate(['/demand-in-progress']);
       }
@@ -48,7 +52,7 @@ export class BookingdetailPage {
     });
     this.loading.present();
 
-    const subs = this.appGetService.getBookingDetail(this.return[0]).subscribe(res => {
+    const subs = this.appGetService.getBookingDetail(this.return).subscribe(res => {
       if (res?.bookingdetails && res?.providerdetails) {
         this.details = res;
         this.rating = res['rating'] && res['rating'].length ? res['rating'][0]['rating'] : undefined;
@@ -128,6 +132,11 @@ export class BookingdetailPage {
         return: params
       }
     });
+  }
+
+  public getDateFormat(date) {
+    const formatDate = moment(moment(date)['_d']).format('ll');
+    return formatDate;
   }
 
   public completeBooking() {

@@ -18,7 +18,8 @@
             <ion-label class="item-text-transaction">Transaction history</ion-label>
           </ion-col>
           <ion-col size="12">
-            <ion-label class="item-text-balance">Balance: <span>$28.90</span></ion-label>
+            <ion-label class="item-text-balance">Balance: <span *ngIf="totalBalance">${{totalBalance}}</span>
+            </ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -33,13 +34,16 @@
           </ion-col>
           <ion-col size="10">
             <ion-item class="datepicker-inner-box">
-              <ion-datetime value="2020-11-06" placeholder="Select Date"></ion-datetime>
+              <ion-datetime (ionChange)="setMinEndDate()" id="startDate" value="{{fromDate}}" [max]="2090-12-31"
+                placeholder="Select Date">
+              </ion-datetime>
               <span>-</span>
-              <ion-datetime value="2020-12-05" placeholder="Select Date"></ion-datetime>
+              <ion-datetime id="endDate" value="{{toDate}}" [min]="minEndDate" [max]="2090-12-31"
+                placeholder="Select Date"></ion-datetime>
               <ion-icon name="calendar-clear-outline" slot="end"></ion-icon>
             </ion-item>
           </ion-col>
-          <ion-col size="2" class="ion-text-right">
+          <ion-col (click)="loadPaymentData()" size="2" class="ion-text-right">
             <ion-button class="round-shape-button">
               <ion-icon name="arrow-forward-outline"></ion-icon>
             </ion-button>
@@ -49,100 +53,25 @@
     </ion-item>
   </ion-list>
   <ion-list class="list-inner-box">
-    <ion-item class="item-inner-list">
+    <ion-item class="item-inner-list" *ngFor="let paymentDetail of paymentDetails; let i = index">
       <ion-grid class="transaction-grid">
-        <ion-row>
+        <ion-row (click)="transactionDetails(paymentDetail.id)">
           <ion-col size="12">
-            <ion-label class="transaction-date">Dec 4, 2020</ion-label>
+            <ion-label class="transaction-date">{{getDateFormat(paymentDetail.booking_date)}}</ion-label>
           </ion-col>
           <ion-col size="9">
-            <ion-label class="transaction-receipt">Receipt #: 343021994</ion-label>
+            <ion-label class="transaction-receipt">Receipt #: {{paymentDetail.transaction_id}}</ion-label>
           </ion-col>
           <ion-col size="3" class="ion-text-right">
-            <ion-label class="transaction-amount">($1.70)</ion-label>
+            <ion-label class="transaction-amount"><span
+                *ngIf="paymentDetail.paidstatus === 'paid'">(</span>${{paymentDetail.amount}}<span
+                *ngIf="paymentDetail.paidstatus === 'paid'">)</span></ion-label>
           </ion-col>
           <ion-col size="9">
-            <ion-label class="transaction-wht">WHT</ion-label>
+            <ion-label class="transaction-wht">{{getPaidStatus(paymentDetail.paidstatus)}}</ion-label>
           </ion-col>
           <ion-col size="3" class="ion-text-right">
-            <ion-label class="transaction-amount">$28.90</ion-label>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="9">
-            <ion-label class="transaction-receipt">Receipt #: 343021990</ion-label>
-          </ion-col>
-          <ion-col size="3" class="ion-text-right">
-            <ion-label class="transaction-amount">($3.40)</ion-label>
-          </ion-col>
-          <ion-col size="9">
-            <ion-label class="transaction-wht">Service Free</ion-label>
-          </ion-col>
-          <ion-col size="3" class="ion-text-right">
-            <ion-label class="transaction-amount">$30.60</ion-label>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="9">
-            <ion-label class="transaction-receipt">Receipt #: 343021981</ion-label>
-          </ion-col>
-          <ion-col size="3" class="ion-text-right">
-            <ion-label class="transaction-amount">$34.00</ion-label>
-          </ion-col>
-          <ion-col size="9">
-            <ion-label class="transaction-wht">Hourly</ion-label>
-          </ion-col>
-          <ion-col size="3" class="ion-text-right">
-            <ion-label class="transaction-amount">$34.00</ion-label>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
-    <ion-item class="item-inner-list">
-      <ion-grid class="transaction-grid">
-        <ion-row>
-          <ion-col size="12">
-            <ion-label class="transaction-date">Nov 27, 2020</ion-label>
-          </ion-col>
-          <ion-col size="9">
-            <ion-label class="transaction-receipt">Receipt #: 343021994</ion-label>
-          </ion-col>
-          <ion-col size="3" class="ion-text-right">
-            <ion-label class="transaction-amount">($1.70)</ion-label>
-          </ion-col>
-          <ion-col size="9">
-            <ion-label class="transaction-wht">WHT</ion-label>
-          </ion-col>
-          <ion-col size="3" class="ion-text-right">
-            <ion-label class="transaction-amount">$28.90</ion-label>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="9">
-            <ion-label class="transaction-receipt">Receipt #: 343021990</ion-label>
-          </ion-col>
-          <ion-col size="3" class="ion-text-right">
-            <ion-label class="transaction-amount">($3.40)</ion-label>
-          </ion-col>
-          <ion-col size="9">
-            <ion-label class="transaction-wht">Service Free</ion-label>
-          </ion-col>
-          <ion-col size="3" class="ion-text-right">
-            <ion-label class="transaction-amount">$30.60</ion-label>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="9">
-            <ion-label class="transaction-receipt">Receipt #: 343021981</ion-label>
-          </ion-col>
-          <ion-col size="3" class="ion-text-right">
-            <ion-label class="transaction-amount">$34.00</ion-label>
-          </ion-col>
-          <ion-col size="9">
-            <ion-label class="transaction-wht">Hourly</ion-label>
-          </ion-col>
-          <ion-col size="3" class="ion-text-right">
-            <ion-label class="transaction-amount">$34.00</ion-label>
+            <ion-label class="transaction-amount"></ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>
