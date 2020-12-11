@@ -14,6 +14,10 @@ export class AppPostService {
     return this.http.post<any>(`${environment.apiUrl}auth/register`, payload);
   }
 
+  public editProfileAccnt(payload) {
+    return this.http.post<any>(`${environment.apiUrl}auth/edituser`, payload);
+  }
+
   public loginUser(payload) {
     return this.http.post<any>(`${environment.apiUrl}auth/login`, payload);
   }

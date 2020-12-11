@@ -117,8 +117,8 @@ export class AppComponent implements OnInit {
   }
 
   public userData() {
-    const user = JSON.parse(localStorage.getItem('currentUserData'));
-    if (user && user['token']) {
+    this.user = JSON.parse(localStorage.getItem('currentUserData'));
+    if (this.user && this.user['token']) {
       return true;
     }
     return false;
@@ -130,5 +130,9 @@ export class AppComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  public profileEdit() {
+    this.router.navigate(['/edit-profile']);
   }
 }

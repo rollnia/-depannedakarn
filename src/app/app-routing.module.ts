@@ -62,6 +62,10 @@ const routes: Routes = [
     path: 'monpaiment',
     loadChildren: () => import('./pages/monpaiment/monpaiment.module').then( m => m.MonpaimentPageModule)
   },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./pages/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
 
 
 

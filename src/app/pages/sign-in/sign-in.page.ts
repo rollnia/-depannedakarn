@@ -52,6 +52,9 @@ export class SignInPage {
         const user = JSON.parse(localStorage.getItem('currentUserData'));
         user['user_type'] = res['user_type'];
         user['user_id'] = res['id'];
+        user['user_name'] = res['name'];
+        user['user_email'] = res['email'];
+        user['user_phone'] = res['phone'];
         localStorage.setItem('currentUserData', JSON.stringify(user));
         //if user book a service without login and then navigate to login and after login navigate to paymnt page
         if (this.return) {
