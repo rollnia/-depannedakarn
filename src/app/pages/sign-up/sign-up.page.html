@@ -61,8 +61,8 @@
           <span class="error error-label-text" *ngIf="isSubmitted && errorControl.confirmPassword.errors?.different">
             Password do not match.
           </span>
-          <ion-item class="input-fields-inner checkbox-item-inner">
-            <ion-checkbox color="primary" formControlName="privacy" slot="start"></ion-checkbox>
+          <ion-item class="input-fields-inner checkbox-item-inner" (click)="openPrivacyPolicy()" >
+            <ion-checkbox color="primary" formControlName="privacy" slot="start" class="checkbox-class"></ion-checkbox>
             <ion-label>Se connecter</ion-label>
           </ion-item>
           <span class="error error-label-text" *ngIf="isSubmitted && errorControl.privacy.errors?.pattern">
@@ -70,7 +70,7 @@
           </span>
         </ion-col>
         <ion-col size="12" class="submit-btn-inner">
-          <ion-button (click)="signUp(signUpForm)" shape="round" expand="full" fill="outline" class="submit-btn">Valider
+          <ion-button (click)="signUp(signUpForm)"  shape="round" expand="full" fill="outline" class="submit-btn">Valider
           </ion-button>
         </ion-col>
       </ion-row>

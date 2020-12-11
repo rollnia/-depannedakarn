@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { Router, ActivatedRoute } from '@angular/router';
-import { LoadingController, Platform } from '@ionic/angular';
+import { LoadingController, Platform, ModalController } from '@ionic/angular';
 
 import { AppPostService } from "../../shared/services/app-post.service";
 import { AppGetService } from "../../shared/services/app-get.service";
+import { PrivacyPolicy } from './privacy-policy';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,8 +19,9 @@ export class SignUpPage {
   public subscriptions: Subscription[] = [];
   loading: any;
   return: string = '';
+  modalGl: any;
 
-  constructor(private platform: Platform, public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private route: ActivatedRoute, private router: Router, public loadingController: LoadingController) {
+  constructor(private platform: Platform, public formBuilder: FormBuilder, private appGetService: AppGetService, private appPostService: AppPostService, private route: ActivatedRoute, private router: Router, public loadingController: LoadingController, public modalController: ModalController) {
 
   }
   ionViewWillEnter() {
@@ -150,6 +152,23 @@ export class SignUpPage {
       console.error(error);
     });
     this.subscriptions.push(subs);
+  }
+
+  
+
+  async presentModal() {
+    this.modalGl = await this.modalController.create({
+      component: PrivacyPolicy,
+      cssClass: 'modal-class-privacy'
+    });    
+    return await this.modalGl.present();
+  }
+  
+  public openPrivacyPolicy() {
+    this.presentModal().then( async data2 => {      
+      const { data } = await this.modalGl.onWillDismiss();
+      this.signUpForm.controls.privacy.setValue(data['agree']);
+    })
   }
 
 }
