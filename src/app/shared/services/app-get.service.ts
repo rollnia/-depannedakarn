@@ -51,6 +51,10 @@ export class AppGetService {
     return this.http.get<any>(`${environment.apiUrl}auth/mesmission?providerid=${providerId}`);
   }
 
+  public getNotificationCount(providerid) {
+    return this.http.get<any>(`${environment.apiUrl}auth/newnotificationbyprovider?providerid=${providerid}`);
+  }
+
   public getBookingDetail(param) {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     if (user['user_type'] === 'client' || param.length > 3) {
