@@ -3,9 +3,11 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Depanne Dakar</ion-list-header>
-
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item *ngIf="userData()" (click)="profileEdit()">
+              <ion-icon name="person-circle-outline"></ion-icon>
+              <ion-label class="ion-text-capitalize">{{user['user_name']}}</ion-label>
+            </ion-item>
             <ion-item (click)="selectedIndex = i;setUrl(p.url)" lines="none" detail="false"
               [class.selected]="selectedIndex == i">
               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>

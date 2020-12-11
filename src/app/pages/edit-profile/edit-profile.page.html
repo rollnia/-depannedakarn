@@ -1,0 +1,80 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title slot="start">
+      <ion-img src="assets/images/logo.png" class="site-logo"></ion-img>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="login-background">
+  <ion-grid class="signup-details-box">
+
+    <form *ngIf="editProfileForm" [formGroup]="editProfileForm" class="form-inner-box">
+      <ion-row>
+        <ion-col size="12">
+          <ion-item class="input-fields-inner">
+            <ion-input [attr.disabled]="true" type="text" formControlName="name" placeholder="Nom et prénom (s)">
+            </ion-input>
+            <ion-icon name="person" slot="start"></ion-icon>
+          </ion-item>
+          <span class="error error-label-text" *ngIf="isSubmitted && errorControl.name.errors?.required">
+            Name is required.
+          </span>
+          <span class="error error-label-text" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+            Name should be min 2 chars long.
+          </span>
+          <ion-item class="input-fields-inner">
+            <ion-input type="text" formControlName="phone" placeholder="Numéro de téléphone"></ion-input>
+            <ion-icon name="call" slot="start"></ion-icon>
+          </ion-item>
+          <span class="error error-label-text" *ngIf="isSubmitted && errorControl.phone.errors?.required">
+            Mobile number is required.
+          </span>
+          <span class="error error-label-text" *ngIf="isSubmitted && errorControl.phone.errors?.pattern">
+            Only numerical values allowed.
+          </span>
+          <ion-item class="input-fields-inner">
+            <ion-input type="email" formControlName="email" placeholder="Adresse é-mail"></ion-input>
+            <ion-icon name="mail" slot="start"></ion-icon>
+          </ion-item>
+          <span class="error error-label-text" *ngIf="isSubmitted && errorControl.email.errors?.required">
+            Email is required.
+          </span>
+          <span class="error error-label-text" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
+            Please provide valid email id.
+          </span>
+          <ion-item class="input-fields-inner">
+            <ion-input type="password" formControlName="password" placeholder="Mot de passe"></ion-input>
+            <ion-icon name="lock-closed" slot="start"></ion-icon>
+          </ion-item>
+          <span class="error error-label-text" *ngIf="isSubmitted && errorControl.password.errors?.required">
+            Please provide password.
+          </span>
+          <span class="error error-label-text" *ngIf="isSubmitted && errorControl.password.errors?.minlength">
+            Password must be 6 digit long.
+          </span>
+          <ion-item class="input-fields-inner">
+            <ion-input type="password" formControlName="confirmPassword" placeholder="Répéter votre mot de passe">
+            </ion-input>
+            <ion-icon name="lock-closed" slot="start"></ion-icon>
+          </ion-item>
+          <span class="error error-label-text" *ngIf="isSubmitted && errorControl.confirmPassword.errors?.required">
+            Please re-enter password.
+          </span>
+          <span class="error error-label-text" *ngIf="isSubmitted && errorControl.confirmPassword.errors?.different">
+            Password do not match.
+          </span>
+        </ion-col>
+        <ion-col size="12" class="submit-btn-inner">
+          <ion-button (click)="editAccount(editProfileForm)" shape="round" expand="full" fill="outline"
+            class="submit-btn">
+            Valider
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>
