@@ -51,6 +51,10 @@ export class AppGetService {
     return this.http.get<any>(`${environment.apiUrl}auth/mesmission?providerid=${providerId}`);
   }
 
+  public getNotifcations(providerId) {
+    return this.http.get<any>(`${environment.apiUrl}auth/allnotificationbyprovider?providerid=${providerId}`);
+  }
+
   public getNotificationCount(providerid) {
     return this.http.get<any>(`${environment.apiUrl}auth/newnotificationbyprovider?providerid=${providerid}`);
   }

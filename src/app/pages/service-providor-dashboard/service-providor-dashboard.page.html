@@ -41,7 +41,7 @@
         <ion-label>Modifier ma disponibilité ou le service</ion-label>
       </ion-card>
     </ion-col>
-    <ion-col size="6">
+    <ion-col (click)="navigate('/notifications')" size="6">
       <ion-card class="ion-item-box item-box-four">
         <ion-img src="assets/images/img-8.png"></ion-img>
         <ion-label>Notifications <span class="badge">{{countnotification}}</span></ion-label>
