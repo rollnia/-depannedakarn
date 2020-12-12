@@ -58,26 +58,27 @@ const routes: Routes = [
   {
     path: 'history',
     loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryPageModule)
-  },  {
+  },
+  {
     path: 'monpaiment',
-    loadChildren: () => import('./pages/monpaiment/monpaiment.module').then( m => m.MonpaimentPageModule)
+    loadChildren: () => import('./pages/monpaiment/monpaiment.module').then(m => m.MonpaimentPageModule)
   },
   {
     path: 'edit-profile',
-    loadChildren: () => import('./pages/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+    loadChildren: () => import('./pages/edit-profile/edit-profile.module').then(m => m.EditProfilePageModule)
   },
   {
     path: 'notifications',
-    loadChildren: () => import('./pages/notifications/notifications.module').then( m => m.NotificationsPageModule)
+    loadChildren: () => import('./pages/notifications/notifications.module').then(m => m.NotificationsPageModule)
   },
   {
     path: 'notification-detail',
-    loadChildren: () => import('./pages/notification-detail/notification-detail.module').then( m => m.NotificationDetailPageModule)
+    loadChildren: () => import('./pages/notification-detail/notification-detail.module').then(m => m.NotificationDetailPageModule)
   },
-  {
-    path: 'edit-service',
-    loadChildren: () => import('./pages/edit-service/edit-service.module').then( m => m.EditServicePageModule)
-  },
+  // {
+  //   path: 'edit-service',
+  //   loadChildren: () => import('./pages/edit-service/edit-service.module').then(m => m.EditServicePageModule)
+  // },
 
 
 
