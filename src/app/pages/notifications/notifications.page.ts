@@ -46,13 +46,13 @@ export class NotificationsPage {
     this.subscriptions.push(subs);
   }
 
-  public getDetails(id) {
-    const params = [id];
-    // this.router.navigate(['/notification-detail'], {
-    //   queryParams: {
-    //     return: params
-    //   }
-    // });
+  public getDetails(id, bookingId) {
+    const params = [id, bookingId];
+    this.router.navigate(['/notification-detail'], {
+      queryParams: {
+        return: params
+      }
+    });
 
   }
 

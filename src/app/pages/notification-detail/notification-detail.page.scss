@@ -1,0 +1,92 @@
+ion-toolbar{
+    --background: #2f26d9;
+    --color: #fff;
+    --border-color: #2f26d9;
+    padding: 30px 0px 30px 0px !important;
+    border-radius: 0px 0px 25px 25px;
+}
+.site-logo{
+    height: 50px;
+    text-align: left;
+}
+ion-title{
+    padding-inline-start: 0px;
+}
+.list-inner-top{
+    padding: 20px 0px 20px 0px;
+}
+.list-inner-box{
+    width:90%; 
+    margin: 0px auto;
+}
+.list-inner-box .list-tem-box{
+    background:#f3f1fc;
+    border-radius: 10px;
+}
+.list-inner-box ion-item{
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
+    margin: 0px 0px 6px 0px;
+    --border-color: transparent;
+}
+.list-inner-box ion-grid{
+    padding: 14px 12px;
+    width: 100%;
+}
+.list-inner-box .user-name-contact-inner{
+    margin: 0px 0px 0px 0px;
+}
+.list-inner-box  .btn-grid-inner{
+    padding: 14px 0px;
+}
+.item-rating-color ion-icon{
+    color: #fcb23e;
+    font-size: 15px;
+}
+.item-text-label{
+    color: #333237;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 0px 0px 5px 0px;
+}
+.booking-text-label{
+    color: #333237;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 0px 0px 0px 0px;
+}
+.users-label-inner{
+    color: #333237;
+    font-size: 20px;
+    font-weight: 800;
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+}
+.users-contact-label{
+    color: #333237;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 0px 0px 5px 0px;
+    text-align: center;
+}
+.cancel-booking-btn{
+    // --border-color: #fd2914;
+    // --background: #fd2914;
+    --color: #fff;
+    font-size: 19px;
+    height: 42px;
+    text-transform: none;
+    border-radius: 14px;
+}
+.rating-label-inner{
+    text-align: center;
+    margin: 0px;
+    padding: 0px 0px 10px 0px;
+}
+.rating-label-inner ion-icon{
+    color: #f9a425;
+    font-size: 28px;
+}
+.viewOnly{
+    pointer-events: none;
+}
