@@ -74,6 +74,10 @@ const routes: Routes = [
     path: 'notification-detail',
     loadChildren: () => import('./pages/notification-detail/notification-detail.module').then( m => m.NotificationDetailPageModule)
   },
+  {
+    path: 'edit-service',
+    loadChildren: () => import('./pages/edit-service/edit-service.module').then( m => m.EditServicePageModule)
+  },
 
 
 
