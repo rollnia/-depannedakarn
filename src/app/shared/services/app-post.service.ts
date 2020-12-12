@@ -37,4 +37,8 @@ export class AppPostService {
   public completeBookng(payload) {
     return this.http.post<any>(`${environment.apiUrl}auth/completebooking`, payload);
   }
+
+  public getNotificationRead(obj) {
+    return this.http.post<any>(`${environment.apiUrl}auth/notificationread`, obj);
+  }
 }

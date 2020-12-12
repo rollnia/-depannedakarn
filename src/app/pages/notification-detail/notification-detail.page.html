@@ -74,9 +74,8 @@
       <ion-grid>
         <ion-row>
           <ion-col *ngIf="details?.providerdetails && details?.bookingdetails" size="12">
-            <ion-label [ngClass]="{'viewOnly': return && return.length > 3}" class="rating-label-inner">
-              <bar-rating id="ratingBar" [theme]="'default'" (ngModelChange)="changeRate($event)" [(ngModel)]="rating"
-                [max]="5">
+            <ion-label class="viewOnly rating-label-inner">
+              <bar-rating id="ratingBar" [theme]="'default'" [(ngModel)]="rating" [max]="5">
               </bar-rating>
             </ion-label>
           </ion-col>

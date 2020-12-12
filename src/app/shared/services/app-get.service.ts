@@ -59,6 +59,10 @@ export class AppGetService {
     return this.http.get<any>(`${environment.apiUrl}auth/newnotificationbyprovider?providerid=${providerid}`);
   }
 
+  public getNotificationDetail(param) {
+    return this.http.get<any>(`${environment.apiUrl}auth/demadprogressdetail?bookingid=${param[1]}`);
+  }
+
   public getBookingDetail(param) {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     if (user['user_type'] === 'client' || param.length > 3) {
