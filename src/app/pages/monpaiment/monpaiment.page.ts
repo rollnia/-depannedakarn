@@ -3,8 +3,8 @@ import { Subscription } from "rxjs";
 import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-
 import { AppGetService } from "../../shared/services/app-get.service";
+
 @Component({
   selector: 'app-monpaiment',
   templateUrl: './monpaiment.page.html',

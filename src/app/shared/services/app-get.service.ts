@@ -47,6 +47,10 @@ export class AppGetService {
     return this.http.get<any>(`${environment.apiUrl}auth/demadprogress?clientid=${clientid}`);
   }
 
+  public getCompleteMission(providerid) {
+    return this.http.get<any>(`${environment.apiUrl}auth/mesmissioncomplete?providerid=${providerid}`);
+  }
+
   public getMisMission(providerId) {
     return this.http.get<any>(`${environment.apiUrl}auth/mesmission?providerid=${providerId}`);
   }

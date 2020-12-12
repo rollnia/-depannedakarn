@@ -3,6 +3,7 @@ import { Subscription } from "rxjs";
 import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppGetService } from "../../shared/services/app-get.service";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-demand-in-progress',
@@ -12,23 +13,22 @@ import { AppGetService } from "../../shared/services/app-get.service";
 export class DemandInProgressPage {
   public subscriptions: Subscription[] = [];
   public bookingprogressData = [];
+  public messmissionCmpleted = [];
+  public user;
   loading: any;
   return: string = '';
   constructor(private platform: Platform, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) { }
-
-  ngOnInit() {
-  }
 
   ionViewDidLeave() {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
   ionViewWillEnter() {
-    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    this.user = JSON.parse(localStorage.getItem('currentUserData'));
     const backEvent = this.platform.backButton.subscribe(() => {
-      if (user && user['user_type'] === 'client') {
+      if (this.user && this.user['user_type'] === 'client') {
         this.router.navigate(['/user-dashboard']);
-      } else if (user && user['user_type'] === 'provider') {
+      } else if (this.user && this.user['user_type'] === 'provider') {
         this.router.navigate(['/service-providor-dashboard']);
       } else {
         this.router.navigate(['/home']);
@@ -82,6 +82,32 @@ export class DemandInProgressPage {
     this.subscriptions.push(subs);
   }
 
+  private async loadCompleteMission() {
+    this.loading = await this.loadingController.create({
+      message: 'Loading please wait',
+    });
+    this.loading.present();
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    const subs = this.appGetService.getCompleteMission(user['user_id']).subscribe(res => {
+      if (res?.messmission) {
+        this.messmissionCmpleted = res.messmission;
+      }
+      this.loading.dismiss();
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
+  }
+
+  public onSelect(evt) {
+    if (evt.id == 1) {
+      this.loadData();
+    } else if (evt.id == 2) {
+      this.loadCompleteMission();
+    }
+  }
+
   /**
    * getDetails
    */
@@ -94,6 +120,20 @@ export class DemandInProgressPage {
       params = [id];
     }
 
+    this.router.navigate(['/bookingdetail'], {
+      queryParams: {
+        return: params
+      }
+    });
+  }
+
+  public getDateFormat(date) {
+    const formatDate = moment(moment(date)['_d']).format('ll');
+    return formatDate;
+  }
+
+  public getCompletedDetails(id) {
+    const params = [id, 'completed', 'provider', 'view'];
     this.router.navigate(['/bookingdetail'], {
       queryParams: {
         return: params

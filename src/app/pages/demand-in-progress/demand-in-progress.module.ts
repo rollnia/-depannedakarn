@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,8 +14,9 @@ import { DemandInProgressPage } from './demand-in-progress.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    TabsModule,
     DemandInProgressPageRoutingModule
   ],
   declarations: [DemandInProgressPage]
 })
-export class DemandInProgressPageModule {}
+export class DemandInProgressPageModule { }
