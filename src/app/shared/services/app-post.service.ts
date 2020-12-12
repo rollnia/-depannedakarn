@@ -41,4 +41,8 @@ export class AppPostService {
   public getNotificationRead(obj) {
     return this.http.post<any>(`${environment.apiUrl}auth/notificationread`, obj);
   }
+
+  public updateAvaibility(payload) {
+    return this.http.post<any>(`${environment.apiUrl}auth/activedeactiveavailability`, payload);
+  }
 }
