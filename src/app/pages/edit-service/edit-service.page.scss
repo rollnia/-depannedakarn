@@ -94,3 +94,11 @@ ion-title{
     font-weight: bolder;
     font-size: large;
 }
+
+ion-toggle {
+    --background: #d1d0ea;
+    --background-checked: #2f26d9;
+  
+    --handle-background: #2f26d9;
+    --handle-background-checked: #d1d0ea;
+  }
