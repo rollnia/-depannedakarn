@@ -41,9 +41,9 @@ ion-content{
     background-color: #2b21da;
     --background: #2b21da;
 }
-.signup-details-box{
-    padding: 50px 20px 0px 20px;
-}
+// .edit-profile-box{
+//     padding: 30px 20px 0px 20px;
+// }
 .input-fields-inner ion-input {
     --placeholder-color: #fff;
     --placeholder-opacity: 1;
@@ -78,7 +78,13 @@ ion-content{
     text-transform: none;
 }
 .submit-btn-inner{
-    margin: 50px 0px 0px 0px;
+    margin: 30px 0px 0px 0px;
+}
+
+.grid-top-title{
+    padding: 10px 0px 20px 0px;
+    max-width: 100%;
+    margin: 0px;
 }
 .text-line-one{
     font-size: 17px;
@@ -103,6 +109,6 @@ ion-content{
     color: red;
     font-size: 14px;
     font-weight: 600;
-    padding: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 50px;
     width: 100%;
 }

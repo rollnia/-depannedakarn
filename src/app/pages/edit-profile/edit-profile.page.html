@@ -9,11 +9,66 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding class="login-background">
-  <ion-grid class="signup-details-box">
+<ion-content padding class="llogin-background">
+  <ion-grid class="edit-profile-box">
 
     <form *ngIf="editProfileForm" [formGroup]="editProfileForm" class="form-inner-box">
+      <ion-item>
+        <ion-grid class="grid-top-title">
+          <ion-row>
+            <ion-col size="12">
+              <ion-label class="item-text-reserver">Edit Profile</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input formControlName="name" type="text"></ion-input>
+        <ion-icon name="person" slot="start"></ion-icon>
+      </ion-item>
+      <span class="error error-label-text" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+        Name should be min 2 chars long.
+      </span>
+
+      <ion-item>
+        <ion-label position="floating">Phone</ion-label>
+        <ion-input formControlName="phone" type="text"></ion-input>
+        <ion-icon name="call" slot="start"></ion-icon>
+      </ion-item>
+      <span class="error error-label-text" *ngIf="isSubmitted && errorControl.phone.errors?.pattern">
+        Only numerical values allowed.
+      </span>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input formControlName="email" type="email"></ion-input>
+        <ion-icon name="mail" slot="start"></ion-icon>
+      </ion-item>
+      <span class="error error-label-text" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
+        Please provide valid email id.
+      </span>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
+        <ion-icon name="lock-closed" slot="start"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input formControlName="confirmPassword" type="password"></ion-input>
+        <ion-icon name="lock-closed" slot="start"></ion-icon>
+      </ion-item>
+      <span class="error error-label-text" *ngIf="isSubmitted && errorControl.confirmPassword.errors?.different">
+        Password do not match.
+      </span>
       <ion-row>
+        <ion-col size="12" class="submit-btn-inner">
+          <ion-button (click)="editAccount(editProfileForm)" color="danger" shape="round" expand="full" fill="outline"
+            class="submit-btn">
+            Valider
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row>
         <ion-col size="12">
           <ion-item class="input-fields-inner">
             <ion-input [attr.disabled]="true" type="text" formControlName="name" placeholder="Nom et prénom (s)">
@@ -74,7 +129,7 @@
             Valider
           </ion-button>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
     </form>
   </ion-grid>
 </ion-content>
