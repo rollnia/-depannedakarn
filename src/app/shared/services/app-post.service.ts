@@ -45,4 +45,8 @@ export class AppPostService {
   public updateAvaibility(payload) {
     return this.http.post<any>(`${environment.apiUrl}auth/activedeactiveavailability`, payload);
   }
+
+  public updateServiceAvaibility(payload) {
+    return this.http.post<any>(`${environment.apiUrl}auth/updateavailability`, payload);
+  }
 }

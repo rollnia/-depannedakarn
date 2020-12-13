@@ -102,3 +102,6 @@ ion-toggle {
     --handle-background: #2f26d9;
     --handle-background-checked: #d1d0ea;
   }
+  .disable-datetime {
+      pointer-events: none;
+  }
