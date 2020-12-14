@@ -13,6 +13,7 @@ export class ServiceProvidorDashboardPage {
   public subscriptions: Subscription[] = [];
   public countnotification = 0;
   public interval;
+  public user;
   constructor(
     private platform: Platform, private router: Router, private appGetService: AppGetService,) {
   }
@@ -27,6 +28,10 @@ export class ServiceProvidorDashboardPage {
       this.checkNotification();
     }, 5000);
 
+  }
+
+  ionViewDidEnter() {
+    this.user = JSON.parse(localStorage.getItem('currentUserData'));
   }
 
   ionViewDidLeave() {
