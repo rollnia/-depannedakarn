@@ -33,6 +33,28 @@ export class EditServicePage implements OnInit {
     //getItem('currentUserData'));
   }
 
+  public enableUpdate(index) {
+    this.serviceListData[index]['enableEdit'] = true;
+  }
+
+  public disableUpdate(index) {
+    this.serviceListData[index]['enableEdit'] = false;
+
+    let postParams = {};
+    postParams['availability_id'] = this.serviceListData[index]['id'];
+    postParams['starttime'] = this.serviceListData[index]['start_time'];
+    postParams['endtime'] = this.serviceListData[index]['end_time'];
+    this.loadData();
+    const subs = this.appPostServicve.updateServiceAvaibility(postParams).subscribe(res => {
+      this.serviceList(this.user['user_id']);
+      this.loading.dismiss();
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
+  }
+
   private async loadData() {
     this.loading = await this.loadingController.create({
       message: 'Loading please wait',
@@ -43,9 +65,14 @@ export class EditServicePage implements OnInit {
   private serviceList(id) {
     this.loadData();
     const subs = this.appGetService.getServiceList(id).subscribe(res => {
-      console.log('===>>', res);
       if (res && res.availability) {
         this.serviceListData = res.availability;
+        if (this.serviceListData.length > 0) {
+          this.serviceListData.forEach((element, index) => {
+            this.serviceListData[index]['enableEdit'] = false;
+            this.serviceListData[index]['index'] = index;
+          });
+        }
       }
       this.loading.dismiss();
     }, error => {
