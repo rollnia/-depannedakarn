@@ -13,7 +13,8 @@
 <ion-content [fullscreen]="true">
   <ion-row>
     <ion-col size="12">
-      <ion-title class="ion-text-center user-name-text">Amont Remy</ion-title>
+      <ion-title *ngIf="user && user['user_name']" class="ion-text-center user-name-text">{{user['user_name']}}
+      </ion-title>
     </ion-col>
   </ion-row>
   <ion-row class="card-row-inner">

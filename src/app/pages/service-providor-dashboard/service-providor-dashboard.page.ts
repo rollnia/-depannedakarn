@@ -39,6 +39,11 @@ export class ServiceProvidorDashboardPage {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
+  public setStar(point) {
+    if (!point) return 0;
+    return `${(point * 20)}px`;
+  }
+
   public navigate(url) {
     this.router.navigate([url]);
   }

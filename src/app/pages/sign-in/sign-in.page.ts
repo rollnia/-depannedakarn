@@ -47,14 +47,15 @@ export class SignInPage {
 
   private getUserType() {
     const subs = this.appGetService.userType().subscribe(res => {
-      if (res?.user_type) {
+      if (res?.user && res.user?.user_type) {
         this.loading.dismiss();
         const user = JSON.parse(localStorage.getItem('currentUserData'));
-        user['user_type'] = res['user_type'];
-        user['user_id'] = res['id'];
-        user['user_name'] = res['name'];
-        user['user_email'] = res['email'];
-        user['user_phone'] = res['phone'];
+        user['user_type'] = res['user']['user_type'];
+        user['user_id'] = res['user']['id'];
+        user['user_name'] = res['user']['name'];
+        user['user_email'] = res['user']['email'];
+        user['user_phone'] = res['user']['phone'];
+        user['rating'] = res['rating'];
         localStorage.setItem('currentUserData', JSON.stringify(user));
         //if user book a service without login and then navigate to login and after login navigate to paymnt page
         if (this.return) {
@@ -65,7 +66,7 @@ export class SignInPage {
           });
           return;
         }
-        if (res['user_type'] === 'client') {
+        if (res['user']['user_type'] === 'client') {
           this.router.navigate(['/user-dashboard']);
         } else {
           this.router.navigate(['/service-providor-dashboard']);

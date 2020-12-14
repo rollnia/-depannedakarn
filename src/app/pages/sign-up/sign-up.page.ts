@@ -64,14 +64,15 @@ export class SignUpPage {
 
   private getUserType() {
     const subs = this.appGetService.userType().subscribe(res => {
-      if (res?.user_type) {
+      if (res?.user && res.user?.user_type) {
         this.loading.dismiss();
         const user = JSON.parse(localStorage.getItem('currentUserData'));
-        user['user_type'] = res['user_type'];
-        user['user_id'] = res['id'];
-        user['user_name'] = res['name'];
-        user['user_email'] = res['email'];
-        user['user_phone'] = res['phone'];
+        user['user_type'] = res['user']['user_type'];
+        user['user_id'] = res['user']['id'];
+        user['user_name'] = res['user']['name'];
+        user['user_email'] = res['user']['email'];
+        user['user_phone'] = res['user']['phone'];
+        user['rating'] = res['rating'];
         localStorage.setItem('currentUserData', JSON.stringify(user));
         if (this.return) {
           this.router.navigate([this.return[0]], {
@@ -81,7 +82,7 @@ export class SignUpPage {
           });
           return;
         }
-        if (res['user_type'] === 'client') {
+        if (res['user']['user_type'] === 'client') {
           this.router.navigate(['/user-dashboard']);
         } else {
           this.router.navigate(['/service-providor-dashboard']);
@@ -157,18 +158,18 @@ export class SignUpPage {
     this.subscriptions.push(subs);
   }
 
-  
+
 
   async presentModal() {
     this.modalGl = await this.modalController.create({
       component: PrivacyPolicy,
       cssClass: 'modal-class-privacy'
-    });    
+    });
     return await this.modalGl.present();
   }
-  
+
   public openPrivacyPolicy() {
-    this.presentModal().then( async data2 => {      
+    this.presentModal().then(async data2 => {
       const { data } = await this.modalGl.onWillDismiss();
       this.signUpForm.controls.privacy.setValue(data['agree']);
     })

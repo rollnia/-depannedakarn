@@ -39,7 +39,7 @@ export class HomePage {
     this.loading.present();
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     const subs = this.appGetService.userType().subscribe(res => {
-      if (res?.user_type) {
+      if (res?.user && res.user?.user_type) {
         if (user['user_type'] === 'client') {
           this.router.navigate(['/user-dashboard']);
         } else {
