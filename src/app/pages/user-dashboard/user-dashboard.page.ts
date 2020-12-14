@@ -10,11 +10,13 @@ import { Subscription } from 'rxjs';
 })
 export class UserDashboardPage {
   public subscriptions: Subscription[] = [];
+  public user;
   constructor(
     private router: Router, private platform: Platform) {
   }
 
   ionViewWillEnter() {
+    this.user = JSON.parse(localStorage.getItem('currentUserData'));
     const backEvent = this.platform.backButton.subscribe(() => {
       navigator['app'].exitApp();
     });
