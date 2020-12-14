@@ -38,6 +38,10 @@ export class AppPostService {
     return this.http.post<any>(`${environment.apiUrl}auth/completebooking`, payload);
   }
 
+  public rejectionBookng(payload) {
+    return this.http.post<any>(`${environment.apiUrl}auth/rejectbooking`, payload);
+  }
+
   public getNotificationRead(obj) {
     return this.http.post<any>(`${environment.apiUrl}auth/notificationread`, obj);
   }

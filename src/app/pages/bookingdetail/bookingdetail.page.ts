@@ -19,6 +19,7 @@ export class BookingdetailPage {
   return: string = '';
   rating;
   public colorCoding = 'danger';
+  public completeColor = 'primary';
   public isReadOnly = true;
   constructor(private platform: Platform, private appPostService: AppPostService, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) { }
 
@@ -146,6 +147,22 @@ export class BookingdetailPage {
     const subs = this.appPostService.completeBookng(reqObj).subscribe(res => {
       if (res?.message) {
         this.isenabled = true;
+        this.completeColor = 'medium';
+        this.appGetService.showToast(res['message']);
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  public rejectBooking() {
+    const reqObj = {
+      bookingid: this.details.bookingdetails['id']
+    };
+    const subs = this.appPostService.rejectionBookng(reqObj).subscribe(res => {
+      if (res?.message) {
+        this.isenabled = true;
+        this.completeColor = 'medium';
         this.colorCoding = 'medium';
         this.appGetService.showToast(res['message']);
       }

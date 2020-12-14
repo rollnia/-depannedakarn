@@ -95,8 +95,11 @@
             <ion-button *ngIf="return && return.length === 2" color="{{colorCoding}}" [disabled]="isenabled"
               (click)="reBook()" expand="full" shape="round" class="cancel-booking-btn">Re Booking
             </ion-button>
-            <ion-button *ngIf="return && return.length === 3" color="{{colorCoding}}" [disabled]="isenabled"
+            <ion-button *ngIf="return && return.length === 3" color="{{completeColor}}" [disabled]="isenabled"
               (click)="completeBooking()" expand="full" shape="round" class="cancel-booking-btn">Complete
+            </ion-button>
+            <ion-button *ngIf="return && return.length === 3" color="{{colorCoding}}" [disabled]="isenabled"
+              (click)="rejectBooking()" expand="full" shape="round" class="cancel-booking-btn">Reject
             </ion-button>
           </ion-col>
         </ion-row>
