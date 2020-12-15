@@ -44,7 +44,7 @@ export class PaymentPage implements OnInit {
   }
 
   payWithPaypal() {
-    // this.navigateToSuceess('PAY-1AB23456CD789012EF34GHIJ');
+    this.navigateToSuceess('PAY-1AB23456CD789012EF34GHIJ');
     // PayPalEnvironmentProduction: 'YOUR_PRODUCTION_CLIENT_ID',
     this.payPal.init({
       PayPalEnvironmentProduction: '',
@@ -102,6 +102,7 @@ export class PaymentPage implements OnInit {
     const params = {
       user_id: user['user_id'],
       service_id: user['service_id'],
+      location_id: user['location_id'],
       provider_id: this.paymentData[4],
       transaction_id: tranID,
       booking_date: this.paymentData[1],

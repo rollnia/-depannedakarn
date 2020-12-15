@@ -117,11 +117,13 @@ export class SearchproviderPage {
     }
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     if (user) {
+      user['location_id'] = params['location'];
       user['service_id'] = params['service_type'];
       localStorage.setItem('currentUserData', JSON.stringify(user));
     } else {
       const user = {
-        service_id: params['service_type']
+        service_id: params['service_type'],
+        location_id: params['location']
       };
       localStorage.setItem('currentUserData', JSON.stringify(user));
     }
