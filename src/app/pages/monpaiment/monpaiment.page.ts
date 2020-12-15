@@ -14,16 +14,17 @@ export class MonpaimentPage {
   public subscriptions: Subscription[] = [];
   loading: any;
   public date = new Date();
-  public fromDate = this.date.toISOString();
-  public toDate: any = new Date();
-  public minEndDate: any = new Date();
+  public maxDate = this.date.toISOString();
+  public toDate = this.date.toISOString();
+  public fromDate: any = new Date();
+  public minEndDate: any = this.date.toISOString();
   public paymentDetails = [];
   public totalBalance = '';
   constructor(private platform: Platform, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) {
-    const eDate: any = new Date(this.date.setDate(this.date.getDate() + 30));
-    const minDate: any = new Date(new Date().setDate(new Date().getDate() + 1));
-    this.toDate = eDate.toISOString();
-    this.minEndDate = minDate.toISOString();
+    const eDate: any = new Date(this.date.setDate(this.date.getDate() - 30));
+    this.fromDate = eDate.toISOString();
+    // const minDate: any = new Date(new Date().setDate(new Date().getDate() + 1));
+    // this.minEndDate = minDate.toISOString();
   }
 
   ngOnInit() {
@@ -42,7 +43,7 @@ export class MonpaimentPage {
 
   public setMinEndDate() {
     const starDate = new Date(((<HTMLInputElement>document.getElementById("startDate")).value).split('T')[0]);
-    const minDate: any = new Date(starDate.setDate(starDate.getDate() + 1));
+    const minDate: any = new Date(starDate.setDate(starDate.getDate()));
     this.minEndDate = minDate.toISOString();
   }
 

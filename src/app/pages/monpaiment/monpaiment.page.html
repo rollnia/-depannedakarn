@@ -34,12 +34,13 @@
           </ion-col>
           <ion-col size="10">
             <ion-item class="datepicker-inner-box">
-              <ion-datetime (ionChange)="setMinEndDate()" id="startDate" value="{{fromDate}}" [max]="2090-12-31"
+              <ion-datetime (ionChange)="setMinEndDate()" id="startDate" value="{{fromDate}}" [max]="maxDate"
                 placeholder="Select Date">
               </ion-datetime>
               <span>-</span>
-              <ion-datetime id="endDate" value="{{toDate}}" [min]="minEndDate" [max]="2090-12-31"
-                placeholder="Select Date"></ion-datetime>
+              <ion-datetime id="endDate" value="{{toDate}}" [min]="minEndDate" [max]="maxDate"
+                placeholder="Select Date">
+              </ion-datetime>
               <ion-icon name="calendar-clear-outline" slot="end"></ion-icon>
             </ion-item>
           </ion-col>
