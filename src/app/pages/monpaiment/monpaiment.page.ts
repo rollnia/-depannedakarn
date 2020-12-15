@@ -17,12 +17,13 @@ export class MonpaimentPage {
   public maxDate = this.date.toISOString();
   public toDate = this.date.toISOString();
   public fromDate: any = new Date();
-  public minEndDate: any = this.date.toISOString();
+  public minEndDate: any = new Date();
   public paymentDetails = [];
   public totalBalance = '';
   constructor(private platform: Platform, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) {
     const eDate: any = new Date(this.date.setDate(this.date.getDate() - 30));
     this.fromDate = eDate.toISOString();
+    this.minEndDate = this.fromDate;
     // const minDate: any = new Date(new Date().setDate(new Date().getDate() + 1));
     // this.minEndDate = minDate.toISOString();
   }
