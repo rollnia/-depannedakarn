@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { EditServicePageRoutingModule } from './edit-service-routing.module';
-
+import { HeaderPageModule } from "../header/header.module";
 import { EditServicePage } from './edit-service.page';
 
 @NgModule({
@@ -13,8 +13,9 @@ import { EditServicePage } from './edit-service.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    EditServicePageRoutingModule
+    EditServicePageRoutingModule,
+    HeaderPageModule
   ],
   declarations: [EditServicePage]
 })
-export class EditServicePageModule {}
+export class EditServicePageModule { }

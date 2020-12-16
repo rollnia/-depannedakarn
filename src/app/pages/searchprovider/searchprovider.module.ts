@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { SearchproviderPageRoutingModule } from './searchprovider-routing.module';
-
+import { HeaderPageModule } from "../header/header.module";
 import { SearchproviderPage } from './searchprovider.page';
 
 @NgModule({
@@ -13,8 +13,9 @@ import { SearchproviderPage } from './searchprovider.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    SearchproviderPageRoutingModule
+    SearchproviderPageRoutingModule,
+    HeaderPageModule
   ],
   declarations: [SearchproviderPage]
 })
-export class SearchproviderPageModule {}
+export class SearchproviderPageModule { }

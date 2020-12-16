@@ -7,14 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PaymentSuccessPageRoutingModule } from './payment-success-routing.module';
 
 import { PaymentSuccessPage } from './payment-success.page';
-
+import { HeaderPageModule } from "../header/header.module";
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PaymentSuccessPageRoutingModule
+    PaymentSuccessPageRoutingModule,
+    HeaderPageModule
   ],
   declarations: [PaymentSuccessPage]
 })
-export class PaymentSuccessPageModule {}
+export class PaymentSuccessPageModule { }

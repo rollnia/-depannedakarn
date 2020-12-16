@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
+import { HeaderPageModule } from "../header/header.module";
 import { EditProfilePageRoutingModule } from './edit-profile-routing.module';
 
 import { EditProfilePage } from './edit-profile.page';
@@ -14,7 +14,8 @@ import { EditProfilePage } from './edit-profile.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    EditProfilePageRoutingModule
+    EditProfilePageRoutingModule,
+    HeaderPageModule
   ],
   declarations: [EditProfilePage]
 })

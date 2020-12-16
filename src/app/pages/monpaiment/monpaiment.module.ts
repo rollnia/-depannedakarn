@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { MonpaimentPageRoutingModule } from './monpaiment-routing.module';
-
+import { HeaderPageModule } from "../header/header.module";
 import { MonpaimentPage } from './monpaiment.page';
 
 @NgModule({
@@ -13,8 +13,10 @@ import { MonpaimentPage } from './monpaiment.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    MonpaimentPageRoutingModule
+    MonpaimentPageRoutingModule,
+    HeaderPageModule
   ],
-  declarations: [MonpaimentPage]
+  declarations: [MonpaimentPage],
+  exports: [HeaderPageModule]
 })
-export class MonpaimentPageModule {}
+export class MonpaimentPageModule { }

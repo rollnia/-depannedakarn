@@ -1,16 +1,7 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title slot="start">
-      <!-- <ion-img src="assets/images/logo.png" class="site-logo"></ion-img> -->
-      <img src="assets/images/logo.png" class="site-logo img-logo" />
-    </ion-title>
-  </ion-toolbar>
+<ion-header class="ion-no-border">
+  <app-header></app-header>
 </ion-header>
-
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-container">
   <ion-row>
     <ion-col size="12">
       <ion-title *ngIf="user && user['user_name']" class="ion-text-center user-name-text">{{user['user_name']}}

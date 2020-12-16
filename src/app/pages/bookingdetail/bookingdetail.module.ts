@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 import { BarRatingModule } from "ngx-bar-rating";
-
+import { HeaderPageModule } from "../header/header.module";
 import { BookingdetailPageRoutingModule } from './bookingdetail-routing.module';
 
 import { BookingdetailPage } from './bookingdetail.page';
@@ -15,7 +15,8 @@ import { BookingdetailPage } from './bookingdetail.page';
     FormsModule,
     IonicModule,
     BarRatingModule,
-    BookingdetailPageRoutingModule
+    BookingdetailPageRoutingModule,
+    HeaderPageModule
   ],
   declarations: [BookingdetailPage]
 })

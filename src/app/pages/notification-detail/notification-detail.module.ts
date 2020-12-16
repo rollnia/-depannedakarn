@@ -5,7 +5,7 @@ import { BarRatingModule } from "ngx-bar-rating";
 import { IonicModule } from '@ionic/angular';
 
 import { NotificationDetailPageRoutingModule } from './notification-detail-routing.module';
-
+import { HeaderPageModule } from "../header/header.module";
 import { NotificationDetailPage } from './notification-detail.page';
 
 @NgModule({
@@ -14,7 +14,7 @@ import { NotificationDetailPage } from './notification-detail.page';
     FormsModule,
     IonicModule,
     BarRatingModule,
-    NotificationDetailPageRoutingModule
+    NotificationDetailPageRoutingModule, HeaderPageModule
   ],
   declarations: [NotificationDetailPage]
 })

@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 // import { StarRatingModule } from 'ionic4-star-rating';
 import { ListingPageRoutingModule } from './listing-routing.module';
-
+import { HeaderPageModule } from "../header/header.module";
 import { ListingPage } from './listing.page';
 
 @NgModule({
@@ -13,7 +13,8 @@ import { ListingPage } from './listing.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ListingPageRoutingModule
+    ListingPageRoutingModule,
+    HeaderPageModule
   ],
   declarations: [ListingPage]
 })

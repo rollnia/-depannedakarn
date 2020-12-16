@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { HistoryPageRoutingModule } from './history-routing.module';
-
+import { HeaderPageModule } from "../header/header.module";
 import { HistoryPage } from './history.page';
 
 @NgModule({
@@ -13,8 +13,9 @@ import { HistoryPage } from './history.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    HistoryPageRoutingModule
+    HistoryPageRoutingModule,
+    HeaderPageModule
   ],
   declarations: [HistoryPage]
 })
-export class HistoryPageModule {}
+export class HistoryPageModule { }

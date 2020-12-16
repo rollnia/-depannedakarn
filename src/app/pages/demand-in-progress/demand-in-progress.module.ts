@@ -6,7 +6,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { IonicModule } from '@ionic/angular';
 
 import { DemandInProgressPageRoutingModule } from './demand-in-progress-routing.module';
-
+import { HeaderPageModule } from "../header/header.module";
 import { DemandInProgressPage } from './demand-in-progress.page';
 
 @NgModule({
@@ -15,7 +15,8 @@ import { DemandInProgressPage } from './demand-in-progress.page';
     FormsModule,
     IonicModule,
     TabsModule,
-    DemandInProgressPageRoutingModule
+    DemandInProgressPageRoutingModule,
+    HeaderPageModule
   ],
   declarations: [DemandInProgressPage]
 })

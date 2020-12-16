@@ -11,7 +11,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { TokenInterceptorService } from "./shared/services/token-interceptor.service";
 import { AppRoutingModule } from './app-routing.module';
-
+import { HeaderPageModule } from "../app/pages/header/header.module";
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -21,7 +21,8 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     HttpClientModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    HeaderPageModule
   ],
   providers: [
     StatusBar,
@@ -34,6 +35,7 @@ import { AppRoutingModule } from './app-routing.module';
       multi: true
     }
   ],
+  exports: [HeaderPageModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
