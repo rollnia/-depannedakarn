@@ -71,6 +71,7 @@ export class EditServicePage implements OnInit {
           this.serviceListData.forEach((element, index) => {
             this.serviceListData[index]['enableEdit'] = false;
             this.serviceListData[index]['index'] = index;
+            this.serviceListData[index]['editPanel'] = false;
           });
         }
       }
@@ -80,6 +81,10 @@ export class EditServicePage implements OnInit {
       console.error(error);
     });
     this.subscriptions.push(subs);
+  }
+
+  public openEditPanel(index) {
+    this.serviceListData[index]['editPanel'] = true;
   }
 
   public update(availability_id, status) {
