@@ -34,7 +34,15 @@
 .ion-datepicker-payment{
     width: 30% !important;
 }
-.ion-datepicker-cont,.ion-datepicker-payment input{
+.ion-datepicker-cont input{
+    font-size: 12px !important; 
+    margin: unset !important;
+    border: 0 !important;
+    border-bottom: unset  !important; 
+    width: 100% !important;
+    padding: 0 !important;
+}
+.ion-datepicker-payment input{
     font-size: 12px !important; 
     margin: unset !important;
     border: 0 !important;
