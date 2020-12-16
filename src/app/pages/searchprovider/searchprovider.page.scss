@@ -54,3 +54,9 @@ ion-title{
     font-size: 19px;
     text-transform: none;
 }
+.ion-datepicker-cont{
+    width: 21% !important;
+    .clearButton {
+        display: none;
+    }
+}

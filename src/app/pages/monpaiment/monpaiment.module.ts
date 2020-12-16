@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
+import { Ionic4DatepickerModule } from '@logisticinfotech/ionic4-datepicker';
 import { MonpaimentPageRoutingModule } from './monpaiment-routing.module';
 import { HeaderPageModule } from "../header/header.module";
 import { MonpaimentPage } from './monpaiment.page';
@@ -14,6 +14,7 @@ import { MonpaimentPage } from './monpaiment.page';
     FormsModule,
     IonicModule,
     MonpaimentPageRoutingModule,
+    Ionic4DatepickerModule,
     HeaderPageModule
   ],
   declarations: [MonpaimentPage],

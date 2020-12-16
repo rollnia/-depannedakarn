@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from "rxjs";
 import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { ModalController } from '@ionic/angular';
+import * as moment from 'moment';
+// import { Ionic4DatepickerModalComponent } from 'ionic4-datepicker';
 import { AppGetService } from "../../shared/services/app-get.service";
 
 @Component({
@@ -12,9 +14,16 @@ import { AppGetService } from "../../shared/services/app-get.service";
 })
 export class SearchproviderPage {
   public searchProviderData: any;
+  mydate1 = moment().format('ll');
+  datePickerObj: any = {
+    fromDate: moment().format('ll'),
+    toDate: new Date('2090-12-31'),
+    dateFormat: 'll',
+    clearButton: false,
+  };
   date = (new Date()).toISOString();
   endTime: any = new Date();
-  public minDate = (new Date).toISOString().split('T')[0];
+  public minDate = (new Date()).toISOString().split('T')[0];
   public searchProviderModel = {
     location: '',
     service: ''
@@ -25,9 +34,15 @@ export class SearchproviderPage {
   constructor(private platform: Platform, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) {
     this.endTime.setHours(this.endTime.getHours() + 1);
     this.endTime = this.endTime.toISOString();
+
   }
 
   ionViewWillEnter() {
+    // this.mydate1 = moment().format("ll");
+    // this.datePickerObj = {
+    //   fromDate: new Date(),
+    //   // showTodayButton: false
+    // };
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     this.route.queryParams.subscribe(params => {
       this.return = params && params.return ? params.return : '';
@@ -91,7 +106,7 @@ export class SearchproviderPage {
     const params = {};
     params['location'] = this.searchProviderModel.location;
     params['service_type'] = this.searchProviderModel.service;
-    params['selectdate'] = ((<HTMLInputElement>document.getElementById("date")).value).split('T')[0];
+    params['selectdate'] = moment(this.mydate1).format('YYYY-MM-DD'); //((<HTMLInputElement>document.getElementById("date")).value).split('T')[0];
     params['start_time'] = `${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getMinutes()}:00`;
     params['end_time'] = `${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getMinutes()}:00`;
     params['provider_id'] = this.return ? this.return[0] : 0;

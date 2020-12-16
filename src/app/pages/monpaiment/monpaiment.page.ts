@@ -11,6 +11,10 @@ import { AppGetService } from "../../shared/services/app-get.service";
   styleUrls: ['./monpaiment.page.scss'],
 })
 export class MonpaimentPage {
+  starDate;
+  endDate;
+  datePickerObj: any = {};
+  datePickerObj1: any = {};
   public subscriptions: Subscription[] = [];
   loading: any;
   public date = new Date();
@@ -24,8 +28,19 @@ export class MonpaimentPage {
     const eDate: any = new Date(this.date.setDate(this.date.getDate() - 30));
     this.fromDate = eDate.toISOString();
     this.minEndDate = this.fromDate;
-    // const minDate: any = new Date(new Date().setDate(new Date().getDate() + 1));
-    // this.minEndDate = minDate.toISOString();
+    this.starDate = moment(eDate).format('ll');
+    this.endDate = moment().format('ll');
+    this.datePickerObj = {
+      toDate: moment().format('ll'),
+      dateFormat: 'll',
+      clearButton: false,
+    };
+    this.datePickerObj1 = {
+      fromDate: this.starDate,
+      toDate: moment().format('ll'),
+      dateFormat: 'll',
+      clearButton: false,
+    };
   }
 
   ngOnInit() {
@@ -42,22 +57,24 @@ export class MonpaimentPage {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
-  public setMinEndDate() {
-    const starDate = new Date(((<HTMLInputElement>document.getElementById("startDate")).value).split('T')[0]);
-    const minDate: any = new Date(starDate.setDate(starDate.getDate()));
-    this.minEndDate = minDate.toISOString();
+  public setMinEndDate(date) {
+    this.datePickerObj1['fromDate'] = moment(date).format('ll');
   }
 
   public async loadPaymentData() {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
+    const params = {};
+    params['from_date'] = moment(this.starDate).format('YYYY-MM-DD');//((<HTMLInputElement>document.getElementById("startDate")).value).split('T')[0];
+    params['to_date'] = moment(this.endDate).format('YYYY-MM-DD');//((<HTMLInputElement>document.getElementById("endDate")).value).split('T')[0];
+    params['providerid'] = user['user_id'];
+    if (params['from_date'] > params['to_date']) {
+      this.appGetService.showToast('Start Date must be less than End Date');
+      return;
+    }
     this.loading = await this.loadingController.create({
       message: 'Loading please wait',
     });
     this.loading.present();
-    const params = {};
-    params['from_date'] = ((<HTMLInputElement>document.getElementById("startDate")).value).split('T')[0];
-    params['to_date'] = ((<HTMLInputElement>document.getElementById("endDate")).value).split('T')[0];
-    params['providerid'] = user['user_id'];
     const subs = this.appGetService.myPayment(params).subscribe(res => {
       if (res?.paimentdetails) {
         this.loading.dismiss();

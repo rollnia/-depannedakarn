@@ -5,8 +5,11 @@
   <ion-list class="list-inner-box list-inner-top">
     <ion-item class="item-inner-box">
       <ion-label>Start Date</ion-label>
-      <ion-datetime id="date" value="{{date}}" [max]="2090-12-31" [min]="minDate" placeholder="Select Date">
-      </ion-datetime>
+      <li-ionic4-datepicker placeholder="Select Date" class="ion-datepicker-cont" [(ngModel)]="mydate1"
+        [inputDateConfig]="datePickerObj">
+      </li-ionic4-datepicker>
+      <!-- <ion-datetime id="date" value="{{date}}" [max]="2090-12-31" [min]="minDate" placeholder="Select Date">
+      </ion-datetime> -->
     </ion-item>
     <ion-item class="item-inner-box">
       <ion-label>Start Time</ion-label>

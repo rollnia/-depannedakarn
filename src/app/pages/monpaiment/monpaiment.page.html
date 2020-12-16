@@ -27,13 +27,19 @@
           </ion-col>
           <ion-col size="10">
             <ion-item class="datepicker-inner-box">
-              <ion-datetime (ionChange)="setMinEndDate()" id="startDate" value="{{fromDate}}" [max]="maxDate"
+              <!-- <ion-datetime (ionChange)="setMinEndDate()" id="startDate" value="{{fromDate}}" [max]="maxDate"
                 placeholder="Select Date">
-              </ion-datetime>
+              </ion-datetime> -->
+              <li-ionic4-datepicker (ngModelChange)="setMinEndDate($event)" placeholder="Select Date"
+                class="ion-datepicker-payment" [(ngModel)]="starDate" [inputDateConfig]="datePickerObj">
+              </li-ionic4-datepicker>
               <span>-</span>
-              <ion-datetime id="endDate" value="{{toDate}}" [min]="minEndDate" [max]="maxDate"
+              <li-ionic4-datepicker placeholder="Select Date" class="ion-datepicker-payment" [(ngModel)]="endDate"
+                [inputDateConfig]="datePickerObj1">
+              </li-ionic4-datepicker>
+              <!-- <ion-datetime id="endDate" value="{{toDate}}" [min]="minEndDate" [max]="maxDate"
                 placeholder="Select Date">
-              </ion-datetime>
+              </ion-datetime> -->
               <ion-icon name="calendar-clear-outline" slot="end"></ion-icon>
             </ion-item>
           </ion-col>
