@@ -10,48 +10,48 @@
         <ion-grid class="grid-top-title">
           <ion-row>
             <ion-col size="12">
-              <ion-label class="item-text-reserver">Edit Profile</ion-label>
+              <ion-label class="item-text-reserver">Modifier votre profile</ion-label>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Name</ion-label>
+        <ion-label position="floating">Nom et prénom (s)</ion-label>
         <ion-input [attr.disabled]="true" formControlName="name" type="text"></ion-input>
         <ion-icon name="person" slot="start"></ion-icon>
       </ion-item>
       <span class="error error-label-text" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
-        Name should be min 2 chars long.
+        Le nom doit comporter au minimum 2 caractères.
       </span>
 
       <ion-item>
-        <ion-label position="floating">Phone</ion-label>
+        <ion-label position="floating">Numéro de téléphone</ion-label>
         <ion-input formControlName="phone" type="text"></ion-input>
         <ion-icon name="call" slot="start"></ion-icon>
       </ion-item>
       <span class="error error-label-text" *ngIf="isSubmitted && errorControl.phone.errors?.pattern">
-        Only numerical values allowed.
+        Doit contenir seulement des chiffres.
       </span>
       <ion-item>
-        <ion-label position="floating">Email</ion-label>
+        <ion-label position="floating">Adresse é-mail</ion-label>
         <ion-input formControlName="email" type="email"></ion-input>
         <ion-icon name="mail" slot="start"></ion-icon>
       </ion-item>
       <span class="error error-label-text" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
-        Please provide valid email id.
+        Svp veuillez entrer une adresse email valide.
       </span>
       <ion-item>
-        <ion-label position="floating">Password</ion-label>
+        <ion-label position="floating">Mot de passe</ion-label>
         <ion-input formControlName="password" type="password"></ion-input>
         <ion-icon name="lock-closed" slot="start"></ion-icon>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-label position="floating">Répéter votre mot de passe</ion-label>
         <ion-input formControlName="confirmPassword" type="password"></ion-input>
         <ion-icon name="lock-closed" slot="start"></ion-icon>
       </ion-item>
       <span class="error error-label-text" *ngIf="isSubmitted && errorControl.confirmPassword.errors?.different">
-        Password do not match.
+        les mots de passe ne correspondent pas.
       </span>
       <ion-row>
         <ion-col size="12" class="submit-btn-inner">

@@ -14,9 +14,9 @@
               {{details['clientdetails'][0]['name']}}</ion-label>
           </ion-col>
           <ion-col size="12">
-            <ion-label *ngIf="details && details.providerdetails" class="users-contact-label">Contact No:
+            <ion-label *ngIf="details && details.providerdetails" class="users-contact-label">Numéro de téléphone:
               {{details['providerdetails'][0]['phone']}}</ion-label>
-            <ion-label *ngIf="details && details.clientdetails" class="users-contact-label">Contact No:
+            <ion-label *ngIf="details && details.clientdetails" class="users-contact-label">Numéro de téléphone:
               {{details['clientdetails'][0]['phone']}}</ion-label>
           </ion-col>
         </ion-row>
@@ -29,7 +29,7 @@
       <ion-grid class="list-tem-box">
         <ion-row>
           <ion-col size="7">
-            <ion-label class="item-text-label">Service Type</ion-label>
+            <ion-label class="item-text-label">Prestation</ion-label>
           </ion-col>
           <ion-col size="5">
             <ion-label class="booking-text-label">{{details.bookingdetails.service_name}}</ion-label>
@@ -53,7 +53,7 @@
         </ion-row>
         <ion-row>
           <ion-col size="7">
-            <ion-label class="item-text-label">Time</ion-label>
+            <ion-label class="item-text-label">heure</ion-label>
           </ion-col>
           <ion-col size="5">
             <ion-label class="booking-text-label">{{getStartTime(details.bookingdetails.start_time)}}</ion-label>
@@ -61,7 +61,7 @@
         </ion-row>
         <ion-row>
           <ion-col size="7">
-            <ion-label class="item-text-label">Amount</ion-label>
+            <ion-label class="item-text-label">montant</ion-label>
           </ion-col>
           <ion-col size="5">
             <ion-label class="item-text-date">${{details.bookingdetails.amount}}</ion-label>
@@ -82,16 +82,16 @@
           </ion-col>
           <ion-col *ngIf="details?.bookingdetails" size="12" class="cancel-booking-btn-inner">
             <ion-button *ngIf="return && return.length === 1" color="{{colorCoding}}" [disabled]="isenabled"
-              (click)="cancelBooking()" expand="full" shape="round" class="cancel-booking-btn">Cancel Booking
+              (click)="cancelBooking()" expand="full" shape="round" class="cancel-booking-btn">Cancel
             </ion-button>
             <ion-button *ngIf="return && return.length === 2" color="{{colorCoding}}" [disabled]="isenabled"
-              (click)="reBook()" expand="full" shape="round" class="cancel-booking-btn">Re Booking
+              (click)="reBook()" expand="full" shape="round" class="cancel-booking-btn">Recommander
             </ion-button>
             <ion-button *ngIf="return && return.length === 3" color="{{completeColor}}" [disabled]="isenabled"
-              (click)="completeBooking()" expand="full" shape="round" class="cancel-booking-btn">Complete
+              (click)="completeBooking()" expand="full" shape="round" class="cancel-booking-btn">Terminée
             </ion-button>
             <ion-button *ngIf="return && return.length === 3" color="{{colorCoding}}" [disabled]="isenabled"
-              (click)="rejectBooking()" expand="full" shape="round" class="cancel-booking-btn">Reject
+              (click)="rejectBooking()" expand="full" shape="round" class="cancel-booking-btn">Annulée
             </ion-button>
           </ion-col>
         </ion-row>
