@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from "rxjs";
 import { LoadingController, Platform } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import * as moment from 'moment';
 import { AppGetService } from "../../shared/services/app-get.service";
 
 @Component({
@@ -73,6 +73,11 @@ export class ListingPage implements OnInit {
   public setStar(point) {
     if (!point) return 0;
     return `${(point * 20)}px`;
+  }
+
+  public getDateFormat(date) {
+    const formatDate = moment(moment(date)['_d']).format('ll');
+    return formatDate;
   }
 
   public getStartTime(sTime) {

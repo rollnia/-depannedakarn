@@ -20,6 +20,11 @@ export class SearchproviderPage {
     toDate: new Date('2090-12-31'),
     dateFormat: 'll',
     clearButton: false,
+    closeLabel: 'Fermer',
+    todayLabel: 'Aujourd\'\hui',
+    setLabel: 'Ensemble',
+    weeksList: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+    monthsList: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
   };
   date = (new Date()).toISOString();
   endTime: any = new Date();

@@ -34,12 +34,22 @@ export class MonpaimentPage {
       toDate: moment().format('ll'),
       dateFormat: 'll',
       clearButton: false,
+      closeLabel: 'Fermer',
+      todayLabel: 'Aujourd\'\hui',
+      setLabel: 'Ensemble',
+      weeksList: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+      monthsList: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
     };
     this.datePickerObj1 = {
       fromDate: this.starDate,
       toDate: moment().format('ll'),
       dateFormat: 'll',
       clearButton: false,
+      closeLabel: 'Fermer',
+      todayLabel: 'Aujourd\'\hui',
+      setLabel: 'Ensemble',
+      weeksList: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+      monthsList: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
     };
   }
 
