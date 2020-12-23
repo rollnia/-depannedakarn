@@ -1,7 +1,9 @@
 .login-background
 {
-    background-color: #2b21da;
-    --background: #2b21da;
+/*    background-color: #2b21da;
+    --background: #2b21da;*/
+	  background-color: #f89951;
+    --background: #f89951;
 }
 .logo-inner{
     padding: 20px 0px 10px 0px;
@@ -16,7 +18,7 @@
 }
 .user-title-text{
     font-size: 18px;
-    color: #ffcc5c;
+    color: #fff;
     padding: 0px 0px 4px 0px;
 }
 .login-details-box{
@@ -25,7 +27,8 @@
 .to-login-text{
     font-size: 19px;
     font-weight: 600;
-    color: #ffcc5c;
+    /*color: #ffcc5c;*/
+	color: #fff;
     padding: 4px 0px 4px 0px;
 }
 .input-fields-inner ion-input {
@@ -57,7 +60,7 @@
 }
 .forgot-password-text{
     font-size: 16px;
-    color: #ffcc5c;
+    color: #fff;
     padding: 15px 0px 0px 0px;
 }
 .form-inner-box{
