@@ -48,7 +48,8 @@ export class PaymentPage implements OnInit {
     // PayPalEnvironmentProduction: 'YOUR_PRODUCTION_CLIENT_ID',
     this.payPal.init({
       PayPalEnvironmentProduction: '',
-      PayPalEnvironmentSandbox: 'AYS9xxDvHwHzhBYx3hez8khFhYblfWVat_t_5c_JyJstv1kCFFoON3-kAH6M'
+      //PayPalEnvironmentSandbox: 'AYS9xxDvHwHzhBYx3hez8khFhYblfWVat_t_5c_JyJstv1kCFFoON3-kAH6M'
+	  PayPalEnvironmentSandbox: 'AX78MZSmLxkyM0QEgOQLtgbWSKr8s9jlXS2K8MCufNnGTqfRZ78Q_zDwTYcd4ysyY7Dm6gsHib5Ys5HB'
     }).then(() => {
       // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
       this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
