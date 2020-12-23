@@ -1,22 +1,22 @@
 .login-background
 {
-    background-color: #f89951;
-    --background: #f89951;
+    background-color: #fff;
+    --background: #fff;
 }
 .signup-details-box{
     padding: 50px 20px 0px 20px;
 }
 .input-fields-inner ion-input {
-    --placeholder-color: #fff;
+    --placeholder-color: #000;
     --placeholder-opacity: 1;
     font-size: 14px;
 }
 .input-fields-inner{
     --background: transparent;
-    --border-color: #fff;
+    --border-color: #000;
     --padding-start: 0px;
     --placeholder-opacity: 1;
-    color: #fff;
+    color: #000;
     margin: 0px 0px 8px 0px;
     font-size: 14px;
 }
@@ -25,32 +25,35 @@
 }
 .checkbox-item-inner ion-checkbox{
     margin-inline-end: 12px;
-    --border-color: #fff;
+    --border-color: #000;
 }
 .input-fields-inner ion-icon{
-    color: #fff;
+    color: #000;
     margin-inline-end: 10px;
     font-size: 20px;
 }
 .submit-btn{
-    --border-color: #fff;
+	background-color: #f89951;
+    --background: #f89951;
+    --border-color: #000;
     --color: #fff;
     font-size: 22px;
     height: 42px;
     text-transform: none;
+	border-radius: 64px;
 }
 .submit-btn-inner{
     margin: 50px 0px 0px 0px;
 }
 .text-line-one{
     font-size: 17px;
-    color: #fff;
+    color: #000;
     padding: 0px 0px 5px 0px;
     text-align: center;
 }
 .text-line-two{
     font-size: 16px;
-    color: #fff;
+    color: #000;
     font-style: italic;
     padding: 5px 0px 0px 0px;
     text-align: center;

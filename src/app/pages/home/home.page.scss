@@ -1,7 +1,14 @@
 .page-background
 {
     /*--background: #2b21da;*/
-	--background: #f89951;
+	  background-color: #fff;
+    --background: #fff;
+}
+.pageheader-background
+{
+    /*--background: #2b21da;*/
+	  background-color: #f89951;
+    --background: #f89951;
 }
 .logo-inner{
     padding: 30px 0px 10px 0px;
@@ -17,7 +24,7 @@
 }
 .help-title-one{
   font-size: 20px;
-  color: #fff;
+  color: #000;
   font-weight: 600;
   padding-inline-start: 0px;
   padding-inline-end: 0px;
@@ -26,7 +33,7 @@
 .help-title-two{
   font-size: 19px;
   font-style: italic;
-  color: #fff;
+  color: #000;
   font-weight: 300;
   padding-inline-start: 0px;
   padding-inline-end: 0px;
@@ -38,12 +45,15 @@
    display: block;
 }
 .submit-btn{
-    --border-color: #fff;
+	background-color: #f89951;
+    --background: #f89951;
+    --border-color: #000;
     --color: #fff;
     font-size: 22px;
     height: 42px;
     text-transform: none;
     margin: 0px 0px 20px 0px;
+	border-radius: 64px;
 }
 .submit-btn-inner{
     margin: 40px 0px 0px 0px;
