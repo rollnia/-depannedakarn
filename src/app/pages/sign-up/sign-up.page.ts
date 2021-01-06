@@ -72,6 +72,7 @@ export class SignUpPage {
         user['user_name'] = res['user']['name'];
         user['user_email'] = res['user']['email'];
         user['user_phone'] = res['user']['phone'];
+        user['cust_id'] = res['user']['cust_id'];
         user['rating'] = res['rating'];
         localStorage.setItem('currentUserData', JSON.stringify(user));
         if (this.return) {

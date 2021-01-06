@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoadingController, Platform } from '@ionic/angular';
 import { AppPostService } from "../../shared/services/app-post.service";
 import { Subscription } from 'rxjs';
-
+import { AppGetService } from "../../shared/services/app-get.service";
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.page.html',
@@ -14,10 +14,13 @@ export class PaymentPage implements OnInit {
   currencyIcon = '$';
   currency = 'USD';
   paymentData;
+  paymentOption = "existingCard";
+  existingCardDetails;
+  month = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
   public subscriptions: Subscription[] = [];
   paypalResponse = '';
   loading: any;
-  constructor(private appPostService: AppPostService, public loadingController: LoadingController, private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router) {
+  constructor(private appGetService: AppGetService, private appPostService: AppPostService, public loadingController: LoadingController, private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
       this.paymentData = params.return || '';
     });
@@ -28,6 +31,7 @@ export class PaymentPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.loadExistingCard();
   }
 
   ionViewWillEnter() {
@@ -43,13 +47,50 @@ export class PaymentPage implements OnInit {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
+  private async loadExistingCard() {
+    this.loading = await this.loadingController.create({
+      message: 'Loading please wait',
+    });
+    this.loading.present();
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    const subs = this.appGetService.getCardDetails(user['cust_id']).subscribe(res => {
+      if (res?.getallcard && res.getallcard?.data && res.getallcard.data.length) {
+        this.existingCardDetails = res['getallcard']['data'];
+      }
+      this.loading.dismiss();
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
+  }
+
+  public getMaymentDetails(evt) {
+    console.log(this.paymentOption);
+    if (this.paymentOption === 'paypal') {
+      this.payWithPaypal();
+    } else if (this.paymentOption === 'newCard') {
+      this.newCardayment();
+    } else {
+      this.existingCard(this.paymentOption);
+    }
+  }
+
+  public existingCard(paymentOption) {
+
+  }
+
+  public newCardayment() {
+
+  }
+
   payWithPaypal() {
     // this.navigateToSuceess('PAY-1AB23456CD789012EF34GHIJ');
     // PayPalEnvironmentProduction: 'YOUR_PRODUCTION_CLIENT_ID',
     this.payPal.init({
       PayPalEnvironmentProduction: '',
       //PayPalEnvironmentSandbox: 'AYS9xxDvHwHzhBYx3hez8khFhYblfWVat_t_5c_JyJstv1kCFFoON3-kAH6M'
-	  PayPalEnvironmentSandbox: 'AX78MZSmLxkyM0QEgOQLtgbWSKr8s9jlXS2K8MCufNnGTqfRZ78Q_zDwTYcd4ysyY7Dm6gsHib5Ys5HB'
+      PayPalEnvironmentSandbox: 'AX78MZSmLxkyM0QEgOQLtgbWSKr8s9jlXS2K8MCufNnGTqfRZ78Q_zDwTYcd4ysyY7Dm6gsHib5Ys5HB'
     }).then(() => {
       // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
       this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({

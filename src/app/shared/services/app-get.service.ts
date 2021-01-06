@@ -35,6 +35,10 @@ export class AppGetService {
     return this.http.get<any>(`${environment.apiUrl}auth/searchprovider`);
   }
 
+  public getCardDetails(custID) {
+    return this.http.get<any>(`${environment.apiUrl}auth/getallcard?cust_id=${custID}`);
+  }
+
   public getListing(params) {
     return this.http.get<any>(`${environment.apiUrl}auth/listprovider?selectdate=${params.selectdate}&start_time=${params.start_time}&end_time=${params.end_time}&location=${params.location}&service_type=${params.service_type}&provider_id=${params.provider_id}`);
   }
