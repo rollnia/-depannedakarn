@@ -1,0 +1,6 @@
+<ion-content>
+    <iframe *ngIf="!isSelfUrl" id="iframeURL" width="100%" height="100%" [src]="sanitizedURL"></iframe>
+    <ion-item *ngIf="isSelfUrl">
+        <label>Success</label>
+    </ion-item>
+</ion-content>

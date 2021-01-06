@@ -28,18 +28,21 @@
       <div *ngIf="paymentOption === 'newCard'" class="pl-form">
         <ion-item lines="full">
           <ion-label position="floating">Name</ion-label>
-          <ion-input type="text" [(ngModel)]="nameInCard"></ion-input>
+          <ion-input type="text" required [(ngModel)]="nameInCard"></ion-input>
         </ion-item>
+        <!-- <span class="error error-label-text" *ngIf="submitted && nameInCard.errors.required">
+          Name is required.
+        </span> -->
         <ion-item lines="full">
           <ion-label position="floating">Card Number</ion-label>
-          <ion-input type="text" [(ngModel)]="cardNumber"></ion-input>
+          <ion-input type="text" required [(ngModel)]="cardNumber"></ion-input>
         </ion-item>
         <ion-item lines="full">
           <ion-label position="floating">Expiration</ion-label>
           <ion-grid class="w100">
             <ion-row>
               <ion-col size="6">
-                <ion-select class="w100" name="selectMonth" [(ngModel)]="selectedMonth" placeholder="Month"
+                <ion-select required class="w100" name="selectMonth" [(ngModel)]="selectedMonth" placeholder="Month"
                   multile="false">
                   <ion-select-option *ngFor="let code of month; let i = index;" value="{{i + 1}}">
                     {{code}}
@@ -47,7 +50,7 @@
                 </ion-select>
               </ion-col>
               <ion-col size="6">
-                <ion-select class="w100" name="selectYear" [(ngModel)]="selectedYear" placeholder="Year"
+                <ion-select required class="w100" name="selectYear" [(ngModel)]="selectedYear" placeholder="Year"
                   multile="false">
                   <ion-select-option value="2021">
                     2021
@@ -66,7 +69,7 @@
         </ion-item>
         <ion-item lines="full">
           <ion-label position="floating">CVV</ion-label>
-          <ion-input type="text" [(ngModel)]="cardCvv"></ion-input>
+          <ion-input required type="text" [(ngModel)]="cardCvv"></ion-input>
         </ion-item>
       </div>
       <ion-item>

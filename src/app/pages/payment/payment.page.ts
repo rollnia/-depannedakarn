@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
 import { Router, ActivatedRoute } from '@angular/router';
-import { LoadingController, Platform } from '@ionic/angular';
+import { LoadingController, Platform, ModalController } from '@ionic/angular';
 import { AppPostService } from "../../shared/services/app-post.service";
 import { Subscription } from 'rxjs';
 import { AppGetService } from "../../shared/services/app-get.service";
+import { PaymentType } from './payment-type';
+
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.page.html',
   styleUrls: ['./payment.page.scss'],
 })
 export class PaymentPage implements OnInit {
+  modalGl: any;
   currencyIcon = '$';
   currency = 'USD';
   paymentData;
@@ -26,7 +29,8 @@ export class PaymentPage implements OnInit {
   selectedMonth: any = '';
   selectedYear: any = '';
   cardCvv: any = '';
-  constructor(private appGetService: AppGetService, private appPostService: AppPostService, public loadingController: LoadingController, private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router) {
+  submitted = false;
+  constructor(private appGetService: AppGetService, private appPostService: AppPostService, public loadingController: LoadingController, private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router, public modalController: ModalController) {
     this.route.queryParams.subscribe(params => {
       this.paymentData = params.return || '';
     });
@@ -80,12 +84,29 @@ export class PaymentPage implements OnInit {
     if (this.paymentOption === 'paypal') {
       this.payWithPaypal();
     } else if (this.paymentOption === 'newCard') {
+      this.submitted = true;
+      // this.validation();
       this.newCardayment();
     } else {
       this.existingCard(this.paymentOption);
     }
   }
+  async presentModal(url) {
+    this.modalGl = await this.modalController.create({
+      component: PaymentType,
+      cssClass: 'modal-class-privacy',
+      componentProps: {
+        "paramURL": url
+      }
+    });
+    return await this.modalGl.present();
+  }
 
+  public openPaymentSecure(url) {
+    this.presentModal(url).then(async data2 => {
+      const { data } = await this.modalGl.onWillDismiss();
+    })
+  }
   public existingCard(paymentOption) {
     let payload = {};
     let userData = JSON.parse(localStorage.getItem('currentUserData'));
@@ -94,10 +115,14 @@ export class PaymentPage implements OnInit {
     payload['cvc'] = this.cvv[paymentOption];
     payload['amount'] = this.paymentData[0];
     const subs = this.appPostService.makePayment(payload).subscribe(res => {
-      if (res?.message) {
-        // this.loading.dismiss();
-        this.router.navigate(['/payment-success']);
+      if (res?.paymentIntent && res.paymentIntent?.status === 'requires_source_action') {
+        const url = res['paymentIntent']['next_action']['redirect_to_url']['url'];
+        this.openPaymentSecure(url);
       }
+      // if (res?.message) {
+      //   // this.loading.dismiss();
+      //   this.router.navigate(['/payment-success']);
+      // }
       this.loading.dismiss();
     }, error => {
       this.loading.dismiss();
@@ -118,7 +143,7 @@ export class PaymentPage implements OnInit {
     payload['cvc'] = this.cardCvv;
     payload['amount'] = this.paymentData[0];
     const subs = this.appPostService.addNewCardAndMakePayment(payload).subscribe(res => {
-      if (res?.message) {
+      if (res?.paymentIntent && res.paymentIntent?.status === 'succeeded') {
         // this.loading.dismiss();
         this.router.navigate(['/payment-success']);
       }
