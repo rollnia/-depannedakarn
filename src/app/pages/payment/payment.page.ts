@@ -56,6 +56,7 @@ export class PaymentPage implements OnInit {
     const subs = this.appGetService.getCardDetails(user['cust_id']).subscribe(res => {
       if (res?.getallcard && res.getallcard?.data && res.getallcard.data.length) {
         this.existingCardDetails = res['getallcard']['data'];
+        this.paymentOption = res['getallcard']['data'][0]['id'];
       }
       this.loading.dismiss();
     }, error => {
