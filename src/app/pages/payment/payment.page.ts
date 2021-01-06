@@ -14,7 +14,7 @@ export class PaymentPage implements OnInit {
   currencyIcon = '$';
   currency = 'USD';
   paymentData;
-  paymentOption = "existingCard";
+  paymentOption = "paypal";
   existingCardDetails;
   month = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
   public subscriptions: Subscription[] = [];
