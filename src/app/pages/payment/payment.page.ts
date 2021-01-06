@@ -21,6 +21,11 @@ export class PaymentPage implements OnInit {
   public subscriptions: Subscription[] = [];
   paypalResponse = '';
   loading: any;
+  nameInCard: any = '';
+  cardNumber: any = '';
+  selectedMonth: any = '';
+  selectedYear: any = '';
+  cardCvv: any = '';
   constructor(private appGetService: AppGetService, private appPostService: AppPostService, public loadingController: LoadingController, private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
       this.paymentData = params.return || '';
@@ -91,7 +96,7 @@ export class PaymentPage implements OnInit {
     const subs = this.appPostService.makePayment(payload).subscribe(res => {
       if (res?.message) {
         // this.loading.dismiss();
-        // this.router.navigate(['/payment-success']);
+        this.router.navigate(['/payment-success']);
       }
       this.loading.dismiss();
     }, error => {
@@ -102,7 +107,27 @@ export class PaymentPage implements OnInit {
   }
 
   public newCardayment() {
-
+    let payload = {};
+    let userData = JSON.parse(localStorage.getItem('currentUserData'));
+    payload['id'] = userData.user_id;
+    payload['name'] = this.nameInCard;
+    payload['cust_id'] = userData.cust_id;
+    payload['number'] = this.cardNumber;
+    payload['exp_year'] = this.selectedYear;
+    payload['exp_month'] = this.selectedMonth;
+    payload['cvc'] = this.cardCvv;
+    payload['amount'] = this.paymentData[0];
+    const subs = this.appPostService.addNewCardAndMakePayment(payload).subscribe(res => {
+      if (res?.message) {
+        // this.loading.dismiss();
+        this.router.navigate(['/payment-success']);
+      }
+      this.loading.dismiss();
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
   }
 
   payWithPaypal() {
