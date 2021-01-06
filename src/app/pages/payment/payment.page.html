@@ -16,7 +16,7 @@
           <span class="ion-text-capitalize">{{paymentDetail['billing_details']['name']}}</span><br />
           <span class="ion-text-capitalize">Expires
             {{paymentDetail['card']['exp_month'] + '/' + paymentDetail['card']['exp_year']}}</span><br />
-          <ion-input class="inp-cvv" type="number" placeholder="Enter CVV"></ion-input>
+          <ion-input class="inp-cvv" type="number" [(ngModel)]="cvv[paymentDetail.id]" placeholder="Enter CVV"></ion-input>
         </ion-label>
         <ion-radio slot="start" color="primary" value="{{paymentDetail.id}}"></ion-radio>
       </ion-item>

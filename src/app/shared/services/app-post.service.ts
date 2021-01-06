@@ -53,4 +53,8 @@ export class AppPostService {
   public updateServiceAvaibility(payload) {
     return this.http.post<any>(`${environment.apiUrl}auth/updateavailability`, payload);
   }
+
+  public makePayment(payload) {
+    return this.http.post<any>(`${environment.apiUrl}auth/paywithstripe`, payload);
+  }
 }

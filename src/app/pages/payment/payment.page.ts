@@ -16,6 +16,7 @@ export class PaymentPage implements OnInit {
   paymentData;
   paymentOption = "paypal";
   existingCardDetails;
+  cvv = {};
   month = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
   public subscriptions: Subscription[] = [];
   paypalResponse = '';
@@ -57,6 +58,9 @@ export class PaymentPage implements OnInit {
       if (res?.getallcard && res.getallcard?.data && res.getallcard.data.length) {
         this.existingCardDetails = res['getallcard']['data'];
         this.paymentOption = res['getallcard']['data'][0]['id'];
+        res['getallcard']['data'].forEach(element => {
+          this.cvv[element.id] = '';
+        });
       }
       this.loading.dismiss();
     }, error => {
@@ -66,7 +70,7 @@ export class PaymentPage implements OnInit {
     this.subscriptions.push(subs);
   }
 
-  public getMaymentDetails(evt) {
+  public getPaymentDetails(evt) {
     console.log(this.paymentOption);
     if (this.paymentOption === 'paypal') {
       this.payWithPaypal();
@@ -78,7 +82,23 @@ export class PaymentPage implements OnInit {
   }
 
   public existingCard(paymentOption) {
-
+    let payload = {};
+    let userData = JSON.parse(localStorage.getItem('currentUserData'));
+    payload['cust_id'] = userData.cust_id;
+    payload['card'] = paymentOption;
+    payload['cvc'] = this.cvv[paymentOption];
+    payload['amount'] = this.paymentData[0];
+    const subs = this.appPostService.makePayment(payload).subscribe(res => {
+      if (res?.message) {
+        // this.loading.dismiss();
+        // this.router.navigate(['/payment-success']);
+      }
+      this.loading.dismiss();
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
   }
 
   public newCardayment() {
