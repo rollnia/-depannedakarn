@@ -6,6 +6,7 @@ import { AppPostService } from "../../shared/services/app-post.service";
 import { Subscription } from 'rxjs';
 import { AppGetService } from "../../shared/services/app-get.service";
 import { PaymentType } from './payment-type';
+import { InAppBrowser, InAppBrowserEvent , InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-payment',
@@ -30,7 +31,7 @@ export class PaymentPage implements OnInit {
   selectedYear: any = '';
   cardCvv: any = '';
   submitted = false;
-  constructor(private appGetService: AppGetService, private appPostService: AppPostService, public loadingController: LoadingController, private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router, public modalController: ModalController) {
+  constructor(private appGetService: AppGetService, private appPostService: AppPostService, public loadingController: LoadingController, private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router, public modalController: ModalController, private iab: InAppBrowser) {
     this.route.queryParams.subscribe(params => {
       this.paymentData = params.return || '';
     });
@@ -103,9 +104,16 @@ export class PaymentPage implements OnInit {
   }
 
   public openPaymentSecure(url) {
-    this.presentModal(url).then(async data2 => {
-      const { data } = await this.modalGl.onWillDismiss();
-    })
+    const browser = this.iab.create(url,'_blank',{ location: 'no',zoom: 'yes'});
+	browser.on("loadstop")
+                .subscribe((event: InAppBrowserEvent) => 
+                {
+                  if(event.url.indexOf('https://depannedakar.skylineserves.in/api/auth/confirmstripe') != -1) 
+                  {
+                    browser.close()
+					this.router.navigate(['/searchprovider']);
+                  }
+                })
   }
   public existingCard(paymentOption) {
     let payload = {};

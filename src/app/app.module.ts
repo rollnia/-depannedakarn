@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { PayPal } from '@ionic-native/paypal/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -27,6 +28,7 @@ import { HeaderPageModule } from "../app/pages/header/header.module";
   providers: [
     StatusBar,
     SplashScreen,
+	InAppBrowser,
     PayPal,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
