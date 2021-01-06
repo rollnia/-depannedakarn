@@ -9,16 +9,15 @@
         <ion-label>Total Payment: {{currencyIcon}}{{paymentData[0]}}</ion-label>
       </ion-list-header>
       <ion-item *ngFor="let paymentDetail of existingCardDetails; let i = index">
-        <ion-label>
+        <ion-label class="p-none">
           <span
             class="ion-text-capitalize">{{paymentDetail['card']['brand']}}</span><span>{{' ****' + paymentDetail['card']['last4']}}</span>
           <br />
           <span class="ion-text-capitalize">{{paymentDetail['billing_details']['name']}}</span><br />
           <span class="ion-text-capitalize">Expires
             {{paymentDetail['card']['exp_month'] + '/' + paymentDetail['card']['exp_year']}}</span><br />
-
+          <ion-input class="inp-cvv" type="number" placeholder="Enter CVV"></ion-input>
         </ion-label>
-        <ion-input type="number" placeholder="Enter CVV"></ion-input>
         <ion-radio slot="start" color="primary" value="{{paymentDetail.id}}"></ion-radio>
       </ion-item>
       <ion-item>
