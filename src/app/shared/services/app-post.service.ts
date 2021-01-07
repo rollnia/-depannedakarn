@@ -58,6 +58,10 @@ export class AppPostService {
     return this.http.post<any>(`${environment.apiUrl}auth/paywithstripe`, payload);
   }
 
+  public confirmPayment(payload) {
+    return this.http.post<any>(`${environment.apiUrl}auth/confirmstripe`, payload);
+  }
+
   public addNewCardAndMakePayment(payload) {
     return this.http.post<any>(`${environment.apiUrl}auth/addcard`, payload);
   }

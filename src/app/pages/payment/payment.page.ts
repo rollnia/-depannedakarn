@@ -6,7 +6,7 @@ import { AppPostService } from "../../shared/services/app-post.service";
 import { Subscription } from 'rxjs';
 import { AppGetService } from "../../shared/services/app-get.service";
 import { PaymentType } from './payment-type';
-import { InAppBrowser, InAppBrowserEvent , InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
+import { InAppBrowser, InAppBrowserEvent, InAppBrowserOptions, InAppBrowserObject } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-payment',
@@ -103,18 +103,37 @@ export class PaymentPage implements OnInit {
     return await this.modalGl.present();
   }
 
-  public openPaymentSecure(url) {
-    const browser = this.iab.create(url,'_blank',{ location: 'no',zoom: 'yes'});
-	browser.on("loadstop")
-                .subscribe((event: InAppBrowserEvent) => 
-                {
-                  if(event.url.indexOf('https://depannedakar.skylineserves.in/api/auth/confirmstripe') != -1) 
-                  {
-                    browser.close()
-					this.router.navigate(['/searchprovider']);
-                  }
-                })
+  public openPaymentSecure(url, obj) {
+    const browser: InAppBrowserObject = this.iab.create(url, '_blank', { location: 'no', zoom: 'yes' });
+    const watch = browser.on("loadstop").subscribe((event: InAppBrowserEvent) => {
+      if (event.url.indexOf('https://depannedakar.skylineserves.in/api/auth/confirmstripe') != -1) {
+        browser.close();
+        this.paymentCheckStatus(obj);
+      }
+    })
   }
+
+  public async paymentCheckStatus(obj) {
+    this.loading = await this.loadingController.create({
+      message: 'Loading please wait',
+    });
+    this.loading.present();
+    const payload = {
+      client_secret: obj['client_secret'],
+      id: obj['id']
+    };
+    const subs = this.appPostService.confirmPayment(payload).subscribe(res => {
+      if (res?.confirm && res.confirm?.status === 'succeeded') {
+        this.navigateToSuceess(obj['payment_method'], 'stripe');
+      }
+      this.loading.dismiss();
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
+  }
+
   public existingCard(paymentOption) {
     let payload = {};
     let userData = JSON.parse(localStorage.getItem('currentUserData'));
@@ -125,12 +144,10 @@ export class PaymentPage implements OnInit {
     const subs = this.appPostService.makePayment(payload).subscribe(res => {
       if (res?.paymentIntent && res.paymentIntent?.status === 'requires_source_action') {
         const url = res['paymentIntent']['next_action']['redirect_to_url']['url'];
-        this.openPaymentSecure(url);
+        this.openPaymentSecure(url, res['paymentIntent']);
+      } else if (res?.paymentIntent && res.paymentIntent?.status === 'succeeded') {
+        this.paymentCheckStatus(res['paymentIntent']);
       }
-      // if (res?.message) {
-      //   // this.loading.dismiss();
-      //   this.router.navigate(['/payment-success']);
-      // }
       this.loading.dismiss();
     }, error => {
       this.loading.dismiss();
@@ -180,7 +197,7 @@ export class PaymentPage implements OnInit {
         this.payPal.renderSinglePaymentUI(payment).then((res) => {
           // alert('Payment Successfully paid');
           this.paypalResponse = res;
-          this.navigateToSuceess(res.response.id);
+          this.navigateToSuceess(res.response.id, 'paypal');
 
           // Successfully paid
           // Example sandbox response
@@ -214,7 +231,7 @@ export class PaymentPage implements OnInit {
     });
   }
 
-  public async navigateToSuceess(tranID) {
+  public async navigateToSuceess(tranID, type) {
     this.loading = await this.loadingController.create({
       message: 'Loading please wait',
     });
@@ -233,7 +250,7 @@ export class PaymentPage implements OnInit {
       total_hrs: this.paymentData[5],
       amount: parseInt(this.paymentData[0]),
       payment_status: 'success',
-      payment_method: 'paypal'
+      payment_method: type
     };
     const subs = this.appPostService.paymentSuccess(params).subscribe(res => {
       if (res?.message) {
