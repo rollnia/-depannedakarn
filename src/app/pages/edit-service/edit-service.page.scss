@@ -1,8 +1,8 @@
 $ratingSize: 100px;
 ion-toolbar{
-    --background: #2f26d9;
+    --background: #F37047;
     --color: #fff;
-    --border-color: #2f26d9;
+    --border-color: #F37047;
     padding: 30px 0px 30px 0px !important;
     border-radius: 0px 0px 25px 25px;
 }
@@ -97,11 +97,15 @@ ion-title{
 
 ion-toggle {
     --background: #d1d0ea;
-    --background-checked: #f89951;
+    --background-checked: #F37047;
   
-    --handle-background: #f89951;
+    --handle-background: #F37047;
     --handle-background-checked: #d1d0ea;
   }
   .disable-datetime {
       pointer-events: none;
+  }
+  .cancel-booking-btn{
+    --background: #F37047;
+    --border-color: #F37047;
   }
