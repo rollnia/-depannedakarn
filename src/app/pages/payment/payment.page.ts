@@ -31,6 +31,13 @@ export class PaymentPage implements OnInit {
   selectedYear: any = '';
   cardCvv: any = '';
   submitted = false;
+  errorObj = {
+    nameInCard: { valid: true},
+    cardNumber: { valid: true},
+    selectedMonth: { valid: true},
+    selectedYear: { valid: true},
+    cardCvv: { valid: true},
+  }
   constructor(private appGetService: AppGetService, private appPostService: AppPostService, public loadingController: LoadingController, private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router, public modalController: ModalController, private iab: InAppBrowser) {
     this.route.queryParams.subscribe(params => {
       this.paymentData = params.return || '';
@@ -80,6 +87,43 @@ export class PaymentPage implements OnInit {
     this.subscriptions.push(subs);
   }
 
+  public valid() {
+    let returnV = true;
+
+    if (!this.nameInCard) {
+      returnV = false;
+      this.errorObj.nameInCard.valid = false;
+    } else {
+      this.errorObj.nameInCard.valid = true;
+    }
+    if (!this.cardNumber) {
+      returnV = false;
+      this.errorObj.cardNumber.valid = false;
+    } else {
+      this.errorObj.cardNumber.valid = true;
+    }
+    if (!this.selectedMonth) {
+      returnV = false;
+      this.errorObj.selectedMonth.valid = false;
+    } else {
+      this.errorObj.selectedMonth.valid = true;
+    }
+    if (!this.selectedYear) {
+      returnV = false;
+      this.errorObj.selectedYear.valid = false;
+    } else {
+      this.errorObj.selectedYear.valid = true;
+    }
+    if (!this.cardCvv) {
+      returnV = false;
+      this.errorObj.cardCvv.valid = false;
+    } else {
+      this.errorObj.cardCvv.valid = true;
+    }
+
+    return returnV;
+  }
+
   public getPaymentDetails(evt) {
     console.log(this.paymentOption);
     if (this.paymentOption === 'paypal') {
@@ -87,7 +131,8 @@ export class PaymentPage implements OnInit {
     } else if (this.paymentOption === 'newCard') {
       this.submitted = true;
       // this.validation();
-      this.newCardayment();
+      if (this.valid())
+        this.newCardayment();
     } else {
       this.existingCard(this.paymentOption);
     }
