@@ -116,3 +116,99 @@ ion-title{
     padding: 0px 0px 0px 0px;
     width: 100%;
 }
+.list-inner-box{
+    width: 90%;
+    margin: 0px auto;
+}
+.itemBoxCard{
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    margin: 0px 0px 1px 0px !important;
+    padding: 0px 6px 0px 6px;
+}
+.paymentLabel{
+    padding-left: 0;
+}
+.paymentLabel ion-label{
+    font-size: 13px;
+    font-weight: 700;
+    color: #444;
+}
+.cardTitleInner .visaTitle{
+    font-size: 15px;
+    font-weight: 600;
+    color: #000;
+}
+.cardTitleInner .cardOwner{
+    font-size: 15px;
+    font-weight: 600;
+    color: #444;
+}
+.cardTitleInner .expiresDate{
+    font-size: 14px;
+    font-weight: 600;
+    color: #777;
+}
+.cardTitleInner .inp-cvv{
+    border: 1px solid #F37047;
+    font-size: 14px;
+    font-weight: 600;
+    width: 130px;
+}
+.cardTitleText{
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+.make-payment{
+    font-weight: 600;
+}
+.customerDetailsBox{
+    padding: 0px 15px;
+    border-width: 0px 1px 1px 1px;
+    border-color: #d9d9d9;
+    border-style: solid;
+    border-radius: 0px 0px 4px 4px;
+    margin: -4px 0px 1px 0px;
+    position: relative;
+    z-index: 9999999;
+}
+.item-radio-checked.creditCardBorder {
+    border-width: 1px 1px 0px 1px;
+    border-color: #d9d9d9;
+    border-style: solid;
+    border-radius: 4px 4px 4px 4px;
+}
+.cardInput{
+    border: 1px solid #d9d9d9;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0px 8px;
+    border-radius: 4px;
+    height: 50px;
+}
+.month-year-inner{
+    padding: 0px !important;
+}
+.month-year-inner ion-select{
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    padding-left: 8px !important;
+    --padding-top: 14px;
+    --padding-bottom: 13px;
+}
+.month-year-one ion-select{
+    width: 95%;
+}
+.expiresMonthYear {
+    padding: 0px !important;
+}
+ion-radio{
+    margin-inline-end: 20px;
+    margin-right: 20px;
+}
+.customerDetailsBox .list-inner-box{
+    margin: 0px 0px 10px 0px;
+}

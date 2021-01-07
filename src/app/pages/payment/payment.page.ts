@@ -6,6 +6,7 @@ import { AppPostService } from "../../shared/services/app-post.service";
 import { Subscription } from 'rxjs';
 import { AppGetService } from "../../shared/services/app-get.service";
 import { PaymentType } from './payment-type';
+import { InAppBrowser, InAppBrowserEvent, InAppBrowserOptions, InAppBrowserObject } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-payment',
@@ -21,6 +22,7 @@ export class PaymentPage implements OnInit {
   existingCardDetails;
   cvv = {};
   month = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+  currentYear = new Date().getFullYear();
   public subscriptions: Subscription[] = [];
   paypalResponse = '';
   loading: any;
@@ -30,7 +32,14 @@ export class PaymentPage implements OnInit {
   selectedYear: any = '';
   cardCvv: any = '';
   submitted = false;
-  constructor(private appGetService: AppGetService, private appPostService: AppPostService, public loadingController: LoadingController, private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router, public modalController: ModalController) {
+  errorObj = {
+    nameInCard: { valid: true },
+    cardNumber: { valid: true },
+    selectedMonth: { valid: true },
+    selectedYear: { valid: true },
+    cardCvv: { valid: true },
+  }
+  constructor(private appGetService: AppGetService, private appPostService: AppPostService, public loadingController: LoadingController, private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router, public modalController: ModalController, private iab: InAppBrowser) {
     this.route.queryParams.subscribe(params => {
       this.paymentData = params.return || '';
     });
@@ -79,14 +88,59 @@ export class PaymentPage implements OnInit {
     this.subscriptions.push(subs);
   }
 
+  public minTwoDigits(n) {
+    return (n < 10 ? '0' : '') + n;
+  }
+
+  public counter(i) {
+    return new Array(i);
+  }
+
+  public valid() {
+    let returnV = true;
+
+    if (!this.nameInCard) {
+      returnV = false;
+      this.errorObj.nameInCard.valid = false;
+    } else {
+      this.errorObj.nameInCard.valid = true;
+    }
+    if (!this.cardNumber) {
+      returnV = false;
+      this.errorObj.cardNumber.valid = false;
+    } else {
+      this.errorObj.cardNumber.valid = true;
+    }
+    if (!this.selectedMonth) {
+      returnV = false;
+      this.errorObj.selectedMonth.valid = false;
+    } else {
+      this.errorObj.selectedMonth.valid = true;
+    }
+    if (!this.selectedYear) {
+      returnV = false;
+      this.errorObj.selectedYear.valid = false;
+    } else {
+      this.errorObj.selectedYear.valid = true;
+    }
+    if (!this.cardCvv) {
+      returnV = false;
+      this.errorObj.cardCvv.valid = false;
+    } else {
+      this.errorObj.cardCvv.valid = true;
+    }
+
+    return returnV;
+  }
+
   public getPaymentDetails(evt) {
     console.log(this.paymentOption);
     if (this.paymentOption === 'paypal') {
       this.payWithPaypal();
     } else if (this.paymentOption === 'newCard') {
       this.submitted = true;
-      // this.validation();
-      this.newCardayment();
+      if (this.valid())
+        this.newCardayment();
     } else {
       this.existingCard(this.paymentOption);
     }
@@ -102,11 +156,37 @@ export class PaymentPage implements OnInit {
     return await this.modalGl.present();
   }
 
-  public openPaymentSecure(url) {
-    this.presentModal(url).then(async data2 => {
-      const { data } = await this.modalGl.onWillDismiss();
+  public openPaymentSecure(url, obj) {
+    const browser: InAppBrowserObject = this.iab.create(url, '_blank', { location: 'no', zoom: 'yes' });
+    const watch = browser.on("loadstop").subscribe((event: InAppBrowserEvent) => {
+      if (event.url.indexOf('https://depannedakar.skylineserves.in/api/auth/confirmstripe') != -1) {
+        browser.close();
+        this.paymentCheckStatus(obj);
+      }
     })
   }
+
+  public async paymentCheckStatus(obj) {
+    this.loading = await this.loadingController.create({
+      message: 'Loading please wait',
+    });
+    this.loading.present();
+    const payload = {
+      client_secret: obj['client_secret'],
+      id: obj['id']
+    };
+    const subs = this.appGetService.confirmPayment(payload).subscribe(res => {
+      if (res?.confirm && res.confirm?.status === 'succeeded') {
+        this.navigateToSuceess(obj['charges']['data'][0]['id'], 'stripe');
+      }
+      this.loading.dismiss();
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
+  }
+
   public existingCard(paymentOption) {
     let payload = {};
     let userData = JSON.parse(localStorage.getItem('currentUserData'));
@@ -117,12 +197,10 @@ export class PaymentPage implements OnInit {
     const subs = this.appPostService.makePayment(payload).subscribe(res => {
       if (res?.paymentIntent && res.paymentIntent?.status === 'requires_source_action') {
         const url = res['paymentIntent']['next_action']['redirect_to_url']['url'];
-        this.openPaymentSecure(url);
+        this.openPaymentSecure(url, res['paymentIntent']);
+      } else if (res?.paymentIntent && res.paymentIntent?.status === 'succeeded') {
+        this.paymentCheckStatus(res['paymentIntent']);
       }
-      // if (res?.message) {
-      //   // this.loading.dismiss();
-      //   this.router.navigate(['/payment-success']);
-      // }
       this.loading.dismiss();
     }, error => {
       this.loading.dismiss();
@@ -144,8 +222,7 @@ export class PaymentPage implements OnInit {
     payload['amount'] = this.paymentData[0];
     const subs = this.appPostService.addNewCardAndMakePayment(payload).subscribe(res => {
       if (res?.paymentIntent && res.paymentIntent?.status === 'succeeded') {
-        // this.loading.dismiss();
-        this.router.navigate(['/payment-success']);
+        this.paymentCheckStatus(res['paymentIntent']);
       }
       this.loading.dismiss();
     }, error => {
@@ -172,7 +249,7 @@ export class PaymentPage implements OnInit {
         this.payPal.renderSinglePaymentUI(payment).then((res) => {
           // alert('Payment Successfully paid');
           this.paypalResponse = res;
-          this.navigateToSuceess(res.response.id);
+          this.navigateToSuceess(res.response.id, 'paypal');
 
           // Successfully paid
           // Example sandbox response
@@ -206,7 +283,7 @@ export class PaymentPage implements OnInit {
     });
   }
 
-  public async navigateToSuceess(tranID) {
+  public async navigateToSuceess(tranID, type) {
     this.loading = await this.loadingController.create({
       message: 'Loading please wait',
     });
@@ -225,7 +302,7 @@ export class PaymentPage implements OnInit {
       total_hrs: this.paymentData[5],
       amount: parseInt(this.paymentData[0]),
       payment_status: 'success',
-      payment_method: 'paypal'
+      payment_method: type
     };
     const subs = this.appPostService.paymentSuccess(params).subscribe(res => {
       if (res?.message) {
