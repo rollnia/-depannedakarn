@@ -166,9 +166,9 @@ export class PaymentPage implements OnInit {
       client_secret: obj['client_secret'],
       id: obj['id']
     };
-    const subs = this.appPostService.confirmPayment(payload).subscribe(res => {
+    const subs = this.appGetService.confirmPayment(payload).subscribe(res => {
       if (res?.confirm && res.confirm?.status === 'succeeded') {
-        this.navigateToSuceess(obj['payment_method'], 'stripe'); //method 1st param need to be replace by transaction id
+        this.navigateToSuceess(obj['id'], 'stripe');
       }
       this.loading.dismiss();
     }, error => {

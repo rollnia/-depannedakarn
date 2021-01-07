@@ -88,4 +88,8 @@ export class AppGetService {
   public getServiceList(providerId) {
     return this.http.get<any>(`${environment.apiUrl}auth/getavailabilitybyprovider?providerid=${providerId}`);
   }
+
+  public confirmPayment(payload) {
+    return this.http.get<any>(`${environment.apiUrl}auth/confirmstripe?payment_intent=${payload.id}&payment_intent_client_secret=${payload.client_secret}`);
+  }
 }
