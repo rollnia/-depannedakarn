@@ -168,7 +168,7 @@ export class PaymentPage implements OnInit {
     };
     const subs = this.appPostService.confirmPayment(payload).subscribe(res => {
       if (res?.confirm && res.confirm?.status === 'succeeded') {
-        this.navigateToSuceess(obj['payment_method'], 'stripe'); //this 1st param need to be replace by transaction id
+        this.navigateToSuceess(obj['payment_method'], 'stripe'); //method 1st param need to be replace by transaction id
       }
       this.loading.dismiss();
     }, error => {
