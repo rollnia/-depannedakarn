@@ -32,11 +32,11 @@ export class PaymentPage implements OnInit {
   cardCvv: any = '';
   submitted = false;
   errorObj = {
-    nameInCard: { valid: true},
-    cardNumber: { valid: true},
-    selectedMonth: { valid: true},
-    selectedYear: { valid: true},
-    cardCvv: { valid: true},
+    nameInCard: { valid: true },
+    cardNumber: { valid: true },
+    selectedMonth: { valid: true },
+    selectedYear: { valid: true },
+    cardCvv: { valid: true },
   }
   constructor(private appGetService: AppGetService, private appPostService: AppPostService, public loadingController: LoadingController, private platform: Platform, private payPal: PayPal, private route: ActivatedRoute, private router: Router, public modalController: ModalController, private iab: InAppBrowser) {
     this.route.queryParams.subscribe(params => {
@@ -130,7 +130,6 @@ export class PaymentPage implements OnInit {
       this.payWithPaypal();
     } else if (this.paymentOption === 'newCard') {
       this.submitted = true;
-      // this.validation();
       if (this.valid())
         this.newCardayment();
     } else {
@@ -169,7 +168,7 @@ export class PaymentPage implements OnInit {
     };
     const subs = this.appPostService.confirmPayment(payload).subscribe(res => {
       if (res?.confirm && res.confirm?.status === 'succeeded') {
-        this.navigateToSuceess(obj['payment_method'], 'stripe');
+        this.navigateToSuceess(obj['payment_method'], 'stripe'); //this 1st param need to be replace by transaction id
       }
       this.loading.dismiss();
     }, error => {
@@ -214,8 +213,7 @@ export class PaymentPage implements OnInit {
     payload['amount'] = this.paymentData[0];
     const subs = this.appPostService.addNewCardAndMakePayment(payload).subscribe(res => {
       if (res?.paymentIntent && res.paymentIntent?.status === 'succeeded') {
-        // this.loading.dismiss();
-        this.router.navigate(['/payment-success']);
+        this.paymentCheckStatus(res['paymentIntent']);
       }
       this.loading.dismiss();
     }, error => {
