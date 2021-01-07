@@ -22,6 +22,7 @@ export class PaymentPage implements OnInit {
   existingCardDetails;
   cvv = {};
   month = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+  currentYear = new Date().getFullYear();
   public subscriptions: Subscription[] = [];
   paypalResponse = '';
   loading: any;
@@ -85,6 +86,14 @@ export class PaymentPage implements OnInit {
       console.error(error);
     });
     this.subscriptions.push(subs);
+  }
+
+  public minTwoDigits(n) {
+    return (n < 10 ? '0' : '') + n;
+  }
+
+  public counter(i) {
+    return new Array(i);
   }
 
   public valid() {
@@ -168,7 +177,7 @@ export class PaymentPage implements OnInit {
     };
     const subs = this.appGetService.confirmPayment(payload).subscribe(res => {
       if (res?.confirm && res.confirm?.status === 'succeeded') {
-        this.navigateToSuceess(obj['id'], 'stripe');
+        this.navigateToSuceess(obj['charges']['data'][0]['id'], 'stripe');
       }
       this.loading.dismiss();
     }, error => {

@@ -28,12 +28,12 @@
       <div *ngIf="paymentOption === 'newCard'" class="pl-form">
         <ion-item lines="full">
           <ion-label position="floating">Name On Card</ion-label>
-          <ion-input type="text" required [(ngModel)]="nameInCard" (ngModelChange)="valid()" >
+          <ion-input type="text" required [(ngModel)]="nameInCard" (ngModelChange)="valid()">
           </ion-input>
         </ion-item>
         <span class="error error-label-text" *ngIf="submitted && !errorObj.nameInCard.valid">
-            Name is required.
-          </span>
+          Name is required.
+        </span>
         <ion-item lines="full">
           <ion-label position="floating">Card Number</ion-label>
           <ion-input type="text" required [(ngModel)]="cardNumber" (ngModelChange)="valid()"></ion-input>
@@ -48,8 +48,8 @@
               <ion-col size="6" class="pl-0">
                 <ion-select required class="w100 pl-0" name="selectMonth" [(ngModel)]="selectedMonth"
                   placeholder="Expiry MM" multile="false" (ngModelChange)="valid()">
-                  <ion-select-option *ngFor="let code of month; let i = index;" value="{{i + 1}}">
-                    {{code}}
+                  <ion-select-option *ngFor="let code of counter(12); let i = index;" value="{{i + 1}}">
+                    {{minTwoDigits(i + 1)}}
                   </ion-select-option>
                 </ion-select>
                 <span class="error error-label-text" *ngIf="submitted && !errorObj.selectedMonth.valid">
@@ -59,15 +59,10 @@
               <ion-col size="6">
                 <ion-select required class="w100 pl-0" name="selectYear" [(ngModel)]="selectedYear"
                   placeholder="Expiry YYYY" multile="false" (ngModelChange)="valid()">
-                  <ion-select-option value="2021">
-                    2021
+                  <ion-select-option *ngFor="let year of counter(20); let i = index;" value="{{currentYear + i}}">
+                    {{currentYear+i}}
                   </ion-select-option>
-                  <ion-select-option value="2022">
-                    2022
-                  </ion-select-option>
-                  <ion-select-option value="2023">
-                    2023
-                  </ion-select-option>
+
                 </ion-select>
                 <span class="error error-label-text" *ngIf="submitted && !errorObj.selectedYear.valid">
                   Year is required.
@@ -88,6 +83,10 @@
       <ion-item>
         <ion-label>Paypal</ion-label>
         <ion-radio slot="start" color="primary" value="paypal"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Bitcoin</ion-label>
+        <ion-radio slot="start" color="primary" value="bitcoin"></ion-radio>
       </ion-item>
 
     </ion-radio-group>
