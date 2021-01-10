@@ -211,14 +211,30 @@ export class PaymentPage implements OnInit {
     this.subscriptions.push(subs);
   }
 
-  public openBitcoinPaymentSecure(url) {
+  public openBitcoinPaymentSecure(url, invID) {
     const browser: InAppBrowserObject = this.iab.create(url, '_blank', { location: 'no', zoom: 'yes' });
     const watch = browser.on("loadstop").subscribe((event: InAppBrowserEvent) => {
       if (event.url.indexOf('https://depannedakar.skylineserves.in/api/auth/returnbitpay') != -1) {
         browser.close();
-        // this.paymentCheckStatus(obj);
+        this.bitcoinPayStatus(invID);
       }
     })
+  }
+
+  public async bitcoinPayStatus(invoiceid) {
+    this.loading = await this.loadingController.create({
+      message: 'Loading please wait',
+    });
+    this.loading.present();
+    const subs = this.appGetService.checkStatus(invoiceid).subscribe(res => {
+      if (res?.confirm && res.confirm?.status === 'succeeded') {
+        this.navigateToSuceess(invoiceid, 'bitpay');
+      }
+      this.loading.dismiss();
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
   }
 
   public payWithBitcoin() {
@@ -230,8 +246,8 @@ export class PaymentPage implements OnInit {
     const subs = this.appPostService.makeBitcoinPayment(payload).subscribe(res => {
       console.log('==>>>', res);
       if (res?.invoiceid) {
-          const url = res['paymenturl'];
-          this.openBitcoinPaymentSecure(url);
+        const url = res['paymenturl'];
+        this.openBitcoinPaymentSecure(url, res['invoiceid']);
       }
       // } else if (res?.paymentIntent && res.paymentIntent?.status === 'succeeded') {
       //   this.paymentCheckStatus(res['paymentIntent']);

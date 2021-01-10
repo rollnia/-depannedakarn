@@ -92,4 +92,8 @@ export class AppGetService {
   public confirmPayment(payload) {
     return this.http.get<any>(`${environment.apiUrl}auth/confirmstripe?payment_intent=${payload.id}&payment_intent_client_secret=${payload.client_secret}`);
   }
+
+  public checkStatus(invoiceid){
+    return this.http.get<any>(`${environment.apiUrl}auth/confirmbitpay?invoiceid=${invoiceid}`);
+  }
 }
