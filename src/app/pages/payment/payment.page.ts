@@ -137,6 +137,8 @@ export class PaymentPage implements OnInit {
     console.log(this.paymentOption);
     if (this.paymentOption === 'paypal') {
       this.payWithPaypal();
+    } else if (this.paymentOption === 'bitcoin') {
+      this.payWithBitcoin();
     } else if (this.paymentOption === 'newCard') {
       this.submitted = true;
       if (this.valid())
@@ -201,6 +203,39 @@ export class PaymentPage implements OnInit {
       } else if (res?.paymentIntent && res.paymentIntent?.status === 'succeeded') {
         this.paymentCheckStatus(res['paymentIntent']);
       }
+      this.loading.dismiss();
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
+  }
+
+  public openBitcoinPaymentSecure(url) {
+    const browser: InAppBrowserObject = this.iab.create(url, '_blank', { location: 'no', zoom: 'yes' });
+    const watch = browser.on("loadstop").subscribe((event: InAppBrowserEvent) => {
+      if (event.url.indexOf('https://depannedakar.skylineserves.in/api/auth/returnbitpay') != -1) {
+        browser.close();
+        // this.paymentCheckStatus(obj);
+      }
+    })
+  }
+
+  public payWithBitcoin() {
+    let payload = {};
+    let userData = JSON.parse(localStorage.getItem('currentUserData'));
+    payload['client'] = userData.user_name;
+    payload['email'] = userData.user_email;
+    payload['amount'] = this.paymentData[0];
+    const subs = this.appPostService.makeBitcoinPayment(payload).subscribe(res => {
+      console.log('==>>>', res);
+      if (res?.invoiceid) {
+          const url = res['paymenturl'];
+          this.openBitcoinPaymentSecure(url);
+      }
+      // } else if (res?.paymentIntent && res.paymentIntent?.status === 'succeeded') {
+      //   this.paymentCheckStatus(res['paymentIntent']);
+      // }
       this.loading.dismiss();
     }, error => {
       this.loading.dismiss();

@@ -61,4 +61,8 @@ export class AppPostService {
   public addNewCardAndMakePayment(payload) {
     return this.http.post<any>(`${environment.apiUrl}auth/addcard`, payload);
   }
+  // https://depannedakar.skylineserves.in/api/auth/bitpay?amount=10&client=Joy Nandi&email=joy@skylineserves.com
+  public makeBitcoinPayment(payload) {
+    return this.http.post<any>(`${environment.apiUrl}auth/bitpay`, payload);
+  }
 }
