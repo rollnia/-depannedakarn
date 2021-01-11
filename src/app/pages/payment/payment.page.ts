@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { AppGetService } from "../../shared/services/app-get.service";
 import { PaymentType } from './payment-type';
 import { InAppBrowser, InAppBrowserEvent, InAppBrowserOptions, InAppBrowserObject } from '@ionic-native/in-app-browser/ngx';
-
+declare let cordova: any;
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.page.html',
@@ -238,26 +238,56 @@ export class PaymentPage implements OnInit {
   }
 
   public payWithBitcoin() {
-    let payload = {};
-    let userData = JSON.parse(localStorage.getItem('currentUserData'));
-    payload['client'] = userData.user_name;
-    payload['email'] = userData.user_email;
-    payload['amount'] = this.paymentData[0];
-    const subs = this.appPostService.makeBitcoinPayment(payload).subscribe(res => {
-      console.log('==>>>', res);
-      if (res?.invoiceid) {
-        const url = res['paymenturl'];
-        this.openBitcoinPaymentSecure(url, res['invoiceid']);
-      }
-      // } else if (res?.paymentIntent && res.paymentIntent?.status === 'succeeded') {
-      //   this.paymentCheckStatus(res['paymentIntent']);
-      // }
-      this.loading.dismiss();
-    }, error => {
-      this.loading.dismiss();
-      console.error(error);
+    var Bitpay = cordova.require('com.bitpay.sdk.cordova.Bitpay');
+
+    var bitpay = new Bitpay({
+      host: 'test.bitpay.com', // or 'test.bitpay.com'
+      port: 443,
+      token: '7ze5bnYCgGj2jMtmjgCiTi4yyDqZZcSkHdhfowMHyA5M' // as retrieved from above
     });
-    this.subscriptions.push(subs);
+    bitpay.createInvoice({
+      price: 314.15,
+      currency: 'USD'
+    }, function (error, invoice) {
+      if (error) throw error;
+
+      // subscribe to events
+      invoice.on('payment', function (e) {
+        // do something on payment
+        var paid = invoice.data.btcPaid;
+      })
+
+      // open a native wallet with a signed payment request
+      invoice.openWallet();
+
+      // get the invoice url
+      var url = invoice.data.url;
+
+      // generate a qrcode
+      invoice.getQrCode({ format: 'BIP72' }, function (elm) {
+        // do something with the qrcode elm
+      });
+    });
+    // let payload = {};
+    // let userData = JSON.parse(localStorage.getItem('currentUserData'));
+    // payload['client'] = userData.user_name;
+    // payload['email'] = userData.user_email;
+    // payload['amount'] = this.paymentData[0];
+    // const subs = this.appPostService.makeBitcoinPayment(payload).subscribe(res => {
+    //   console.log('==>>>', res);
+    //   if (res?.invoiceid) {
+    //     const url = res['paymenturl'];
+    //     this.openBitcoinPaymentSecure(url, res['invoiceid']);
+    //   }
+    //   // } else if (res?.paymentIntent && res.paymentIntent?.status === 'succeeded') {
+    //   //   this.paymentCheckStatus(res['paymentIntent']);
+    //   // }
+    //   this.loading.dismiss();
+    // }, error => {
+    //   this.loading.dismiss();
+    //   console.error(error);
+    // });
+    // this.subscriptions.push(subs);
   }
 
   public newCardayment() {
