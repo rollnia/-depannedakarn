@@ -212,7 +212,7 @@ export class PaymentPage implements OnInit {
   }
 
   public openBitcoinPaymentSecure(url, invID) {
-    const browser: InAppBrowserObject = this.iab.create(url, '_blank', { location: 'no', zoom: 'yes' });
+    const browser: InAppBrowserObject = this.iab.create(url, '_self', { location: 'no', zoom: 'yes' });
     const watch = browser.on("loadstop").subscribe((event: InAppBrowserEvent) => {
       if (event.url.indexOf('https://depannedakar.skylineserves.in/api/auth/returnbitpay') != -1) {
         browser.close();
