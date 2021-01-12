@@ -26,7 +26,9 @@ export class BitPaymentPage implements OnInit {
   }
 
   copyText(inputElement) {
-    this.clipboard.copyFromContent(this.value)
+    this.clipboard.copyFromContent(this.value);
+    this.copied = true;
+    this.appGetService.showToast('Text Copied!!');
   }
 
   ionViewWillEnter() {
