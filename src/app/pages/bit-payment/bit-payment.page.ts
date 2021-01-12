@@ -15,6 +15,7 @@ export class BitPaymentPage implements OnInit {
   paymentData;
   loading: any;
   value;
+  goBack: boolean = false;
   public subscriptions: Subscription[] = [];
   constructor(private clipboard: ClipboardService, private appGetService: AppGetService, private appPostServie: AppPostService, public loadingController: LoadingController, private platform: Platform, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
@@ -27,7 +28,6 @@ export class BitPaymentPage implements OnInit {
 
   copyText(inputElement) {
     this.clipboard.copyFromContent(this.value);
-    this.copied = true;
     this.appGetService.showToast('Text Copied!!');
   }
 
@@ -73,7 +73,18 @@ export class BitPaymentPage implements OnInit {
     this.subscriptions.push(subs);
   }
 
+  public tiomoutQrCode() {
+    setTimeout(() => {
+      this.goBack = true;
+    },900000);
+  }
+
+  public goBackSearch() {
+    this.router.navigate(['/searchprovider']);
+  }
+
   private checkPaymentStatus(invoiceid) {
+    this.tiomoutQrCode();
     const subs = this.appGetService.checkStatus(invoiceid).subscribe(res => {
       if (res?.confirm && res.confirm?.status === 'succeeded') {
         this.navigateToSuceess(invoiceid, 'bitpay');
