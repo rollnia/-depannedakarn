@@ -76,7 +76,7 @@ export class BitPaymentPage implements OnInit {
   public tiomoutQrCode() {
     setTimeout(() => {
       this.goBack = true;
-    },900000);
+    }, 900000);
   }
 
   public goBackSearch() {
@@ -86,7 +86,7 @@ export class BitPaymentPage implements OnInit {
   private checkPaymentStatus(invoiceid) {
     this.tiomoutQrCode();
     const subs = this.appGetService.checkStatus(invoiceid).subscribe(res => {
-      if (res?.confirm && res.confirm?.status === 'succeeded') {
+      if (res?.invoice && res.invoice === 'confirmed') {
         this.navigateToSuceess(invoiceid, 'bitpay');
       } else {
         this.checkPaymentStatus(invoiceid);
