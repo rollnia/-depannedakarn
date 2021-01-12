@@ -7,8 +7,8 @@
 <ion-content>
   <div class="qr-display" *ngIf="value && !goBack">
     <ngx-qrcode [value]="value" alt="Bitcoin Payment" class="bshadow"></ngx-qrcode>
-    <span>Copy Below Url:</span>
-    <textarea (click)="copyText()" class="mt-3">{{value}}</textarea>
+    <div class="text-center mt-2">Copy Below Url:</div>
+    <textarea (click)="copyText()" class="mt-1">{{value}}</textarea>
 
   </div>
   <div class="go-back" *ngIf="goBack">
