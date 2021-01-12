@@ -78,7 +78,11 @@ const routes: Routes = [
   {
     path: 'edit-service',
     loadChildren: () => import('./pages/edit-service/edit-service.module').then(m => m.EditServicePageModule)
+  },  {
+    path: 'bit-payment',
+    loadChildren: () => import('./pages/bit-payment/bit-payment.module').then( m => m.BitPaymentPageModule)
   },
+
 
 
 

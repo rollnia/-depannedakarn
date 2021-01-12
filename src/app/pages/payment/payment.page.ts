@@ -138,7 +138,12 @@ export class PaymentPage implements OnInit {
     if (this.paymentOption === 'paypal') {
       this.payWithPaypal();
     } else if (this.paymentOption === 'bitcoin') {
-      this.payWithBitcoin();
+      // this.payWithBitcoin(); 
+      this.router.navigate(['/bit-payment'], {
+        queryParams: {
+          return: this.paymentData
+        }
+      });
     } else if (this.paymentOption === 'newCard') {
       this.submitted = true;
       if (this.valid())
@@ -238,36 +243,6 @@ export class PaymentPage implements OnInit {
   }
 
   public payWithBitcoin() {
-    var Bitpay = cordova.require('com.bitpay.sdk.cordova.Bitpay');
-
-    var bitpay = new Bitpay({
-      host: 'test.bitpay.com', // or 'test.bitpay.com'
-      port: 443,
-      token: '7ze5bnYCgGj2jMtmjgCiTi4yyDqZZcSkHdhfowMHyA5M' // as retrieved from above
-    });
-    bitpay.createInvoice({
-      price: 314.15,
-      currency: 'USD'
-    }, function (error, invoice) {
-      if (error) throw error;
-
-      // subscribe to events
-      invoice.on('payment', function (e) {
-        // do something on payment
-        var paid = invoice.data.btcPaid;
-      })
-
-      // open a native wallet with a signed payment request
-      invoice.openWallet();
-
-      // get the invoice url
-      var url = invoice.data.url;
-
-      // generate a qrcode
-      invoice.getQrCode({ format: 'BIP72' }, function (elm) {
-        // do something with the qrcode elm
-      });
-    });
     // let payload = {};
     // let userData = JSON.parse(localStorage.getItem('currentUserData'));
     // payload['client'] = userData.user_name;
