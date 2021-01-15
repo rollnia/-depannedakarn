@@ -13,11 +13,18 @@
             <ion-label *ngIf="details && details.clientdetails" class="users-label-inner ion-text-capitalize">
               {{details['clientdetails'][0]['name']}}</ion-label>
           </ion-col>
-          <ion-col size="12">
+          <!-- <ion-col size="12">
             <ion-label *ngIf="details && details.providerdetails" class="users-contact-label">Numéro de téléphone:
               {{details['providerdetails'][0]['phone']}}</ion-label>
             <ion-label *ngIf="details && details.clientdetails" class="users-contact-label">Numéro de téléphone:
               {{details['clientdetails'][0]['phone']}}</ion-label>
+          </ion-col> -->
+          <ion-col *ngIf="details?.providerdetails && details?.bookingdetails" size="12">
+            <ion-label [ngClass]="{'viewOnly': return && return.length > 3}" class="rating-label-inner">
+              <bar-rating id="ratingBar" [theme]="'default'" (ngModelChange)="changeRate($event)" [(ngModel)]="rating"
+                [max]="5">
+              </bar-rating>
+            </ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -32,14 +39,25 @@
             <ion-label class="booking-text-label">{{details.bookingdetails.service_name}}</ion-label>
           </ion-col>
         </ion-row>
-        <!-- <ion-row>
+        <ion-row>
           <ion-col size="7">
-            <ion-label class="item-text-label">Location</ion-label>
+            <ion-label class="item-text-label">Téléphone</ion-label>
           </ion-col>
           <ion-col size="5">
-            <ion-label class="booking-text-label">Howrah</ion-label>
+            <ion-label *ngIf="details && details.providerdetails" class="booking-text-label">
+              {{details['providerdetails'][0]['phone']}}</ion-label>
+            <ion-label *ngIf="details && details.clientdetails" class="booking-text-label">
+              {{details['clientdetails'][0]['phone']}}</ion-label>
           </ion-col>
-        </ion-row> -->
+        </ion-row>
+        <ion-row *ngIf="details?.bookingdetails && details.bookingdetails?.location_name">
+          <ion-col size="7">
+            <ion-label class="item-text-label">emplacement</ion-label>
+          </ion-col>
+          <ion-col size="5">
+            <ion-label class="booking-text-label">{{details.bookingdetails?.location_name}}</ion-label>
+          </ion-col>
+        </ion-row>
         <ion-row>
           <ion-col size="7">
             <ion-label class="item-text-label">Date</ion-label>
@@ -69,13 +87,13 @@
     <ion-item>
       <ion-grid>
         <ion-row>
-          <ion-col *ngIf="details?.providerdetails && details?.bookingdetails" size="12">
+          <!-- <ion-col *ngIf="details?.providerdetails && details?.bookingdetails" size="12">
             <ion-label [ngClass]="{'viewOnly': return && return.length > 3}" class="rating-label-inner">
               <bar-rating id="ratingBar" [theme]="'default'" (ngModelChange)="changeRate($event)" [(ngModel)]="rating"
                 [max]="5">
               </bar-rating>
             </ion-label>
-          </ion-col>
+          </ion-col> -->
           <ion-col *ngIf="details?.bookingdetails" size="12" class="cancel-booking-btn-inner">
             <ion-button *ngIf="return && return.length === 1" color="{{colorCoding}}" [disabled]="isenabled"
               (click)="cancelBooking()" expand="full" shape="round" class="cancel-booking-btn">Cancel
