@@ -54,13 +54,25 @@ export class BitPaymentPage implements OnInit {
     });
     this.loading.present();
 
-    let payload = {};
-    let userData = JSON.parse(localStorage.getItem('currentUserData'));
-    payload['client'] = userData.user_name;
-    payload['email'] = userData.user_email;
-    payload['amount'] = this.paymentData[0];
+
+    let user = JSON.parse(localStorage.getItem('currentUserData'));
+    let payload = {
+      client: user.user_name,
+      email: user.user_email,
+      amount: this.paymentData[0],
+      user_id: user['user_id'],
+      service_id: user['service_id'],
+      location_id: user['location_id'],
+      provider_id: this.paymentData[4],
+      booking_date: this.paymentData[1],
+      start_time: this.paymentData[2],
+      end_time: this.paymentData[3],
+      booking_status: 'pending',
+      total_hrs: this.paymentData[5],
+      payment_status: 'success',
+      payment_method: 'bitpay'
+    };
     const subs = this.appPostServie.makeBitcoinPayment(payload).subscribe(res => {
-      console.log('==>>>', res);
       if (res?.invoiceid) {
         this.value = `https://test.bitpay.com/i/${res.invoiceid}`;
         this.checkPaymentStatus(res.invoiceid);
@@ -87,7 +99,8 @@ export class BitPaymentPage implements OnInit {
     this.tiomoutQrCode();
     const subs = this.appGetService.checkStatus(invoiceid).subscribe(res => {
       if (res?.invoice && res.invoice === 'confirmed') {
-        this.navigateToSuceess(invoiceid, 'bitpay');
+        this.router.navigate(['/payment-success']);
+        // this.navigateToSuceess(invoiceid, 'bitpay');
       } else {
         this.checkPaymentStatus(invoiceid);
       }
@@ -103,6 +116,7 @@ export class BitPaymentPage implements OnInit {
       message: 'Loading please wait',
     });
     this.loading.present();
+    this.router.navigate(['/payment-success']);
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     const params = {
       user_id: user['user_id'],
