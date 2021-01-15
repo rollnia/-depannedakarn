@@ -18,13 +18,14 @@ export class BookingdetailPage {
   loading: any;
   return: string = '';
   rating;
+  user;
   public colorCoding = 'danger';
   public completeColor = 'primary';
   public isReadOnly = true;
   constructor(private platform: Platform, private appPostService: AppPostService, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) { }
 
   ionViewWillEnter() {
-
+    this.user = JSON.parse(localStorage.getItem('currentUserData'));
     this.route.queryParams.subscribe(params => {
       this.return = params && params.return ? params.return : '';
     });
