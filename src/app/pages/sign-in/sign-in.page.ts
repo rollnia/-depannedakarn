@@ -29,7 +29,7 @@ export class SignInPage {
     });
     this.subscriptions.push(backEvent);
     this.route.queryParams.subscribe(params => {
-      this.return = params && params.return ? JSON.parse(params.return) : '';
+      this.return = params && params.return ? params.return : '';
     });
     this.createLoginForm();
   }

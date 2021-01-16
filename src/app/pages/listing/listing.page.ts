@@ -118,7 +118,8 @@ export class ListingPage implements OnInit {
     const service_id = user['service_id'];
     const params = ['/payment', amt, this.searchData.bookingdate, this.searchData.start_time, this.searchData.end_time, this.listinData[0].id, hrs];
     if ((!user) || (user && !user['token'])) {
-      this.router.navigate(['/sign-in'], {
+      // this.router.navigate(['/sign-in'], {
+      this.router.navigate(['/sign-up'], {
         queryParams: {
           return: JSON.stringify(params)
         }

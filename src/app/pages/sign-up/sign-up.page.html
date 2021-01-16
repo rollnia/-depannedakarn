@@ -1,9 +1,9 @@
 <ion-content padding class="login-background">
   <ion-grid class="loginheader-background">
     <ion-row>
-        <ion-col size="12" class="logo-inner">
-            <ion-img src="assets/images/logo.png" class="site-logo"></ion-img>
-        </ion-col>
+      <ion-col size="12" class="logo-inner">
+        <ion-img src="assets/images/logo.png" class="site-logo"></ion-img>
+      </ion-col>
     </ion-row>
   </ion-grid>
   <ion-grid class="signup-details-box">
@@ -67,7 +67,7 @@
           <span class="error error-label-text" *ngIf="isSubmitted && errorControl.confirmPassword.errors?.different">
             Password do not match.
           </span>
-          <ion-item class="input-fields-inner checkbox-item-inner" (click)="openPrivacyPolicy()" >
+          <ion-item class="input-fields-inner checkbox-item-inner" (click)="openPrivacyPolicy()">
             <ion-checkbox color="primary" formControlName="privacy" slot="start" class="checkbox-class"></ion-checkbox>
             <ion-label>Se connecter</ion-label>
           </ion-item>
@@ -75,9 +75,13 @@
             Please check privacy to proceed.
           </span>
         </ion-col>
-        <ion-col size="12" class="submit-btn-inner">
-          <ion-button (click)="signUp(signUpForm)"  shape="round" expand="full" fill="outline" class="submit-btn">Valider
+        <ion-col size="12" class="">
+          <ion-button (click)="signUp(signUpForm)" shape="round" expand="full" fill="outline" class="submit-btn">Valider
           </ion-button>
+        </ion-col>
+        <ion-col size="12" class="">
+          <span>Utilisateur existant ? </span>
+          <ion-button fill="clear" class="adjust-sign" (click)="signIn()">Se connecter</ion-button>
         </ion-col>
       </ion-row>
     </form>

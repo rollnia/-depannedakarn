@@ -33,7 +33,7 @@ export class SignUpPage {
 
   ionViewDidEnter() {
     this.route.queryParams.subscribe(params => {
-      this.return = params && params.return ? params.return : '';
+      this.return = params && params.return ? JSON.parse(params.return) : '';
     });
     this.createSignUpForm();
   }
@@ -154,9 +154,22 @@ export class SignUpPage {
       this.loginUser(reqObj);
     }, error => {
       this.loading.dismiss();
+      if (error?.error && error.error?.errors && error.error.errors?.phone) {
+        this.appGetService.showToast(error.error.errors.phone);
+      } else if (error?.error && error.error?.errors && error.error.errors?.email) {
+        this.appGetService.showToast(error.error.errors.email);
+      }
       console.error(error);
     });
     this.subscriptions.push(subs);
+  }
+
+  public signIn() {
+    this.router.navigate(['/sign-in'], {
+      queryParams: {
+        return: this.return
+      }
+    });
   }
 
 
