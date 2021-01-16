@@ -124,7 +124,7 @@ export class SignInPage {
       }
     }, error => {
       this.loading.dismiss();
-      if (error?.statusText && error.statusText === 'Unauthorized') {
+      if (error?.message && error.message === 'Unauthorized') {
         this.appGetService.showToast('Unauthorized access');
       }
       console.error(error);
