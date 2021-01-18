@@ -82,6 +82,10 @@ const routes: Routes = [
     path: 'bit-payment',
     loadChildren: () => import('./pages/bit-payment/bit-payment.module').then( m => m.BitPaymentPageModule)
   },
+  {
+    path: 'subscription',
+    loadChildren: () => import('./pages/subscription/subscription.module').then( m => m.SubscriptionPageModule)
+  },
 
 
 

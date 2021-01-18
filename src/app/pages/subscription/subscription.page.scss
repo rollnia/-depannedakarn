@@ -1,0 +1,82 @@
+ion-toolbar{
+    --background: #F37047;
+    --color: #fff;
+    --border-color: #F37047;
+    padding: 30px 0px 30px 0px !important;
+    border-radius: 0px 0px 25px 25px;
+}
+.site-logo{
+    height: 50px;
+    text-align: left;
+}
+ion-title{
+    padding-inline-start: 0px;
+}
+.item-inner-box{
+    --background: transparent;
+    --border-color: #000;
+    --padding-start: 0px;
+    --placeholder-opacity: 1;
+    color: #000;
+    margin: 0px 0px 0px 0px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.list-inner-box{
+    width:90%; 
+    margin: 0px 10px;
+}
+.list-inner-top{
+    padding: 10px 10px 20px 10px;
+}
+.border-shadow{
+    border-top: 2px solid #ddd;
+    border-left: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    top: 10px;
+    position: relative;
+}
+.border-shadow-service{
+    border-bottom: 2px solid #ddd;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-left: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+    padding: 10px 10px 20px 10px;
+}
+.dropdown-label-text{
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    padding: 0px 0px 10px 0px;
+    width: 100%;
+    display: inline-block;
+}
+.dropdown-inner-box{
+    --border-width: 1px 1px 1px 1px;
+    --border-color: #000;
+    --border-radius: 4px;
+    padding: 0px 0px 40px 0px;
+}
+.dropdown-inner-box ion-select{
+    width: 100%;
+}
+.next-btn-property{
+/*    --border-color: red;
+    --background: red;*/
+	--border-color: #F37047;
+    --background: #F37047;
+    --color: #fff;
+    height: 44px;
+    font-size: 19px;
+    text-transform: none;
+}
+.ion-datepicker-cont{
+    width: 24% !important;
+    .clearButton {
+        display: none;
+    }
+}
+

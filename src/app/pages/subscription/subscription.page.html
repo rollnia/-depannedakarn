@@ -1,0 +1,157 @@
+<ion-header class="ion-no-border">
+  <app-header></app-header>
+</ion-header>
+<ion-content class="ion-container">
+  <!-- <ng-container *ngFor="let year of counter(3); let i = index;"> -->
+  <ion-list class="list-inner-box border-shadow list-inner-top">
+    <ion-label class="dropdown-label-text">Slot 1</ion-label>
+    <ion-item class="item-inner-box">
+      <ion-label>Date</ion-label>
+      <li-ionic4-datepicker (ngModelChange)="setMinEndDate1($event)" placeholder="Select Date"
+        class="ion-datepicker-cont" [(ngModel)]="dateObj['1']" [inputDateConfig]="datePickerObj1">
+      </li-ionic4-datepicker>
+    </ion-item>
+    <ion-item class="item-inner-box">
+      <ion-label>Start Time</ion-label>
+      <ion-datetime id="startTime1" display-format="h:mm A" picker-format="h:mm A" value="{{date}}">
+      </ion-datetime>
+    </ion-item>
+    <ion-item class="item-inner-box item-last-inner">
+      <ion-label>End Time</ion-label>
+      <ion-datetime id="endTime1" display-format="h:mm A" picker-format="h:mm A" value="{{endTime}}">
+      </ion-datetime>
+    </ion-item>
+  </ion-list>
+  <ion-list class="list-inner-box border-shadow-service">
+    <ion-label class="dropdown-label-text">Sélectionner votre quartier</ion-label>
+    <ion-item class="dropdown-inner-box">
+      <ion-select id="location1" *ngIf="searchProviderData?.location && searchProviderData.location.length">
+        <ion-select-option *ngFor="let location of searchProviderData.location" value="{{location.id}}">
+          {{location.location_name}}</ion-select-option>
+        <!-- <ion-select-option value="Two">Two</ion-select-option> -->
+      </ion-select>
+    </ion-item>
+    <ion-label class="dropdown-label-text">Service en demande</ion-label>
+    <ion-item class="dropdown-inner-box">
+      <ion-select id="service1" *ngIf="searchProviderData?.service && searchProviderData.service.length">
+        <ion-select-option *ngFor="let service of searchProviderData.service" value="{{service.id}}">
+          {{service.service_name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <!-- </ng-container> -->
+  <ion-list class="list-inner-box border-shadow list-inner-top">
+    <ion-label class="dropdown-label-text">Slot 2</ion-label>
+    <ion-item class="item-inner-box">
+      <ion-label>Date</ion-label>
+      <li-ionic4-datepicker (ngModelChange)="setMinEndDate2($event)" placeholder="Select Date"
+        class="ion-datepicker-cont" [(ngModel)]="dateObj['2']" [inputDateConfig]="datePickerObj2">
+      </li-ionic4-datepicker>
+    </ion-item>
+    <ion-item class="item-inner-box">
+      <ion-label>Start Time</ion-label>
+      <ion-datetime id="startTime2" display-format="h:mm A" picker-format="h:mm A" value="{{date}}">
+      </ion-datetime>
+    </ion-item>
+    <ion-item class="item-inner-box item-last-inner">
+      <ion-label>End Time</ion-label>
+      <ion-datetime id="endTime2" display-format="h:mm A" picker-format="h:mm A" value="{{endTime}}">
+      </ion-datetime>
+    </ion-item>
+  </ion-list>
+  <ion-list class="list-inner-box border-shadow-service">
+    <ion-label class="dropdown-label-text">Sélectionner votre quartier</ion-label>
+    <ion-item class="dropdown-inner-box">
+      <ion-select id="location2" *ngIf="searchProviderData?.location && searchProviderData.location.length">
+        <ion-select-option *ngFor="let location of searchProviderData.location" value="{{location.id}}">
+          {{location.location_name}}</ion-select-option>
+        <!-- <ion-select-option value="Two">Two</ion-select-option> -->
+      </ion-select>
+    </ion-item>
+    <ion-label class="dropdown-label-text">Service en demande</ion-label>
+    <ion-item class="dropdown-inner-box">
+      <ion-select id="service2" *ngIf="searchProviderData?.service && searchProviderData.service.length">
+        <ion-select-option *ngFor="let service of searchProviderData.service" value="{{service.id}}">
+          {{service.service_name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-list class="list-inner-box border-shadow list-inner-top">
+    <ion-label class="dropdown-label-text">Slot 3</ion-label>
+    <ion-item class="item-inner-box">
+      <ion-label>Date</ion-label>
+      <li-ionic4-datepicker (ngModelChange)="setMinEndDate3($event)" placeholder="Select Date"
+        class="ion-datepicker-cont" [(ngModel)]="dateObj['3']" [inputDateConfig]="datePickerObj3">
+      </li-ionic4-datepicker>
+    </ion-item>
+    <ion-item class="item-inner-box">
+      <ion-label>Start Time</ion-label>
+      <ion-datetime id="startTime3" display-format="h:mm A" picker-format="h:mm A" value="{{date}}">
+      </ion-datetime>
+    </ion-item>
+    <ion-item class="item-inner-box item-last-inner">
+      <ion-label>End Time</ion-label>
+      <ion-datetime id="endTime3" display-format="h:mm A" picker-format="h:mm A" value="{{endTime}}">
+      </ion-datetime>
+    </ion-item>
+  </ion-list>
+  <ion-list class="list-inner-box border-shadow-service">
+    <ion-label class="dropdown-label-text">Sélectionner votre quartier</ion-label>
+    <ion-item class="dropdown-inner-box">
+      <ion-select id="location3" *ngIf="searchProviderData?.location && searchProviderData.location.length">
+        <ion-select-option *ngFor="let location of searchProviderData.location" value="{{location.id}}">
+          {{location.location_name}}</ion-select-option>
+        <!-- <ion-select-option value="Two">Two</ion-select-option> -->
+      </ion-select>
+    </ion-item>
+    <ion-label class="dropdown-label-text">Service en demande</ion-label>
+    <ion-item class="dropdown-inner-box">
+      <ion-select id="service3" *ngIf="searchProviderData?.service && searchProviderData.service.length">
+        <ion-select-option *ngFor="let service of searchProviderData.service" value="{{service.id}}">
+          {{service.service_name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-list class="list-inner-box border-shadow list-inner-top">
+    <ion-label class="dropdown-label-text">Slot 4</ion-label>
+    <ion-item class="item-inner-box">
+      <ion-label>Date</ion-label>
+      <li-ionic4-datepicker (ngModelChange)="setMinEndDate4($event)" placeholder="Select Date"
+        class="ion-datepicker-cont" [(ngModel)]="dateObj['4']" [inputDateConfig]="datePickerObj4">
+      </li-ionic4-datepicker>
+    </ion-item>
+    <ion-item class="item-inner-box">
+      <ion-label>Start Time</ion-label>
+      <ion-datetime id="startTime4" display-format="h:mm A" picker-format="h:mm A" value="{{date}}">
+      </ion-datetime>
+    </ion-item>
+    <ion-item class="item-inner-box item-last-inner">
+      <ion-label>End Time</ion-label>
+      <ion-datetime id="endTime4" display-format="h:mm A" picker-format="h:mm A" value="{{endTime}}">
+      </ion-datetime>
+    </ion-item>
+  </ion-list>
+  <ion-list class="list-inner-box border-shadow-service">
+    <ion-label class="dropdown-label-text">Sélectionner votre quartier</ion-label>
+    <ion-item class="dropdown-inner-box">
+      <ion-select id="location4" *ngIf="searchProviderData?.location && searchProviderData.location.length">
+        <ion-select-option *ngFor="let location of searchProviderData.location" value="{{location.id}}">
+          {{location.location_name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-label class="dropdown-label-text">Service en demande</ion-label>
+    <ion-item class="dropdown-inner-box">
+      <ion-select id="service4" *ngIf="searchProviderData?.service && searchProviderData.service.length">
+        <ion-select-option *ngFor="let service of searchProviderData.service" value="{{service.id}}">
+          {{service.service_name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-list class="list-inner-box">
+    <ion-col size="12" class="submit-btn-inner">
+      <ion-button shape="round" expand="full" (click)="submitSearchData()" fill="outline" class="next-btn-property">
+        Suivant
+      </ion-button>
+    </ion-col>
+  </ion-list>
+</ion-content>
