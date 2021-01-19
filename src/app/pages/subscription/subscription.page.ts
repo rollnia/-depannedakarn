@@ -65,6 +65,10 @@ export class SubscriptionPage implements OnInit {
     weeksList: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
     monthsList: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
   };
+  public searchProviderModel = {
+    location: '',
+    service: ''
+  };
   date = (new Date()).toISOString();
   endTime: any = new Date();
 
@@ -77,6 +81,12 @@ export class SubscriptionPage implements OnInit {
     this.endTime.setHours(this.endTime.getHours() + 1);
     this.endTime = this.endTime.toISOString();
     const sDate = new Date();
+    this.dateObj['2'] = moment(new Date().setDate(new Date().getDate() + 1)).format('ll');
+    this.dateObj['3'] = moment(new Date().setDate(new Date().getDate() + 2)).format('ll');
+    this.dateObj['4'] = moment(new Date().setDate(new Date().getDate() + 3)).format('ll');
+    this.datePickerObj2['fromDate'] = new Date(new Date().setDate(new Date().getDate() + 1));
+    this.datePickerObj3['fromDate'] = new Date(new Date().setDate(new Date().getDate() + 2));
+    this.datePickerObj4['fromDate'] = new Date(new Date().setDate(new Date().getDate() + 3));
     this.datePickerObj1['toDate'] = new Date(new Date().setDate(new Date().getDate() + 30));
     this.datePickerObj2['toDate'] = new Date(new Date().setDate(new Date().getDate() + 30));
     this.datePickerObj3['toDate'] = new Date(new Date().setDate(new Date().getDate() + 30));
@@ -115,6 +125,8 @@ export class SubscriptionPage implements OnInit {
       if (res?.location && res?.service) {
         this.loading.dismiss();
         this.searchProviderData = res;
+        this.searchProviderModel['location'] = this.searchProviderData['location'][0]['id'];
+        this.searchProviderModel['service'] = this.searchProviderData['service'][0]['id'];
       }
     }, error => {
       this.loading.dismiss();
@@ -126,12 +138,13 @@ export class SubscriptionPage implements OnInit {
   public setMinEndDate1(date) {
     const eDate: any = new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 30));
     const sDate: any = new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 1));
-    this.dateObj['2'] = moment(sDate).format('ll');
-    this.dateObj['3'] = moment(sDate).format('ll');
-    this.dateObj['4'] = moment(sDate).format('ll');
-    this.datePickerObj2['fromDate'] = moment(sDate).format('ll');
-    this.datePickerObj3['fromDate'] = moment(sDate).format('ll');
-    this.datePickerObj4['fromDate'] = moment(sDate).format('ll');
+    this.dateObj['2'] = moment(new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 1))).format('ll');
+    this.dateObj['3'] = moment(new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 2))).format('ll');
+    this.dateObj['4'] = moment(new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 3))).format('ll');
+    this.datePickerObj2['fromDate'] = moment(new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 1))).format('ll');
+    this.datePickerObj3['fromDate'] = moment(new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 2))).format('ll');
+    this.datePickerObj4['fromDate'] = moment(new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 3))).format('ll');
+    this.datePickerObj1['toDate'] = moment(eDate).format('ll');
     this.datePickerObj2['toDate'] = moment(eDate).format('ll');
     this.datePickerObj3['toDate'] = moment(eDate).format('ll');
     this.datePickerObj4['toDate'] = moment(eDate).format('ll');
@@ -139,21 +152,16 @@ export class SubscriptionPage implements OnInit {
 
   public setMinEndDate2(date) {
     const sDate: any = new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 1));
-    this.dateObj['3'] = moment(sDate).format('ll');
-    this.dateObj['4'] = moment(sDate).format('ll');
-    this.datePickerObj3['fromDate'] = moment(sDate).format('ll');
-    this.datePickerObj4['fromDate'] = moment(sDate).format('ll');
+    this.dateObj['3'] = moment(new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 1))).format('ll');
+    this.dateObj['4'] = moment(new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 2))).format('ll');
+    this.datePickerObj3['fromDate'] = moment(new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 1))).format('ll');
+    this.datePickerObj4['fromDate'] = moment(new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 2))).format('ll');
   }
 
   public setMinEndDate3(date) {
     const sDate: any = new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 1));
     this.dateObj['4'] = moment(sDate).format('ll');
     this.datePickerObj4['fromDate'] = moment(sDate).format('ll');
-  }
-
-
-  public counter(i) {
-    return new Array(i);
   }
 
   public chckTime(sTime, eTime) {
@@ -167,6 +175,20 @@ export class SubscriptionPage implements OnInit {
 
     const hrs = time_end <= time_start;
     return hrs;
+  }
+
+  public async submitSearchData() {
+    const params = [];
+    const obj = {};
+    for (let i = 1; i <= 4; i++) {
+
+      obj['location'] = this.searchProviderModel.location;
+      obj['service_type'] = this.searchProviderModel.service;
+      obj['selectdate'] = moment(this.mydate1).format('YYYY-MM-DD'); //((<HTMLInputElement>document.getElementById("date")).value).split('T')[0];
+      obj['start_time'] = `${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getMinutes()}:00`;
+      obj['end_time'] = `${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getMinutes()}:00`;
+      obj['provider_id'] = this.return ? this.return[0] : 0;
+    }
   }
 
 }

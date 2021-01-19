@@ -81,21 +81,21 @@
   <ion-list class="list-inner-box ">
     <ion-label class="dropdown-label-text">Sélectionner votre quartier</ion-label>
     <ion-item class="dropdown-inner-box">
-      <ion-select id="location3" *ngIf="searchProviderData?.location && searchProviderData.location.length">
+      <ion-select [(ngModel)]="searchProviderModel['location']" id="location1"
+        *ngIf="searchProviderData?.location && searchProviderData.location.length && searchProviderModel['location']">
         <ion-select-option *ngFor="let location of searchProviderData.location" value="{{location.id}}">
           {{location.location_name}}</ion-select-option>
-        <!-- <ion-select-option value="Two">Two</ion-select-option> -->
       </ion-select>
     </ion-item>
     <ion-label class="dropdown-label-text">Service en demande</ion-label>
     <ion-item class="dropdown-inner-box">
-      <ion-select id="service1" *ngIf="searchProviderData?.service && searchProviderData.service.length">
+      <ion-select id="service1" [(ngModel)]="searchProviderModel['service']"
+        *ngIf="searchProviderData?.service && searchProviderData.service.length && searchProviderModel['service']">
         <ion-select-option *ngFor="let service of searchProviderData.service" value="{{service.id}}">
           {{service.service_name}}</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>
-  <!-- </ng-container> -->
 
   <ion-list class="list-inner-box">
     <ion-col size="12" class="submit-btn-inner">
