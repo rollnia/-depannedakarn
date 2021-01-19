@@ -178,16 +178,60 @@ export class SubscriptionPage implements OnInit {
   }
 
   public async submitSearchData() {
-    const params = [];
-    const obj = {};
+    const listingData = {
+      listing: [],
+      params: []
+    };
+    this.loading = await this.loadingController.create({
+      message: 'Loading please wait',
+    });
+    this.loading.present();
+    let c = 0;
     for (let i = 1; i <= 4; i++) {
+      const obj = {};
+      obj['location'] = this.searchProviderModel.location;
+      obj['service_type'] = this.searchProviderModel.service;
+      obj['selectdate'] = moment(this.dateObj[i]).format('YYYY-MM-DD');
+      obj['start_time'] = `${new Date((<HTMLInputElement>document.getElementById("startTime" + i)).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("startTime" + i)).value).getMinutes()}:00`;
+      obj['end_time'] = `${new Date((<HTMLInputElement>document.getElementById("endTime" + i)).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("endTime" + i)).value).getMinutes()}:00`;
+      obj['provider_id'] = this.return ? this.return[0] : 0;
+      obj['slot'] = i;
+      // params.push(obj);
+      this.appGetService.listingData.next('');
+      const alert = await this.alertCtrl.create({
+        cssClass: 'my-custom-class',
+        header: 'Alert',
+        subHeader: '',
+        message: 'End Time cannot less than Start Time.',
+        buttons: ['OK']
+      });
+      if (this.chckTime(obj['start_time'], obj['end_time'])) {
+        this.loading.dismiss();
+        await alert.present();
+        return;
+      }
+      console.log(obj);
+      const subs = this.appGetService.getListing(obj).subscribe(res => {
+        if ((res?.listing) || (res?.params && Object.keys(res.params).length)) {
+          if (i === 4) {
+            this.loading.dismiss();
+          }
+          c++;
+          if (res?.listing && res.listing.length) {
+            listingData['listing'].push(res.listing[0]);
+          }
+          listingData['params'].push(res.params);
+          if (c === 4) {
+            this.appGetService.listingData.next(listingData);
+            this.router.navigate(['/subscription-listing']);
+          }
+        }
+      }, error => {
+        this.loading.dismiss();
+        console.error(error);
+      });
 
-      // obj['location'] = this.searchProviderModel.location;
-      // obj['service_type'] = this.searchProviderModel.service;
-      // obj['selectdate'] = moment(this.mydate1).format('YYYY-MM-DD'); //((<HTMLInputElement>document.getElementById("date")).value).split('T')[0];
-      // obj['start_time'] = `${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getMinutes()}:00`;
-      // obj['end_time'] = `${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getMinutes()}:00`;
-      // obj['provider_id'] = this.return ? this.return[0] : 0;
+      this.subscriptions.push(subs);
     }
   }
 

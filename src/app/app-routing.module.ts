@@ -86,6 +86,10 @@ const routes: Routes = [
     path: 'subscription',
     loadChildren: () => import('./pages/subscription/subscription.module').then( m => m.SubscriptionPageModule)
   },
+  {
+    path: 'subscription-listing',
+    loadChildren: () => import('./pages/subscription-listing/subscription-listing.module').then( m => m.SubscriptionListingPageModule)
+  },
 
 
 

@@ -1,0 +1,141 @@
+$ratingSize: 100px;
+ion-toolbar{
+    --background: #F37047;
+    --color: #fff;
+    --border-color: #F37047;
+    padding: 30px 0px 30px 0px !important;
+    border-radius: 0px 0px 25px 25px;
+}
+.site-logo{
+    height: 50px;
+    text-align: left;
+}
+ion-title{
+    padding-inline-start: 0px;
+}
+.list-inner-top{
+    padding: 45px 0px 20px 0px;
+}
+.list-inner-box{
+    width:90%; 
+    margin: 0px auto;
+}
+.list-inner-box .list-tem-box{
+    background: #e9e8fd;
+    border-radius: 10px;
+}
+.list-inner-box ion-item{
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
+    margin: 0px 0px 15px 0px;
+    --border-color: transparent;
+}
+.list-inner-box ion-grid{
+    padding: 14px 12px;
+    width: 100%;
+}
+.list-inner-box  .btn-grid-inner{
+    padding: 14px 0px;
+}
+.item-text-name{
+    color: #2b2b2b;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0px 0px 5px 0px;
+}
+.item-rating-color ion-icon{
+    color: #F37047;
+    font-size: 15px;
+}
+.item-text-date{
+    color: #2b2b2b;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0px 0px 5px 0px;
+}
+.reserver-btn{
+    --background: #fe240d;
+    --border-color: #fe240d;
+    --color: #fff;
+    font-size: 16px;
+    text-transform: none;
+    border-radius: 14px;
+    margin: 9px 0px 0px 0px;
+}
+.booking-btn{
+    --background: #F37047;
+    --border-color: #F37047;
+    --color: #fff;
+    font-size: 18px;
+    text-transform: none;
+    border-radius: 14px;
+    margin: 9px 0px 0px 0px;
+}
+.sorry-text-label{
+    font-size: 21px;
+    color: red;
+    font-weight: 600;
+}
+.no-data-description ion-label{
+    text-overflow: inherit;
+    white-space: inherit;
+    font-size: 17px;
+    font-weight: 600;
+}
+.date-time-label{
+    font-size: 17px;
+    color: #000;
+    font-weight: 600;
+}
+.date-time-label ion-icon{
+    font-size: 35px;
+    color: #000;
+    margin: 0px 0px 30px 0px;
+    cursor: pointer;
+}
+.no-data-description{
+    padding: 40px 0px 50px 0px;
+}
+.star-rating {
+  height: ($ratingSize/5);
+  position: relative;
+  width: $ratingSize;
+  &:before {
+    // inactive
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjAiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNTAgNTAiIGZpbGw9IiM3ZjhjOGQiID4gICAgPHBhdGggZD0iTSAyNSAyLjI3MzQzNzUgTCAxOC42MDkzNzUgMTguNDgwNDY5IEwgMC44MTA1NDY4OCAxOS40MTc5NjkgTCAxNC42NDg0MzggMzAuNDEyMTA5IEwgMTAuMDcwMzEyIDQ3LjIyMjY1NiBMIDI1IDM3Ljc3MTQ4NCBMIDM5LjkyOTY4OCA0Ny4yMjI2NTYgTCAzNS4zNTE1NjIgMzAuNDEyMTA5IEwgNDkuMTg5NDUzIDE5LjQxNzk2OSBMIDMxLjM5MDYyNSAxOC40ODA0NjkgTCAyNSAyLjI3MzQzNzUgeiI+PC9wYXRoPjwvc3ZnPg==");
+    background-repeat: repeat-x;
+    background-size: ($ratingSize/5);
+    bottom: 0;
+    content: "";
+    display: block;
+    height: ($ratingSize/5);
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: $ratingSize;
+  }
+  > span {
+    display: block;
+    text-indent: -10000px;
+    width: $ratingSize;
+    height: ($ratingSize/5);
+    position: absolute;
+    overflow: hidden;
+    &:before {
+      // active
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjAiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNTAgNTAiIGZpbGw9IiNmMWM0MGYiID4gICAgPHBhdGggZD0iTSAyNSAyLjI3MzQzNzUgTCAxOC42MDkzNzUgMTguNDgwNDY5IEwgMC44MTA1NDY4OCAxOS40MTc5NjkgTCAxNC42NDg0MzggMzAuNDEyMTA5IEwgMTAuMDcwMzEyIDQ3LjIyMjY1NiBMIDI1IDM3Ljc3MTQ4NCBMIDM5LjkyOTY4OCA0Ny4yMjI2NTYgTCAzNS4zNTE1NjIgMzAuNDEyMTA5IEwgNDkuMTg5NDUzIDE5LjQxNzk2OSBMIDMxLjM5MDYyNSAxOC40ODA0NjkgTCAyNSAyLjI3MzQzNzUgeiI+PC9wYXRoPjwvc3ZnPg==");
+      background-repeat: repeat-x;
+      background-size: ($ratingSize/5);
+      bottom: 0;
+      content: "";
+      display: block;
+      height: ($ratingSize/5);
+      left: 0;
+      position: absolute;
+      right: 0;
+      text-indent: 10000px;
+      top: 0;
+    }
+  }
+}

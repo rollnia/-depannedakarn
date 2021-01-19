@@ -1,0 +1,78 @@
+<ion-header class="ion-no-border">
+  <app-header></app-header>
+</ion-header>
+<ion-content class="ion-container">
+  <ion-list class="list-inner-box list-inner-top">
+    <ion-item *ngFor="let listing of listinData; let i = index">
+      <ion-grid class="list-tem-box">
+        <ion-row>
+          <ion-col size="12">
+            <ion-label class="item-text-name ion-text-capitalize">{{listing.name}}</ion-label>
+            <ion-label>
+              <div class="star-rating">
+                <span [style.width]="setStar(listing.rating)"></span>
+              </div>
+            </ion-label>
+          </ion-col>
+          <!--<ion-col size="5" class="ion-text-right">
+            <ion-button shape="round" fill="outline" class="reserver-btn">Réserver</ion-button>
+          </ion-col>-->
+        </ion-row>
+        <ion-row>
+          <ion-col size="8">
+            <ion-label class="item-text-date">Date:</ion-label>
+          </ion-col>
+          <ion-col size="4">
+            <ion-label class="item-text-date">{{getDateFormat(searchData[i].bookingdate)}}</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="8">
+            <ion-label class="item-text-date">Heure:</ion-label>
+          </ion-col>
+          <ion-col size="4">
+            <ion-label class="item-text-date">{{getStartTime(searchData[i].start_time)}} </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="8">
+            <ion-label class="item-text-date">{{getHours(searchData[i].start_time, searchData[i].end_time)}} hrs
+            </ion-label>
+          </ion-col>
+          <ion-col size="4">
+            <ion-label class="item-text-date">
+              ${{getAmount(searchData[i].start_time, searchData[i].end_time, listing.amount)}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item *ngIf="listinData && listinData.length">
+      <ion-grid class="btn-grid-inner">
+        <ion-row>
+          <ion-col size="12" class="ion-text-right">
+            <ion-button shape="round" (click)="bookService()" fill="outline" expand="full" class="booking-btn">Réserver
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item *ngIf="listinData && (!listinData.length)">
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="sorry-text-label ion-text-center">Désolé !</ion-label>
+        </ion-col>
+        <ion-col size="12" class="no-data-description">
+          <ion-label class="ion-text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec iaculis erat
+            eleifend justo tempus ornare.</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-label class="date-time-label ion-text-center">
+            <ion-icon routerDirection="root" routerLink="/searchprovider" name="chevron-back-circle-outline"></ion-icon>
+          </ion-label>
+          <ion-label class="date-time-label ion-text-center">Retour vers date et heure</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+</ion-content>
