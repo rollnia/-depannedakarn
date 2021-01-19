@@ -242,29 +242,6 @@ export class PaymentPage implements OnInit {
     });
   }
 
-  public payWithBitcoin() {
-    // let payload = {};
-    // let userData = JSON.parse(localStorage.getItem('currentUserData'));
-    // payload['client'] = userData.user_name;
-    // payload['email'] = userData.user_email;
-    // payload['amount'] = this.paymentData[0];
-    // const subs = this.appPostService.makeBitcoinPayment(payload).subscribe(res => {
-    //   console.log('==>>>', res);
-    //   if (res?.invoiceid) {
-    //     const url = res['paymenturl'];
-    //     this.openBitcoinPaymentSecure(url, res['invoiceid']);
-    //   }
-    //   // } else if (res?.paymentIntent && res.paymentIntent?.status === 'succeeded') {
-    //   //   this.paymentCheckStatus(res['paymentIntent']);
-    //   // }
-    //   this.loading.dismiss();
-    // }, error => {
-    //   this.loading.dismiss();
-    //   console.error(error);
-    // });
-    // this.subscriptions.push(subs);
-  }
-
   public newCardayment() {
     let payload = {};
     let userData = JSON.parse(localStorage.getItem('currentUserData'));
@@ -346,19 +323,25 @@ export class PaymentPage implements OnInit {
     this.loading.present();
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     const params = {
-      user_id: user['user_id'],
-      service_id: user['service_id'],
-      location_id: user['location_id'],
-      provider_id: this.paymentData[4],
       transaction_id: tranID,
-      booking_date: this.paymentData[1],
-      start_time: this.paymentData[2],
-      end_time: this.paymentData[3],
-      booking_status: 'pending',
-      total_hrs: this.paymentData[5],
-      amount: parseInt(this.paymentData[0]),
       payment_status: 'success',
-      payment_method: type
+      payment_type: 'single',
+      payment_method: type,
+      tot_amount: parseInt(this.paymentData[0]),
+      booking: [
+        {
+          user_id: user['user_id'],
+          provider_id: this.paymentData[4],
+          booking_status: 'pending',
+          service_id: user['service_id'],
+          location_id: user['location_id'],
+          total_hrs: this.paymentData[5],
+          booking_date: this.paymentData[1],
+          start_time: this.paymentData[2],
+          end_time: this.paymentData[3],
+          amount: parseInt(this.paymentData[0]),
+        }
+      ]
     };
     const subs = this.appPostService.paymentSuccess(params).subscribe(res => {
       if (res?.message) {

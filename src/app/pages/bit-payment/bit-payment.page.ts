@@ -54,23 +54,29 @@ export class BitPaymentPage implements OnInit {
     });
     this.loading.present();
 
-
     let user = JSON.parse(localStorage.getItem('currentUserData'));
     let payload = {
+      payment_status: 'success',
+      payment_type: 'single',
+      payment_method: 'bitpay',
+      tot_amount: parseInt(this.paymentData[0]),
       client: user.user_name,
       email: user.user_email,
-      amount: this.paymentData[0],
-      user_id: user['user_id'],
-      service_id: user['service_id'],
-      location_id: user['location_id'],
-      provider_id: this.paymentData[4],
-      booking_date: this.paymentData[1],
-      start_time: this.paymentData[2],
-      end_time: this.paymentData[3],
-      booking_status: 'pending',
-      total_hrs: this.paymentData[5],
-      payment_status: 'success',
-      payment_method: 'bitpay'
+      booking: [
+        {
+          amount: this.paymentData[0],
+          user_id: user['user_id'],
+          service_id: user['service_id'],
+          location_id: user['location_id'],
+          provider_id: this.paymentData[4],
+          booking_date: this.paymentData[1],
+          start_time: this.paymentData[2],
+          end_time: this.paymentData[3],
+          booking_status: 'pending',
+          total_hrs: this.paymentData[5]
+        }
+      ]
+
     };
     const subs = this.appPostServie.makeBitcoinPayment(payload).subscribe(res => {
       if (res?.invoiceid) {
@@ -110,40 +116,4 @@ export class BitPaymentPage implements OnInit {
       console.error(error);
     });
   }
-
-  public async navigateToSuceess(tranID, type) {
-    this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
-    });
-    this.loading.present();
-    this.router.navigate(['/payment-success']);
-    const user = JSON.parse(localStorage.getItem('currentUserData'));
-    const params = {
-      user_id: user['user_id'],
-      service_id: user['service_id'],
-      location_id: user['location_id'],
-      provider_id: this.paymentData[4],
-      transaction_id: tranID,
-      booking_date: this.paymentData[1],
-      start_time: this.paymentData[2],
-      end_time: this.paymentData[3],
-      booking_status: 'pending',
-      total_hrs: this.paymentData[5],
-      amount: parseInt(this.paymentData[0]),
-      payment_status: 'success',
-      payment_method: type
-    };
-    const subs = this.appPostServie.paymentSuccess(params).subscribe(res => {
-      if (res?.message) {
-        // this.loading.dismiss();
-        this.router.navigate(['/payment-success']);
-      }
-      this.loading.dismiss();
-    }, error => {
-      this.loading.dismiss();
-      console.error(error);
-    });
-    this.subscriptions.push(subs);
-  }
-
 }
