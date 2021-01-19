@@ -182,12 +182,12 @@ export class SubscriptionPage implements OnInit {
     const obj = {};
     for (let i = 1; i <= 4; i++) {
 
-      obj['location'] = this.searchProviderModel.location;
-      obj['service_type'] = this.searchProviderModel.service;
-      obj['selectdate'] = moment(this.mydate1).format('YYYY-MM-DD'); //((<HTMLInputElement>document.getElementById("date")).value).split('T')[0];
-      obj['start_time'] = `${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getMinutes()}:00`;
-      obj['end_time'] = `${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getMinutes()}:00`;
-      obj['provider_id'] = this.return ? this.return[0] : 0;
+      // obj['location'] = this.searchProviderModel.location;
+      // obj['service_type'] = this.searchProviderModel.service;
+      // obj['selectdate'] = moment(this.mydate1).format('YYYY-MM-DD'); //((<HTMLInputElement>document.getElementById("date")).value).split('T')[0];
+      // obj['start_time'] = `${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getMinutes()}:00`;
+      // obj['end_time'] = `${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getMinutes()}:00`;
+      // obj['provider_id'] = this.return ? this.return[0] : 0;
     }
   }
 
