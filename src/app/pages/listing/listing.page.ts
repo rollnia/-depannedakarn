@@ -116,6 +116,7 @@ export class ListingPage implements OnInit {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     const hrs = this.getHours(this.searchData.start_time, this.searchData.end_time);
     const service_id = user['service_id'];
+    this.appGetService.subscriptionData.next('');
     const params = ['/payment', amt, this.searchData.bookingdate, this.searchData.start_time, this.searchData.end_time, this.listinData[0].id, hrs];
     if ((!user) || (user && !user['token'])) {
       // this.router.navigate(['/sign-in'], {

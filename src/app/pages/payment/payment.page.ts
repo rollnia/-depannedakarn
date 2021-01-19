@@ -51,17 +51,18 @@ export class PaymentPage implements OnInit {
 
   ionViewDidEnter() {
     this.loadExistingCard();
-    this.appGetService.subscriptionData.subscribe(data => {
+    const subs = this.appGetService.subscriptionData.subscribe(data => {
       this.subsPaymentData = data;
       console.log(this.subsPaymentData);
-    })
+    });
+    this.subscriptions.push(subs);
   }
 
   getTotalPayment() {
     if (this.subsPaymentData) {
       return this.getSusbcriptionAmount();
     } else {
-      return this.paymentData[0]
+      return this.paymentData[0];
     }
   }
 
@@ -353,7 +354,7 @@ export class PaymentPage implements OnInit {
     this.loading.present();
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     let amt = this.paymentData[0];
-    let paymentType = 'single'
+    let paymentType = 'single';
     let booking = [];
     booking.push({
       user_id: user['user_id'],
