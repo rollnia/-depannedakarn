@@ -353,6 +353,7 @@ export class PaymentPage implements OnInit {
     this.loading.present();
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     let amt = this.paymentData[0];
+    let paymentType = 'single'
     let booking = [];
     booking.push({
       user_id: user['user_id'],
@@ -369,6 +370,7 @@ export class PaymentPage implements OnInit {
     if (this.subsPaymentData) {
       booking = [];
       amt = this.getSusbcriptionAmount();
+      paymentType = 'subscribe';
       this.subsPaymentData.forEach(ele => {
         let tempObj = {};
         tempObj['user_id'] = user['user_id'];
@@ -387,7 +389,7 @@ export class PaymentPage implements OnInit {
     const params = {
       transaction_id: tranID,
       payment_status: 'success',
-      payment_type: 'single',
+      payment_type: paymentType,
       payment_method: type,
       tot_amount: parseInt(amt),
       booking: booking
