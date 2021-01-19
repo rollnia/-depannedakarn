@@ -105,26 +105,25 @@ export class SubscriptionListingPage implements OnInit {
   }
 
   public bookService() {
-    const amt = this.getAmount(this.searchData.start_time, this.searchData.end_time, this.listinData[0].amount)
-    const user = JSON.parse(localStorage.getItem('currentUserData'));
-    const hrs = this.getHours(this.searchData.start_time, this.searchData.end_time);
-    const service_id = user['service_id'];
-    const params = ['/payment', amt, this.searchData.bookingdate, this.searchData.start_time, this.searchData.end_time, this.listinData[0].id, hrs];
-    if ((!user) || (user && !user['token'])) {
-      // this.router.navigate(['/sign-in'], {
-      this.router.navigate(['/sign-up'], {
-        queryParams: {
-          return: JSON.stringify(params)
-        }
-      });
-    } else if (user && user['token']) {
-
-      this.router.navigate(['/payment'], {
-        queryParams: {
-          return: params.slice(1)
-        }
-      });
-    }
+    let tempArr = [];
+    this.searchData.forEach((ele, index) => {
+      let payload = {};
+      payload['amt'] = this.getSubscriptionAmount(ele.start_time, ele.end_time, this.listinData[index].amount);
+      payload['bookingdate'] = ele.bookingdate;
+      payload['start_time'] = ele.start_time;
+      payload['end_time'] = ele.end_time;
+      payload['id'] = this.listinData[index].id;
+      payload['hrs'] = this.getHours(ele.start_time, ele.end_time);
+      tempArr.push(payload);
+      payload = {};
+    })
+    // const amt = this.getSubscriptionAmount(this.searchData.start_time, this.searchData.end_time, this.listinData[0].amount)
+    // const user = JSON.parse(localStorage.getItem('currentUserData'));
+    // const hrs = this.getHours(this.searchData.start_time, this.searchData.end_time);
+    // const service_id = user['service_id'];
+    this.appGetService.subscriptionData.next(tempArr);
+    // const params = ['/payment', amt, this.searchData.bookingdate, this.searchData.start_time, this.searchData.end_time, this.listinData[0].id, hrs];
+    this.router.navigate(['/payment']);
   }
 
 }

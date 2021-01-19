@@ -24,6 +24,7 @@ export class PaymentPage implements OnInit {
   month = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
   currentYear = new Date().getFullYear();
   public subscriptions: Subscription[] = [];
+  public subsPaymentData;
   paypalResponse = '';
   loading: any;
   nameInCard: any = '';
@@ -46,11 +47,22 @@ export class PaymentPage implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   ionViewDidEnter() {
     this.loadExistingCard();
+    this.appGetService.subscriptionData.subscribe( data => {
+      this.subsPaymentData = data;
+      console.log(this.subsPaymentData);
+    })
+  }
+
+  getTotalPayment() {
+    if (this.subsPaymentData) {
+      return this.getSusbcriptionAmount();
+    } else {
+      return this.paymentData[0]
+    }
   }
 
   ionViewWillEnter() {
@@ -194,6 +206,14 @@ export class PaymentPage implements OnInit {
     this.subscriptions.push(subs);
   }
 
+  getSusbcriptionAmount() {
+    let amt = 0;
+    this.subsPaymentData.forEach( ele => {
+      amt = amt + ele.amt;
+    });
+    return amt;
+  }
+
   public existingCard(paymentOption) {
     let payload = {};
     let userData = JSON.parse(localStorage.getItem('currentUserData'));
@@ -201,6 +221,9 @@ export class PaymentPage implements OnInit {
     payload['card'] = paymentOption;
     payload['cvc'] = this.cvv[paymentOption];
     payload['amount'] = this.paymentData[0];
+    if (this.subsPaymentData) {
+      payload['amount'] = this.getSusbcriptionAmount();
+    }
     const subs = this.appPostService.makePayment(payload).subscribe(res => {
       if (res?.paymentIntent && res.paymentIntent?.status === 'requires_source_action') {
         const url = res['paymentIntent']['next_action']['redirect_to_url']['url'];
@@ -253,6 +276,9 @@ export class PaymentPage implements OnInit {
     payload['exp_month'] = this.selectedMonth;
     payload['cvc'] = this.cardCvv;
     payload['amount'] = this.paymentData[0];
+    if (this.subsPaymentData) {
+      payload['amount'] = this.getSusbcriptionAmount();
+    }
     const subs = this.appPostService.addNewCardAndMakePayment(payload).subscribe(res => {
       if (res?.paymentIntent && res.paymentIntent?.status === 'succeeded') {
         this.paymentCheckStatus(res['paymentIntent']);
@@ -278,7 +304,11 @@ export class PaymentPage implements OnInit {
         // Only needed if you get an "Internal Service Error" after PayPal login!
         //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
       })).then(() => {
-        let payment = new PayPalPayment(this.paymentData[0], this.currency, 'Description', 'sale');
+        let amt = this.paymentData[0];
+        if (this.subsPaymentData) {
+          amt = this.getSusbcriptionAmount();
+        }
+        let payment = new PayPalPayment(amt, this.currency, 'Description', 'sale');
         this.payPal.renderSinglePaymentUI(payment).then((res) => {
           // alert('Payment Successfully paid');
           this.paypalResponse = res;
@@ -322,26 +352,45 @@ export class PaymentPage implements OnInit {
     });
     this.loading.present();
     const user = JSON.parse(localStorage.getItem('currentUserData'));
+    let amt = this.paymentData[0];
+    let booking = [];
+    booking.push({
+        user_id: user['user_id'],
+        provider_id: this.paymentData[4],
+        booking_status: 'pending',
+        service_id: user['service_id'],
+        location_id: user['location_id'],
+        total_hrs: this.paymentData[5],
+        booking_date: this.paymentData[1],
+        start_time: this.paymentData[2],
+        end_time: this.paymentData[3],
+        amount: parseInt(this.paymentData[0]),
+      });
+    if (this.subsPaymentData) {
+      booking = [];
+      amt = this.getSusbcriptionAmount();
+      this.subsPaymentData.forEach(ele => {
+        let tempObj = {};
+        tempObj['user_id'] = user['user_id'];
+        tempObj['id'] = ele.id;
+        tempObj['booking_status'] = 'pending';
+        tempObj['service_id'] = user['service_id'];
+        tempObj['location_id'] = user['location_id'];
+        tempObj['total_hrs'] = ele.hrs;
+        tempObj['booking_date'] = ele.bookingdate;
+        tempObj['start_time'] = ele.start_time;
+        tempObj['end_time'] = ele.end_time;
+        tempObj['amount'] = parseInt(ele.amt);
+        booking.push(tempObj);
+      })
+    }
     const params = {
       transaction_id: tranID,
       payment_status: 'success',
       payment_type: 'single',
       payment_method: type,
-      tot_amount: parseInt(this.paymentData[0]),
-      booking: [
-        {
-          user_id: user['user_id'],
-          provider_id: this.paymentData[4],
-          booking_status: 'pending',
-          service_id: user['service_id'],
-          location_id: user['location_id'],
-          total_hrs: this.paymentData[5],
-          booking_date: this.paymentData[1],
-          start_time: this.paymentData[2],
-          end_time: this.paymentData[3],
-          amount: parseInt(this.paymentData[0]),
-        }
-      ]
+      tot_amount: parseInt(amt),
+      booking: booking
     };
     const subs = this.appPostService.paymentSuccess(params).subscribe(res => {
       if (res?.message) {

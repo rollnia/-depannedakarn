@@ -6,7 +6,7 @@
   <ion-list class="list-inner-box">
     <ion-radio-group [(ngModel)]="paymentOption">
       <ion-list-header class="paymentLabel">
-        <ion-label>Total Payment: {{currencyIcon}}{{paymentData[0]}}</ion-label>
+        <ion-label>Total Payment: {{currencyIcon}}{{getTotalPayment()}}</ion-label>
       </ion-list-header>
       <ion-item *ngFor="let paymentDetail of existingCardDetails; let i = index" class="itemBoxCard">
         <ion-label class="p-none cardTitleInner">

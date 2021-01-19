@@ -11,6 +11,7 @@ export class AppGetService {
   private myToast: any;
   public listingData: BehaviorSubject<any> = new BehaviorSubject<any>('');
   public bookingDetailsData: BehaviorSubject<any> = new BehaviorSubject<any>('');
+  public subscriptionData: BehaviorSubject<any> = new BehaviorSubject<any>('');
 
   constructor(private http: HttpClient, private toast: ToastController) { }
 
