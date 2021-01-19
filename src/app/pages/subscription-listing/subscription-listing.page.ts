@@ -92,4 +92,12 @@ export class SubscriptionListingPage implements OnInit {
 
   }
 
+  public getSubscriptionAmount(sTime, eTime, amount) {
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    const hrs = this.getHours(sTime, eTime);
+    const tot_amt = hrs * Number(amount);
+    const percentage = tot_amt - (tot_amt / 100) * user['subscription'];
+    return percentage;
+  }
+
 }
