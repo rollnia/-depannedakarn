@@ -219,8 +219,9 @@ export class SubscriptionPage implements OnInit {
           c++;
           if (res?.listing && res.listing.length) {
             listingData['listing'].push(res.listing[0]);
+            listingData['params'].push(res.params);
           }
-          listingData['params'].push(res.params);
+
           if (c === 4) {
             this.appGetService.listingData.next(listingData);
             this.router.navigate(['/subscription-listing']);
