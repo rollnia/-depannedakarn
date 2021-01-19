@@ -57,6 +57,7 @@ export class SignInPage {
         user['user_phone'] = res['user']['phone'];
         user['cust_id'] = res['user']['cust_id'];
         user['rating'] = res['rating'];
+        user['subscription'] = res['subscription'];
         localStorage.setItem('currentUserData', JSON.stringify(user));
         //if user book a service without login and then navigate to login and after login navigate to paymnt page
         if (this.return) {

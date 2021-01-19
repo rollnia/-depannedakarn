@@ -74,6 +74,7 @@ export class SignUpPage {
         user['user_phone'] = res['user']['phone'];
         user['cust_id'] = res['user']['cust_id'];
         user['rating'] = res['rating'];
+        user['subscription'] = res['subscription'];
         localStorage.setItem('currentUserData', JSON.stringify(user));
         if (this.return) {
           this.router.navigate([this.return[0]], {
