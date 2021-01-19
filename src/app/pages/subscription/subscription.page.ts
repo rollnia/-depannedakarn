@@ -137,9 +137,19 @@ export class SubscriptionPage implements OnInit {
     this.datePickerObj4['toDate'] = moment(eDate).format('ll');
   }
 
-  // public setMinEndDate2(date) {
-  //   this.datePickerObj1['fromDate'] = moment(date).format('ll');
-  // }
+  public setMinEndDate2(date) {
+    const sDate: any = new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 1));
+    this.dateObj['3'] = moment(sDate).format('ll');
+    this.dateObj['4'] = moment(sDate).format('ll');
+    this.datePickerObj3['fromDate'] = moment(sDate).format('ll');
+    this.datePickerObj4['fromDate'] = moment(sDate).format('ll');
+  }
+
+  public setMinEndDate3(date) {
+    const sDate: any = new Date(moment(date)['_d'].setDate(moment(date)['_d'].getDate() + 1));
+    this.dateObj['4'] = moment(sDate).format('ll');
+    this.datePickerObj4['fromDate'] = moment(sDate).format('ll');
+  }
 
 
   public counter(i) {
