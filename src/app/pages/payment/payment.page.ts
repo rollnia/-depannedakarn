@@ -51,7 +51,7 @@ export class PaymentPage implements OnInit {
 
   ionViewDidEnter() {
     this.loadExistingCard();
-    this.appGetService.subscriptionData.subscribe( data => {
+    this.appGetService.subscriptionData.subscribe(data => {
       this.subsPaymentData = data;
       console.log(this.subsPaymentData);
     })
@@ -208,7 +208,7 @@ export class PaymentPage implements OnInit {
 
   getSusbcriptionAmount() {
     let amt = 0;
-    this.subsPaymentData.forEach( ele => {
+    this.subsPaymentData.forEach(ele => {
       amt = amt + ele.amt;
     });
     return amt;
@@ -355,24 +355,24 @@ export class PaymentPage implements OnInit {
     let amt = this.paymentData[0];
     let booking = [];
     booking.push({
-        user_id: user['user_id'],
-        provider_id: this.paymentData[4],
-        booking_status: 'pending',
-        service_id: user['service_id'],
-        location_id: user['location_id'],
-        total_hrs: this.paymentData[5],
-        booking_date: this.paymentData[1],
-        start_time: this.paymentData[2],
-        end_time: this.paymentData[3],
-        amount: parseInt(this.paymentData[0]),
-      });
+      user_id: user['user_id'],
+      provider_id: this.paymentData[4],
+      booking_status: 'pending',
+      service_id: user['service_id'],
+      location_id: user['location_id'],
+      total_hrs: this.paymentData[5],
+      booking_date: this.paymentData[1],
+      start_time: this.paymentData[2],
+      end_time: this.paymentData[3],
+      amount: parseInt(this.paymentData[0]),
+    });
     if (this.subsPaymentData) {
       booking = [];
       amt = this.getSusbcriptionAmount();
       this.subsPaymentData.forEach(ele => {
         let tempObj = {};
         tempObj['user_id'] = user['user_id'];
-        tempObj['id'] = ele.id;
+        tempObj['provider_id'] = ele.id;
         tempObj['booking_status'] = 'pending';
         tempObj['service_id'] = user['service_id'];
         tempObj['location_id'] = user['location_id'];

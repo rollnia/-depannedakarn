@@ -210,7 +210,7 @@ export class SubscriptionPage implements OnInit {
         await alert.present();
         return;
       }
-      console.log(obj);
+      // console.log(obj);
       const subs = this.appGetService.getListing(obj).subscribe(res => {
         if ((res?.listing) || (res?.params && Object.keys(res.params).length)) {
           if (i === 4) {
