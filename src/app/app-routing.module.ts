@@ -90,6 +90,10 @@ const routes: Routes = [
     path: 'subscription-listing',
     loadChildren: () => import('./pages/subscription-listing/subscription-listing.module').then( m => m.SubscriptionListingPageModule)
   },
+  {
+    path: 'payment-failed',
+    loadChildren: () => import('./pages/payment-failed/payment-failed.module').then( m => m.PaymentFailedPageModule)
+  },
 
 
 
