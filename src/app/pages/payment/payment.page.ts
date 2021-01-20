@@ -197,7 +197,7 @@ export class PaymentPage implements OnInit {
     };
     const subs = this.appGetService.confirmPayment(payload).subscribe(res => {
       if (res?.confirm && res.confirm?.status === 'succeeded') {
-        this.navigateToSuceess(obj['charges']['data'][0]['id'], 'stripe');
+        this.navigateToSuceess(res.confirm['charges']['data'][0]['id'], 'stripe');
       }
       this.loading.dismiss();
     }, error => {
