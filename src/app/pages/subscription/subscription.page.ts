@@ -87,7 +87,7 @@ export class SubscriptionPage implements OnInit {
     this.datePickerObj2['fromDate'] = new Date(new Date().setDate(new Date().getDate() + 1));
     this.datePickerObj3['fromDate'] = new Date(new Date().setDate(new Date().getDate() + 2));
     this.datePickerObj4['fromDate'] = new Date(new Date().setDate(new Date().getDate() + 3));
-    this.datePickerObj1['toDate'] = new Date(new Date().setDate(new Date().getDate() + 30));
+    // this.datePickerObj1['toDate'] = new Date(new Date().setDate(new Date().getDate() + 30));
     this.datePickerObj2['toDate'] = new Date(new Date().setDate(new Date().getDate() + 30));
     this.datePickerObj3['toDate'] = new Date(new Date().setDate(new Date().getDate() + 30));
     this.datePickerObj4['toDate'] = new Date(new Date().setDate(new Date().getDate() + 30));
