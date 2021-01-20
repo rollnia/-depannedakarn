@@ -187,6 +187,10 @@ export class SubscriptionPage implements OnInit {
     });
     this.loading.present();
     let c = 0;
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    user['location_id'] = this.searchProviderModel.location;
+    user['service_id'] = this.searchProviderModel.service;
+    localStorage.setItem('currentUserData', JSON.stringify(user));
     for (let i = 1; i <= 4; i++) {
       const obj = {};
       obj['location'] = this.searchProviderModel.location;
