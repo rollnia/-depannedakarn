@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-
+import { LoadingController, AlertController, Platform } from '@ionic/angular';
+import { AppGetService } from "../../shared/services/app-get.service";
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.page.html',
@@ -11,8 +11,9 @@ import { Subscription } from 'rxjs';
 export class UserDashboardPage {
   public subscriptions: Subscription[] = [];
   public user;
+  loading;
   constructor(
-    private router: Router, private platform: Platform) {
+    private router: Router, private platform: Platform, private appGetService: AppGetService, public loadingController: LoadingController) {
   }
 
   ionViewWillEnter() {
@@ -21,6 +22,7 @@ export class UserDashboardPage {
       navigator['app'].exitApp();
     });
     this.subscriptions.push(backEvent);
+    this.getUserType();
   }
 
   ionViewDidLeave() {
@@ -29,6 +31,27 @@ export class UserDashboardPage {
 
   public navigate(url) {
     this.router.navigate([url]);
+  }
+
+  private async getUserType() {
+    this.loading = await this.loadingController.create({
+      message: 'Loading please wait',
+      duration: 20000
+    });
+    this.loading.present();
+    const subs = this.appGetService.userType().subscribe(res => {
+      if (res?.user && res.user?.user_type) {
+        this.loading.dismiss();
+        this.user = JSON.parse(localStorage.getItem('currentUserData'));
+        this.user['cust_id'] = res['user']['cust_id'];
+        this.user['subscription'] = res['subscription'];
+        localStorage.setItem('currentUserData', JSON.stringify(this.user));
+      }
+    }, error => {
+      this.loading.dismiss();
+      console.error(error);
+    });
+    this.subscriptions.push(subs);
   }
 
 }
