@@ -25,16 +25,21 @@ export class SignUpPage {
 
   }
   ionViewWillEnter() {
-    const backEvent = this.platform.backButton.subscribe(() => {
-      this.router.navigate(['/home']);
-    });
-    this.subscriptions.push(backEvent);
   }
 
   ionViewDidEnter() {
     this.route.queryParams.subscribe(params => {
       this.return = params && params.return ? JSON.parse(params.return) : '';
     });
+    const backEvent = this.platform.backButton.subscribe(() => {
+      if (this.return) {
+        this.router.navigate(['/searchprovider']);
+      } else {
+        this.router.navigate(['/home']);
+      }
+
+    });
+    this.subscriptions.push(backEvent);
     this.createSignUpForm();
   }
 
