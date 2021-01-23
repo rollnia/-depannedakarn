@@ -20,6 +20,7 @@ export class SearchproviderPage {
     toDate: new Date('2090-12-31'),
     dateFormat: 'll',
     clearButton: false,
+    showTodayButton: false,
     closeLabel: 'Fermer',
     todayLabel: 'Aujourd\'\hui',
     setLabel: 'Ensemble',
