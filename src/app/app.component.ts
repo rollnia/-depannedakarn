@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   public subscriptions: Subscription[] = [];
   public appPages = [
     {
-      title: 'Home',
+      title: 'Accueil',
       url: '/home',
       icon: 'home'
     }
