@@ -64,13 +64,20 @@ export class SubscriptionListingPage implements OnInit {
   public getStartTime(sTime) {
     let time = sTime.slice(0, -3);
     time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
-
-    if (time.length > 1) { // If time format correct
-      time = time.slice(1);  // Remove full string match value
-      time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
-      time[0] = +time[0] % 12 || 12; // Adjust hours
+    let hrs;
+    let mins;
+    if (time.length) {
+      let timeData = time[0].split(':');
+      hrs = timeData[0].length < 2 ? `0${timeData[0]}` : timeData[0];
+      mins = timeData[1].length < 2 ? `0${timeData[1]}` : timeData[1];
+      time = `${hrs}:${mins}`;
     }
-    return time.join('');
+    // if (time.length > 1) { // If time format correct
+    //   time = time.slice(1);  // Remove full string match value
+    //   time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
+    //   time[0] = +time[0] % 12 || 12; // Adjust hours
+    // }
+    return time;
   }
 
   public getHours(sTime, eTime) {
