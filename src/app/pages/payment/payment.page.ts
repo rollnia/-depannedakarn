@@ -18,7 +18,7 @@ export class PaymentPage implements OnInit {
   currencyIcon = '$';
   currency = 'USD';
   paymentData;
-  paymentOption = "paypal";
+  paymentOption = null;
   existingCardDetails;
   cvv = {};
   month = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
@@ -88,7 +88,7 @@ export class PaymentPage implements OnInit {
     const subs = this.appGetService.getCardDetails(user['cust_id']).subscribe(res => {
       if (res?.getallcard && res.getallcard?.data && res.getallcard.data.length) {
         this.existingCardDetails = res['getallcard']['data'];
-        this.paymentOption = res['getallcard']['data'][0]['id'];
+        // this.paymentOption = res['getallcard']['data'][0]['id'];
         res['getallcard']['data'].forEach(element => {
           this.cvv[element.id] = '';
         });
@@ -147,7 +147,6 @@ export class PaymentPage implements OnInit {
   }
 
   public getPaymentDetails(evt) {
-    console.log(this.paymentOption);
     if (this.paymentOption === 'paypal') {
       this.payWithPaypal();
     } else if (this.paymentOption === 'bitcoin') {
