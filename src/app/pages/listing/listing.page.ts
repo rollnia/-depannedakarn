@@ -70,6 +70,20 @@ export class ListingPage implements OnInit {
     })
   }
 
+
+  public backService() {
+    if (this.return && this.return.length === 2) {
+      const params = [this.return[0], this.return[1]];
+      this.router.navigate(['/searchprovider'], {
+        queryParams: {
+          return: params
+        }
+      });
+    } else {
+      this.router.navigate(['/searchprovider']);
+    }
+  }
+
   public setStar(point) {
     if (!point) return 0;
     return `${(point * 20)}px`;

@@ -29,7 +29,7 @@ export class SubscriptionListingPage implements OnInit {
       this.return = params && params.return ? params.return : '';
     });
     const backEvent = this.platform.backButton.subscribe(() => {
-      this.router.navigate(['/subscription-listing']);
+      this.router.navigate(['/subscription']);
     });
     this.subscriptions.push(backEvent);
   }
