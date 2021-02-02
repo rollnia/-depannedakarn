@@ -12,13 +12,13 @@
       </ion-datetime> -->
     </ion-item>
     <ion-item class="item-inner-box">
-      <ion-label>Start Time</ion-label>
+      <ion-label>Début</ion-label>
       <ion-datetime cancelText="Annulée" doneText="Terminé" id="startTime" display-format="HH:mm" picker-format="HH:mm"
         value="{{date}}">
       </ion-datetime>
     </ion-item>
     <ion-item class="item-inner-box item-last-inner">
-      <ion-label>End Time</ion-label>
+      <ion-label>Fin</ion-label>
       <ion-datetime cancelText="Annulée" doneText="Terminé" id="endTime" display-format="HH:mm" picker-format="HH:mm"
         value="{{endTime}}">
       </ion-datetime>
@@ -29,8 +29,8 @@
     <ion-item class="dropdown-inner-box">
       <ion-select
         *ngIf="searchProviderData?.location && searchProviderData.location.length && searchProviderModel['location']"
-        [(ngModel)]="searchProviderModel['location']">
-        <ion-select-option *ngFor="let location of searchProviderData.location" value="{{location.id}}">
+        [(ngModel)]="searchProviderModel['location']" okText="Annulée" cancelText="Terminé">
+        <ion-select-option *ngFor="let location of searchProviderData.location" value="{{location.id}}" >
           {{location.location_name}}</ion-select-option>
         <!-- <ion-select-option value="Two">Two</ion-select-option> -->
       </ion-select>
@@ -39,7 +39,7 @@
     <ion-item class="dropdown-inner-box">
       <ion-select
         *ngIf="searchProviderData?.service && searchProviderData.service.length && searchProviderModel['service']"
-        [(ngModel)]="searchProviderModel['service']">
+        [(ngModel)]="searchProviderModel['service']" okText="Annulée" cancelText="Terminé">
         <ion-select-option *ngFor="let service of searchProviderData.service" value="{{service.id}}">
           {{service.service_name}}</ion-select-option>
         <!-- <ion-select-option value="Two">Two</ion-select-option> -->
