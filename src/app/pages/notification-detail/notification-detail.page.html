@@ -14,9 +14,9 @@
               {{details['clientdetails'][0]['name']}}</ion-label>
           </ion-col>
           <ion-col size="12">
-            <ion-label *ngIf="details && details.providerdetails" class="users-contact-label">Contact No:
+            <ion-label *ngIf="details && details.providerdetails" class="users-contact-label">Téléphone:
               {{details['providerdetails'][0]['phone']}}</ion-label>
-            <ion-label *ngIf="details && details.clientdetails" class="users-contact-label">Contact No:
+            <ion-label *ngIf="details && details.clientdetails" class="users-contact-label">Téléphone:
               {{details['clientdetails'][0]['phone']}}</ion-label>
           </ion-col>
         </ion-row>
@@ -29,7 +29,7 @@
       <ion-grid class="list-tem-box">
         <ion-row>
           <ion-col size="7">
-            <ion-label class="item-text-label">Service</ion-label>
+            <ion-label class="item-text-label">Prestation</ion-label>
           </ion-col>
           <ion-col size="5">
             <ion-label class="booking-text-label">{{details.bookingdetails.service_name}}</ion-label>
