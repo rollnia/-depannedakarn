@@ -41,11 +41,11 @@ export class UserDashboardPage {
     this.loading.present();
     const subs = this.appGetService.userType().subscribe(res => {
       if (res?.user && res.user?.user_type) {
-        this.loading.dismiss();
         this.user = JSON.parse(localStorage.getItem('currentUserData'));
         this.user['cust_id'] = res['user']['cust_id'];
         this.user['subscription'] = res['subscription'];
         localStorage.setItem('currentUserData', JSON.stringify(this.user));
+        this.loading.dismiss();
       }
     }, error => {
       this.loading.dismiss();
