@@ -56,7 +56,7 @@ export class BitPaymentPage implements OnInit {
 
   private async loadInvoice() {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     let user = JSON.parse(localStorage.getItem('currentUserData'));

@@ -34,7 +34,7 @@ export class HomePage {
 
   private async load() {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     const user = JSON.parse(localStorage.getItem('currentUserData'));

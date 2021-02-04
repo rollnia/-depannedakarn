@@ -90,7 +90,7 @@ export class SignInPage {
    */
   public async login(formData) {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
 
     if (this.loginForm.invalid) {

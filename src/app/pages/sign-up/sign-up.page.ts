@@ -145,7 +145,7 @@ export class SignUpPage {
     }
 
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
 
     const reqObj = {

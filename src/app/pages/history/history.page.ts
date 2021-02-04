@@ -37,7 +37,7 @@ export class HistoryPage implements OnInit {
 
   private async loadData() {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     const user = JSON.parse(localStorage.getItem('currentUserData'));

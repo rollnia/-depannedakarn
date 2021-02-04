@@ -84,7 +84,7 @@ export class MonpaimentPage {
       return;
     }
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     const subs = this.appGetService.myPayment(params).subscribe(res => {

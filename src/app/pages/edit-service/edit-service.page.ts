@@ -57,7 +57,7 @@ export class EditServicePage implements OnInit {
 
   private async loadData() {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
   }

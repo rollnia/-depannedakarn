@@ -40,7 +40,7 @@ export class DemandInProgressPage {
 
   private async loadData() {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     const user = JSON.parse(localStorage.getItem('currentUserData'));
@@ -84,7 +84,7 @@ export class DemandInProgressPage {
 
   private async loadCompleteMission() {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     const user = JSON.parse(localStorage.getItem('currentUserData'));

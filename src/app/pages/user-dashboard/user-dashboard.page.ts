@@ -35,7 +35,7 @@ export class UserDashboardPage {
 
   private async getUserType() {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
       duration: 20000
     });
     this.loading.present();
