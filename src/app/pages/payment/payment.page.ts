@@ -81,7 +81,7 @@ export class PaymentPage implements OnInit {
 
   private async loadExistingCard() {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     const user = JSON.parse(localStorage.getItem('currentUserData'));
@@ -187,7 +187,7 @@ export class PaymentPage implements OnInit {
 
   public async paymentCheckStatus(obj) {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     const payload = {
@@ -253,7 +253,7 @@ export class PaymentPage implements OnInit {
 
   public async bitcoinPayStatus(invoiceid) {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     const subs = this.appGetService.checkStatus(invoiceid).subscribe(res => {
@@ -350,7 +350,7 @@ export class PaymentPage implements OnInit {
 
   public async navigateToSuceess(tranID, type) {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     const user = JSON.parse(localStorage.getItem('currentUserData'));

@@ -7,7 +7,7 @@
 <ion-content>
   <div class="qr-display" *ngIf="value && !goBack">
     <ngx-qrcode [value]="value" alt="Bitcoin Payment" class="bshadow"></ngx-qrcode>
-    <div class="text-center mt-3 text-primary">Copy Below Url to Pay in Wallet</div>
+    <div class="text-center mt-3 text-primary">Copiez le lien pour payer via le wallet</div>
     <textarea (click)="copyText()" class="mt-1">{{value}}</textarea>
 
   </div>

@@ -122,7 +122,7 @@ export class SubscriptionPage implements OnInit {
 
   private async loadData() {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     const subs = this.appGetService.getSearchData().subscribe(res => {
@@ -187,7 +187,7 @@ export class SubscriptionPage implements OnInit {
       params: []
     };
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     let c = 0;

@@ -50,7 +50,7 @@ export class BookingdetailPage {
     this.colorCoding = 'danger';
     this.isenabled = false;
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
 
@@ -97,7 +97,7 @@ export class BookingdetailPage {
       bookingid: this.details.bookingdetails['id']
     };
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     const subs = this.appPostService.cancelBookng(reqObj).subscribe(res => {

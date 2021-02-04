@@ -11,13 +11,13 @@
       </li-ionic4-datepicker>
     </ion-item>
     <ion-item class="item-inner-box">
-      <ion-label>Start Time</ion-label>
+      <ion-label>Début</ion-label>
       <ion-datetime cancelText="Annulée" doneText="Terminé" id="startTime1" display-format="HH:mm" picker-format="HH:mm"
         value="{{date}}">
       </ion-datetime>
     </ion-item>
     <ion-item class="item-inner-box item-last-inner">
-      <ion-label>End Time</ion-label>
+      <ion-label>Fin</ion-label>
       <ion-datetime cancelText="Annulée" doneText="Terminé" id="endTime1" display-format="HH:mm" picker-format="HH:mm"
         value="{{endTime}}">
       </ion-datetime>
@@ -32,13 +32,13 @@
       </li-ionic4-datepicker>
     </ion-item>
     <ion-item class="item-inner-box">
-      <ion-label>Start Time</ion-label>
+      <ion-label>Début</ion-label>
       <ion-datetime cancelText="Annulée" doneText="Terminé" id="startTime2" display-format="HH:mm" picker-format="HH:mm"
         value="{{date}}">
       </ion-datetime>
     </ion-item>
     <ion-item class="item-inner-box item-last-inner">
-      <ion-label>End Time</ion-label>
+      <ion-label>Fin</ion-label>
       <ion-datetime cancelText="Annulée" doneText="Terminé" id="endTime2" display-format="HH:mm" picker-format="HH:mm"
         value="{{endTime}}">
       </ion-datetime>
@@ -53,13 +53,13 @@
       </li-ionic4-datepicker>
     </ion-item>
     <ion-item class="item-inner-box">
-      <ion-label>Start Time</ion-label>
+      <ion-label>Début</ion-label>
       <ion-datetime cancelText="Annulée" doneText="Terminé" id="startTime3" display-format="HH:mm" picker-format="HH:mm"
         value="{{date}}">
       </ion-datetime>
     </ion-item>
     <ion-item class="item-inner-box item-last-inner">
-      <ion-label>End Time</ion-label>
+      <ion-label>Fin</ion-label>
       <ion-datetime cancelText="Annulée" doneText="Terminé" id="endTime3" display-format="HH:mm" picker-format="HH:mm"
         value="{{endTime}}">
       </ion-datetime>
@@ -74,13 +74,13 @@
       </li-ionic4-datepicker>
     </ion-item>
     <ion-item class="item-inner-box">
-      <ion-label>Start Time</ion-label>
+      <ion-label>Début</ion-label>
       <ion-datetime cancelText="Annulée" doneText="Terminé" id="startTime4" display-format="HH:mm" picker-format="HH:mm"
         value="{{date}}">
       </ion-datetime>
     </ion-item>
     <ion-item class="item-inner-box item-last-inner">
-      <ion-label>End Time</ion-label>
+      <ion-label>Fin</ion-label>
       <ion-datetime cancelText="Annulée" doneText="Terminé" id="endTime4" display-format="HH:mm" picker-format="HH:mm"
         value="{{endTime}}">
       </ion-datetime>
@@ -90,7 +90,7 @@
     <ion-label class="dropdown-label-text">Sélectionner votre quartier</ion-label>
     <ion-item class="dropdown-inner-box">
       <ion-select [(ngModel)]="searchProviderModel['location']" id="location1"
-        *ngIf="searchProviderData?.location && searchProviderData.location.length && searchProviderModel['location']">
+        *ngIf="searchProviderData?.location && searchProviderData.location.length && searchProviderModel['location']" okText="Annulée" cancelText="Terminé">
         <ion-select-option *ngFor="let location of searchProviderData.location" value="{{location.id}}">
           {{location.location_name}}</ion-select-option>
       </ion-select>
@@ -98,7 +98,7 @@
     <ion-label class="dropdown-label-text">Service en demande</ion-label>
     <ion-item class="dropdown-inner-box">
       <ion-select id="service1" [(ngModel)]="searchProviderModel['service']"
-        *ngIf="searchProviderData?.service && searchProviderData.service.length && searchProviderModel['service']">
+        *ngIf="searchProviderData?.service && searchProviderData.service.length && searchProviderModel['service']" okText="Annulée" cancelText="Terminé">
         <ion-select-option *ngFor="let service of searchProviderData.service" value="{{service.id}}">
           {{service.service_name}}</ion-select-option>
       </ion-select>

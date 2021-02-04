@@ -24,7 +24,7 @@ export class PaymentFailedPage implements OnInit {
 
   public async update(evt) {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     const subs = this.appGetService.logoutUser().subscribe(res => {

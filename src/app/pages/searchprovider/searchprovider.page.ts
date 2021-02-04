@@ -78,7 +78,7 @@ export class SearchproviderPage {
 
   private async loadData() {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     const subs = this.appGetService.getSearchData().subscribe(res => {
@@ -118,7 +118,7 @@ export class SearchproviderPage {
     params['provider_id'] = this.return ? this.return[0] : 0;
     // console.log(params);
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
     this.appGetService.listingData.next('');

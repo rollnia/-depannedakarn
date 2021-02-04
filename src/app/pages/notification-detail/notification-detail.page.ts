@@ -35,7 +35,7 @@ export class NotificationDetailPage {
 
   private async loadListing() {
     this.loading = await this.loadingController.create({
-      message: 'Loading please wait',
+      message: 'Chargement en cours',
     });
     this.loading.present();
 
