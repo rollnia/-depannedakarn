@@ -14,12 +14,12 @@ import { AppGetService } from "../../shared/services/app-get.service";
 })
 export class SearchproviderPage {
   public searchProviderData: any;
-  mydate1 = moment().format('ll');
+  mydate1 = moment().locale('fr').format('ll');
   datePickerObj: any = {
-    fromDate: moment().format('ll'),
+    fromDate: moment().locale('fr').format('ll'),
     toDate: new Date('2090-12-31'),
     dateFormat: 'll',
-	momentLocale: 'fr-FR',
+	momentLocale: 'fr',
     clearButton: false,
     showTodayButton: false,
     closeLabel: 'Retour',
@@ -113,7 +113,8 @@ export class SearchproviderPage {
     const params = {};
     params['location'] = this.searchProviderModel.location;
     params['service_type'] = this.searchProviderModel.service;
-    params['selectdate'] = moment(this.mydate1).format('YYYY-MM-DD'); //((<HTMLInputElement>document.getElementById("date")).value).split('T')[0];
+    params['selectdate'] = moment(this.mydate1, 'DD MMM YYYY').lang('fr').format("YYYY-MM-DD"); //((<HTMLInputElement>document.getElementById("date")).value).split('T')[0];
+	//console.log(moment(this.mydate1, 'DD MMM YYYY').lang('fr').format("YYYY-MM-DD"));
     params['start_time'] = `${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("startTime")).value).getMinutes()}:00`;
     params['end_time'] = `${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getHours()}:${new Date((<HTMLInputElement>document.getElementById("endTime")).value).getMinutes()}:00`;
     params['provider_id'] = this.return ? this.return[0] : 0;
