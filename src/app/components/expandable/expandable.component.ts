@@ -13,6 +13,6 @@ export class ExpandableComponent implements AfterViewInit {
   constructor(public renderer: Renderer2) {}
 
   ngAfterViewInit() {
-    this.renderer.setStyle(this.expandWrapper.nativeElement, "max-height", this.expandHeight);
+    this.renderer.setStyle(this.expandWrapper.nativeElement, "max-height", this.expandHeight + 'px');
   }
 }

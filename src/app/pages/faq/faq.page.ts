@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FaqPage implements OnInit {
 public items: any = [];
+itemHeight: number = 0;
   constructor() {this.items = [
     { expanded: false, title: 'Qu’est ce Dépanne Dakar ?', text: 'Dépanne Dakar n’est pas une entreprise de nettoyage. Nous sommes une application qui aide à mettre en relation des expatriés vivant à Dakar avec des nettoyeurs indépendants. Grâce à Dépanne Dakar, vous pouvez réserver une aide-ménagère en moins 3 minutes.' },
 	{ expanded: false, title: 'Puis-je réserver une aide-ménagère sur le site ?', text: 'Nous travaillons pour mettre à disposition cette option. Pour l’heure les réservations ne se demandent que sur l’application, que vous pouvez télécharger gratuitement' },	
