@@ -44,7 +44,16 @@
         </ion-row>
         <ion-row>
           <ion-col size="8">
-            <ion-label class="item-text-date">{{getHours(searchData.start_time, searchData.end_time)}} hrs</ion-label>
+            <ion-label class="item-text-date">Durée</ion-label>
+          </ion-col>
+          <ion-col size="4">
+            <ion-label class="item-text-date">${{getHours(searchData.start_time, searchData.end_time)}} hrs
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="8">
+            <ion-label class="item-text-date">Montant</ion-label>
           </ion-col>
           <ion-col size="4">
             <ion-label class="item-text-date">${{getAmount(searchData.start_time, searchData.end_time, listing.amount)}}
@@ -70,12 +79,11 @@
     </ion-item>
     <ion-item *ngIf="listinData && (!listinData.length)">
       <ion-row>
-        <ion-col size="12">
+<!--        <ion-col size="12">
           <ion-label class="sorry-text-label ion-text-center">Désolé !</ion-label>
-        </ion-col>
+        </ion-col>-->
         <ion-col size="12" class="no-data-description">
-          <ion-label class="ion-text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec iaculis erat
-            eleifend justo tempus ornare.</ion-label>
+          <ion-label class="ion-text-center">Désolé nous n'avons pas trouvé d'aide ménagère correspondant à votre demande. Veuillez réessayer en choisissant une autre date ou une autre grille horaire</ion-label>
         </ion-col>
         <ion-col size="12">
           <ion-label class="date-time-label ion-text-center">

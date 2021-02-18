@@ -19,11 +19,12 @@ export class SearchproviderPage {
     fromDate: moment().format('ll'),
     toDate: new Date('2090-12-31'),
     dateFormat: 'll',
+	momentLocale: 'fr-FR',
     clearButton: false,
     showTodayButton: false,
-    closeLabel: 'Fermer',
+    closeLabel: 'Retour',
     todayLabel: 'Aujourd\'\hui',
-    setLabel: 'Ensemble',
+    setLabel: 'Choisir',
     weeksList: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
     monthsList: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
   };

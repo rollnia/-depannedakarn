@@ -29,7 +29,7 @@
     <ion-item class="dropdown-inner-box">
       <ion-select
         *ngIf="searchProviderData?.location && searchProviderData.location.length && searchProviderModel['location']"
-        [(ngModel)]="searchProviderModel['location']" okText="Terminé" cancelText="Annulée">
+        [(ngModel)]="searchProviderModel['location']" okText="Choisir" cancelText="Retour">
         <ion-select-option *ngFor="let location of searchProviderData.location" value="{{location.id}}" >
           {{location.location_name}}</ion-select-option>
         <!-- <ion-select-option value="Two">Two</ion-select-option> -->
@@ -39,7 +39,7 @@
     <ion-item class="dropdown-inner-box">
       <ion-select
         *ngIf="searchProviderData?.service && searchProviderData.service.length && searchProviderModel['service']"
-        [(ngModel)]="searchProviderModel['service']" okText="Terminé" cancelText="Annulée">
+        [(ngModel)]="searchProviderModel['service']" okText="Choisir" cancelText="Retour">
         <ion-select-option *ngFor="let service of searchProviderData.service" value="{{service.id}}">
           {{service.service_name}}</ion-select-option>
         <!-- <ion-select-option value="Two">Two</ion-select-option> -->

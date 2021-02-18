@@ -6,7 +6,7 @@
   <ion-list class="list-inner-box">
     <ion-radio-group [(ngModel)]="paymentOption">
       <ion-list-header class="paymentLabel">
-        <ion-label>Total Payment: {{currencyIcon}}{{getTotalPayment()}}</ion-label>
+        <ion-label>Montant total: {{currencyIcon}}{{getTotalPayment()}}</ion-label>
       </ion-list-header>
       <ion-item *ngFor="let paymentDetail of existingCardDetails; let i = index" class="itemBoxCard">
         <ion-label class="p-none cardTitleInner">
@@ -92,7 +92,7 @@
     </ion-radio-group>
   </ion-list>
   <ion-list class="list-inner-box">
-    <ion-button expand="full" shape="round" class="make-payment" (click)="getPaymentDetails()">Make Payment
+    <ion-button expand="full" shape="round" class="make-payment" (click)="getPaymentDetails()">PAYER
     </ion-button>
   </ion-list>
   <!-- <ion-card class="welcome-card">

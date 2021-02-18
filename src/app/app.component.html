@@ -19,6 +19,10 @@
               <ion-icon slot="start" [ios]="'ellipse-outline'" [md]="'ellipse-sharp'"></ion-icon>
               <ion-label>Historique</ion-label>
             </ion-item>
+            <ion-item (click)="faq()" *ngIf="userFaq()" lines="none">
+              <ion-icon slot="start" [ios]="'ellipse-outline'" [md]="'ellipse-sharp'"></ion-icon>
+              <ion-label>Faq</ion-label>
+            </ion-item>
             <ion-item *ngIf="userData()" (click)="logout()" lines="none">
               <ion-icon slot="start" [ios]="'log-out-outline'" [md]="'log-out-sharp'"></ion-icon>
               <ion-label>Deconnexion</ion-label>

@@ -78,7 +78,8 @@ const routes: Routes = [
   {
     path: 'edit-service',
     loadChildren: () => import('./pages/edit-service/edit-service.module').then(m => m.EditServicePageModule)
-  },  {
+  },
+  {
     path: 'bit-payment',
     loadChildren: () => import('./pages/bit-payment/bit-payment.module').then( m => m.BitPaymentPageModule)
   },
@@ -93,6 +94,10 @@ const routes: Routes = [
   {
     path: 'payment-failed',
     loadChildren: () => import('./pages/payment-failed/payment-failed.module').then( m => m.PaymentFailedPageModule)
+  },
+  {
+    path: 'faq',
+    loadChildren: () => import('./pages/faq/faq.module').then( m => m.FaqPageModule)
   },
 
 

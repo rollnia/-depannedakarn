@@ -115,6 +115,9 @@ export class AppComponent implements OnInit {
   public history() {
     this.router.navigate(['/history']);
   }
+  public faq() {
+    this.router.navigate(['/faq']);
+  }
 
   public userData() {
     this.user = JSON.parse(localStorage.getItem('currentUserData'));
@@ -125,6 +128,14 @@ export class AppComponent implements OnInit {
   }
 
   public userHistory() {
+    const user = JSON.parse(localStorage.getItem('currentUserData'));
+    if (user && user['token'] && user['user_type'] === 'client') {
+      return true;
+    }
+    return false;
+  }
+  
+  public userFaq() {
     const user = JSON.parse(localStorage.getItem('currentUserData'));
     if (user && user['token'] && user['user_type'] === 'client') {
       return true;
