@@ -37,7 +37,7 @@
             Only numerical values allowed.
           </span>
           <ion-item class="input-fields-inner">
-            <ion-input type="email" formControlName="email" placeholder="émail"></ion-input>
+            <ion-input type="email" formControlName="email" placeholder="E-mail"></ion-input>
             <ion-icon name="mail" slot="start"></ion-icon>
           </ion-item>
           <span class="error error-label-text" *ngIf="isSubmitted && errorControl.email.errors?.required">
@@ -70,15 +70,10 @@
           <ion-item class="checkbox-item-inner">
             <ion-grid>
               <ion-row>
-                <ion-col size="2" class="">
+                <ion-col size="12" class="">
                   <ion-item class="checkbox-item-inner">
-                    <ion-label> </ion-label>
                     <ion-checkbox color="primary" formControlName="privacy" slot="start"></ion-checkbox>
-                  </ion-item>
-                </ion-col>
-                <ion-col size="10" class="">
-                  <ion-item class="checkbox-item-inner">
-                    <ion-label (click)="openPrivacyPolicy()">Conditions générales d'utilisation</ion-label>
+                    <ion-label (click)="openPrivacyPolicy()" class="privacy-text">J'accepte les conditions générales d'utilisation</ion-label>
                   </ion-item>
                 </ion-col>
               </ion-row>

@@ -137,7 +137,7 @@ export class BookingdetailPage {
   }
 
   public getDateFormat(date) {
-    const formatDate = moment(moment(date)['_d']).format('ll');
+    const formatDate = moment(moment(date)['_d']).locale('fr').format('ll');
     return formatDate;
   }
 

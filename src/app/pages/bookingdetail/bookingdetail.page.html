@@ -97,7 +97,7 @@
           </ion-col> -->
           <ion-col *ngIf="details?.bookingdetails" size="12" class="cancel-booking-btn-inner">
             <ion-button *ngIf="return && return.length === 1" color="{{colorCoding}}" [disabled]="isenabled"
-              (click)="cancelBooking()" expand="full" shape="round" class="cancel-booking-btn">Annulée
+              (click)="cancelBooking()" expand="full" shape="round" class="cancel-booking-btn">Annuler
             </ion-button>
             <ion-button *ngIf="return && return.length === 2" color="{{colorCoding}}" [disabled]="isenabled"
               (click)="reBook()" expand="full" shape="round" class="cancel-booking-btn">Recommander
@@ -106,7 +106,7 @@
               (click)="completeBooking()" expand="full" shape="round" class="cancel-booking-btn">Terminée
             </ion-button>
             <ion-button *ngIf="return && return.length === 3" color="{{colorCoding}}" [disabled]="isenabled"
-              (click)="rejectBooking()" expand="full" shape="round" class="cancel-booking-btn">Annulée
+              (click)="rejectBooking()" expand="full" shape="round" class="cancel-booking-btn">Annuler
             </ion-button>
           </ion-col>
         </ion-row>

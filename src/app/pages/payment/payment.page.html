@@ -22,7 +22,7 @@
         <ion-radio slot="start" color="primary" value="{{paymentDetail.id}}"></ion-radio>
       </ion-item>
       <ion-item class="itemBoxCard creditCardBorder">
-        <ion-label class="cardTitleText">Add Debit/Credit/ATM Card</ion-label>
+        <ion-label class="cardTitleText">Ajouter votre carte de paiement</ion-label>
         <ion-radio slot="start" color="primary" value="newCard"></ion-radio>
       </ion-item>
       <div *ngIf="paymentOption === 'newCard'" class="pl-form customerDetailsBox">
@@ -47,7 +47,7 @@
             <ion-row>
               <ion-col size="6" class="month-year-inner month-year-one">
                 <ion-select required class="w100 pl-0" name="selectMonth" [(ngModel)]="selectedMonth"
-                  placeholder="Expiry MM" multile="false" (ngModelChange)="valid()">
+                  placeholder="Expiry MM" multile="false" (ngModelChange)="valid()" cancelText="Annuler" okText="choisir">
                   <ion-select-option *ngFor="let code of counter(12); let i = index;" value="{{i + 1}}">
                     {{minTwoDigits(i + 1)}}
                   </ion-select-option>
@@ -58,7 +58,7 @@
               </ion-col>
               <ion-col size="6" class="month-year-inner">
                 <ion-select required class="w100 pl-0" name="selectYear" [(ngModel)]="selectedYear"
-                  placeholder="Expiry YYYY" multile="false" (ngModelChange)="valid()">
+                  placeholder="Expiry YYYY" multile="false" (ngModelChange)="valid()" cancelText="Annuler" okText="choisir">
                   <ion-select-option *ngFor="let year of counter(20); let i = index;" value="{{currentYear + i}}">
                     {{currentYear+i}}
                   </ion-select-option>

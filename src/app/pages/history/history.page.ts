@@ -3,6 +3,7 @@ import { Subscription } from "rxjs";
 import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AppGetService } from "../../shared/services/app-get.service";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-history',
@@ -51,6 +52,11 @@ export class HistoryPage implements OnInit {
       console.error(error);
     });
     this.subscriptions.push(subs);
+  }
+  
+  public getDateFormat(date) {
+    const formatDate = moment(moment(date)['_d']).locale('fr').format('ll');
+    return formatDate;
   }
 
   /**

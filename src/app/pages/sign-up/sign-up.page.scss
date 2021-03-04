@@ -34,6 +34,20 @@
 .checkbox-item-inner{
     --border-color: transparent;
 }
+ion-checkbox {
+	position:relative;
+  background: #ffffff;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-radius: 4px;
+  border-color: grey !important;
+  --height: 35px;
+  --width: 35px;
+  --checkmark-color: #4870f2;
+  --background-checked: #ffffff;
+  --border-color: #ffffff;
+  --border-color-checked: #ffffff;
+}
 .checkbox-item-inner ion-checkbox{
     margin-inline-end: 12px;
     --border-color: #000;
@@ -57,10 +71,15 @@
     margin: 50px 0px 0px 0px;
 }
 .text-line-one{
-    font-size: 17px;
+    font-size: 15px;
     color: #000;
     padding: 0px 0px 5px 0px;
     text-align: center;
+}
+.privacy-text{
+    font-size: 10px;
+    color: #000;
+    padding: 0px 0px 5px 0px;
 }
 .text-line-two{
     font-size: 16px;
