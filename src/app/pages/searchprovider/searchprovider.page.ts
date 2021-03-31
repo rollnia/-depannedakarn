@@ -38,7 +38,7 @@ export class SearchproviderPage {
   public subscriptions: Subscription[] = [];
   loading: any;
   return: string = '';
-  constructor(private platform: Platform, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController) {
+  constructor(private platform: Platform, private appGetService: AppGetService, private route: ActivatedRoute, public loadingController: LoadingController, private router: Router, private alertCtrl: AlertController, public alertController: AlertController) {
     this.endTime.setHours(this.endTime.getHours() + 1);
     this.endTime = this.endTime.toISOString();
 
@@ -76,6 +76,31 @@ export class SearchproviderPage {
   ionViewDidLeave() {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
+  
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Abonnement mensuel!',
+      message: '<strong>Bénéficiez d\'une remise de - 20%</strong>!!!',
+      buttons: [
+        {
+          text: 'Annuler',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Valider',
+          handler: () => {
+            this.router.navigate(['/subscription']);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 
   private async loadData() {
     this.loading = await this.loadingController.create({
@@ -88,6 +113,7 @@ export class SearchproviderPage {
         this.searchProviderData = res;
         this.searchProviderModel['location'] = this.searchProviderData['location'][0]['id'];
         this.searchProviderModel['service'] = this.searchProviderData['service'][0]['id'];
+		this.presentAlertConfirm();
       }
     }, error => {
       this.loading.dismiss();

@@ -30,7 +30,7 @@
           <ion-col size="6">
             <ion-datetime cancelText="Annulée" doneText="Terminé" [(ngModel)]="service.start_time"
               [ngClass]="service.enableEdit == true ? '':'disable-datetime'" id="startTime_{{service.id}}"
-              display-format="h:mm A" picker-format="h:mm A" value="{{service.start_time}}">
+              display-format="HH:mm" picker-format="HH:mm" value="{{service.start_time}}">
             </ion-datetime>
           </ion-col>
         </ion-row>
@@ -41,7 +41,7 @@
           <ion-col size="6">
             <ion-datetime cancelText="Annulée" doneText="Terminé" [(ngModel)]="service.end_time"
               id="endTime_{{service.id}}" [ngClass]="service.enableEdit == true ? '':'disable-datetime'"
-              display-format="h:mm A" picker-format="h:mm A" value="{{service.end_time}}">
+              display-format="HH:mm" picker-format="HH:mm" value="{{service.end_time}}">
             </ion-datetime>
           </ion-col>
         </ion-row>
